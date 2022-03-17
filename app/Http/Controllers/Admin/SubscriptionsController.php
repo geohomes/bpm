@@ -10,9 +10,9 @@ class SubscriptionsController extends Controller
     /**
      * Admin countries page view
      */
-    public function index()
+    public function index($status = '')
     {
-        $subscriptions = Subscription::paginate(16);
+        $subscriptions = empty($status) ? Subscription::latest()->paginate(24) : Subscription::where(['status' => strtolower($status)])->latest()->paginate(18);
         return view('admin.subscriptions.index')->with(['subscriptions' => $subscriptions]);
     }
 

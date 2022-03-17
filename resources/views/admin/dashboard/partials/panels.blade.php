@@ -1,7 +1,7 @@
 <div class="col-12 col-md-6 mb-4">
     <div class="card position-relative card-raduis border-0" >
         @set('users', \App\Models\User::where(['role' => 'user'])->get())
-        <div class="card-header pt-5 bg-blue" style="padding-bottom: 90px !important;">
+        <div class="card-header pt-5 bg-blue card-raduis" style="padding-bottom: 90px !important;">
             <h4 class="text-white">
                 <a href="{{ route('admin.users') }}" class="text-decoration-none text-white">Users</a>
             </h4>
@@ -23,11 +23,11 @@
                                 <i class="icofont-users"></i>
                             </small>
                         </div>
-                        <a href="{{ route('admin.users', ['query' => 'corporate']) }}" class="text-decoration-none">Corporate Users</a>
+                        <a href="{{ route('admin.users', ['query' => 'corporate']) }}" class="text-decoration-none">Corporate</a>
                         <div class="d-flex align-items-center">
-                            <small class="mr-2">
+                            <div class="mr-2">
                                 {{ number_format(\App\Models\Profile::where(['designation' => 'corporate'])->get()->count()) }}
-                            </small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -38,11 +38,11 @@
                                 <i class="icofont-user-alt-3"></i>
                             </small>
                         </div>
-                        <a href="{{ route('admin.users', ['query' => 'individual']) }}" class="text-decoration-none">Individual Users</a>
+                        <a href="{{ route('admin.users', ['query' => 'individual']) }}" class="text-decoration-none">Individual</a>
                         <div class="d-flex align-items-center">
-                            <small class="mr-2">
+                            <div class="mr-2">
                                 {{ number_format(\App\Models\Profile::where(['designation' => 'individual'])->get()->count()) }}
-                            </small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
 </div>
 <div class="col-12 col-md-6 mb-4">
     <div class="card position-relative card-raduis border-0" >
-        <div class="card-header pt-5 bg-pink" style="padding-bottom: 90px !important;">
+        <div class="card-header pt-5 bg-pink card-raduis" style="padding-bottom: 90px !important;">
             <h4 class="text-white">
                 <a href="{{ route('admin.payments') }}" class="text-decoration-none text-white">Payments</a>
             </h4>
@@ -72,7 +72,7 @@
                                 <i class="icofont-users"></i>
                             </small>
                         </div>
-                        <a href="{{ route('admin.payments', ['type' => 'advert']) }}" class="text-decoration-none">For Adverts</a>
+                        <a href="{{ route('admin.payments', ['type' => 'advert']) }}" class="text-decoration-none d-block">Adverts</a>
                         <div class="d-flex align-items-center">
                             <div class="mr-2">
                                 ${{ number_format(\App\Models\Payment::where(['status' => 'paid', 'type' => 'advert'])->get()->sum('amount')) }}
@@ -87,7 +87,7 @@
                                 <i class="icofont-user-alt-3"></i>
                             </small>
                         </div>
-                        <a href="{{ route('admin.payments', ['type' => 'subscription']) }}" class="text-decoration-none">For Subscriptions</a>
+                        <a href="{{ route('admin.payments', ['type' => 'subscription']) }}" class="text-decoration-none d-block">Subscriptions</a>
                         <div class="d-flex align-items-center">
                             <div class="mr-2">
                                 ${{ number_format(\App\Models\Payment::where(['status' => 'paid', 'type' => 'subscription'])->get()->sum('amount')) }}

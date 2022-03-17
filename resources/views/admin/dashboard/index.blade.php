@@ -20,8 +20,8 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-lg-6 mb-4">
-                            <div class="card card-raduis border-0 bg-orange shadow-sm">
-                                <div class="card-body">
+                            <div class="card-raduis alert alert-info">
+                                <div class="">
                                     @set('total_subscriptions', \App\Models\Subscription::count())
                                     @set('total_adverts', \App\Models\Advert::count())
                                     <div class="d-flex align-items-center justify-content-between mb-4">
@@ -29,7 +29,7 @@
                                             <h4 class="text-main-dark">
                                                 {{ number_format($total_subscriptions) }}
                                             </h4>
-                                            <a href="{{ route('admin.subscriptions') }}" class="text-white">Subscriptions</a>
+                                            <a href="{{ route('admin.subscriptions') }}" class="text-main-dark">Subscriptions</a>
                                         </div>
                                         <small class="px-3 bg-warning rounded-pill">
                                             <small class="tiny-font text-main-dark">0%</small>
@@ -44,7 +44,7 @@
                                     <div class="row">
                                         @foreach($subscription_percentages as $name => $percentage)
                                             <div class="col-12 col-md-6 mb-4">
-                                                <div class="alert m-0 d-flex justify-content-between align-items-center alert-{{ $percentage['color'] }} icon-raduis">
+                                                <div class="bg-white p-3 shadow-sm d-flex justify-content-between align-items-center icon-raduis">
                                                     <div class="">
                                                         <div class="">
                                                             {{ $percentage['count'] }}
@@ -66,15 +66,15 @@
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 mb-4">
-                            <div class="card card-raduis border-0 shadow-sm bg-orange">
-                                <div class="card-body">
+                            <div class="card-raduis alert alert-info">
+                                <div class="">
                                     @set('total_adverts', \App\Models\Advert::count())
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <div class="">
                                             <h4 class="text-main-dark">
                                                 {{ number_format($total_adverts) }}
                                             </h4>
-                                            <a href="{{ route('admin.adverts') }}" class="text-white">Adverts</a>
+                                            <a href="{{ route('admin.adverts') }}" class="text-main-dark">Adverts</a>
                                         </div>
                                         <small class="px-3 bg-warning rounded-pill">
                                             <small class="tiny-font text-main-dark">0%</small>
@@ -89,7 +89,7 @@
                                     <div class="row">
                                         @foreach($advert_percentages as $name => $percentage)
                                             <div class="col-12 col-md-6 mb-4">
-                                                <div class="alert m-0 d-flex justify-content-between align-items-center alert-{{ $percentage['color'] }} icon-raduis">
+                                                <div class="bg-white p-3 shadow-sm d-flex justify-content-between align-items-center icon-raduis">
                                                     <div class="">
                                                         <div class="">
                                                             {{ $percentage['count'] }}
@@ -111,36 +111,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="alert alert-warning">
-                                 <div class="card-body">
-                                     <div class="border-0 d-flex justify-content-between align-items-center">
-                                        <div class="mb-3">
-                                            <h6 class="text-white m-0">Visitors Timezones</h6>
-                                        </div>
-                                     </div>
-                                     <div class="position-relative border-dark-500 visitors-chart-wrapper" style="width: 100%;">
-                                        <div class="position-absolute text-center bg-dark w-100 h-100 center-absolute visitors-chart-spinner">
-                                            <img src="/images/spinner.svg" class="pt-5">
-                                        </div>
-                                        <canvas class="h-100 w-100 text-white visitors-chart" id="visitors-chart" data-url="{{ route('admin.visitors.chart.timezones') }}"></canvas>
-                                    </div>
-                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card card-raduis shadow-sm mb-4" style="background-color: rgba(0, 0, 0, 0.7);">
+                    <div class="card card-raduis bg-white shadow-sm mb-4">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <small class="text-white">Property Listings</small>
+                                <small class="text-main-dark">Property Listings</small>
                                 <div class="dropdown">
-                                    <div class="text-white d-flex align-items-center" type="button" id="properties-chart-filter" data-toggle="dropdown" aria-expanded="false">
+                                    <div class="text-main-dark d-flex align-items-center" type="button" id="properties-chart-filter" data-toggle="dropdown" aria-expanded="false">
                                         <small class="position-relative" style="bottom: -2px;">
                                             <i class="icofont-caret-down"></i>
                                         </small>
                                     </div>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="properties-chart-filter">
+                                    <div class="dropdown-menu bg-info border-0 icon-raduis shadow-sm dropdown-menu-right" aria-labelledby="properties-chart-filter">
                                         <form class="p-3" action="javascript:;">
                                             <div class="form-group mb-0">
                                                 <select class="form-control custom-select" name="filter" id="properties-chart-year">

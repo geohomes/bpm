@@ -115,7 +115,10 @@ Route::middleware(['web', 'auth', 'admin', 'revalidate'])->domain(env('ADMIN_URL
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/countries', [\App\Http\Controllers\Admin\CountriesController::class, 'index'])->name('admin.countries');
 
-    Route::get('/subscriptions', [\App\Http\Controllers\Admin\SubscriptionsController::class, 'index'])->name('admin.subscriptions');
+    Route::prefix('subscriptions')->group(function () {
+        Route::get('/{status?}', [\App\Http\Controllers\Admin\SubscriptionsController::class, 'index'])->name('admin.subscriptions');
+    });
+
 
     Route::get('/adverts', [\App\Http\Controllers\Admin\SubscriptionsController::class, 'index'])->name('admin.adverts');
 

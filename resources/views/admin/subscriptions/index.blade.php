@@ -1,25 +1,19 @@
 @include('layouts.header')
-    <div class="min-vh-100">
+    <div class="min-vh-100 bg-main-ash">
         @include('admin.layouts.navbar')
-        <div class="section-padding">
+        <div class="section-padding pb-4">
             <div class="container-fluid">
-                <div class="d-flex align-items-center flex-wrap justify-content-between">
-                    <div class="d-flex">
-                        <div class="py-1 px-4 rounded-pill border-dark-500 mr-3 mb-4 text-muted cursor-pointer" data-toggle="modal" data-modal="#add-plan" style="background-color: rgba(0, 0, 0, 0.5);">
-                            <small class="">
-                                <i class="icofont-caret-down"></i>
-                            </small>
-                            <small class="">
-                                {{ \App\Models\Subscription::count() }} Subscription(s)
-                            </small>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-4">
+                        <div class="alert alert-info m-0">
+                            {{ $subscriptions->total() }} Subscription(s)
                         </div>
                     </div>
-                    <div class="d-flex align-items-center">
-                        <div class="py-1 px-4 rounded-pill border-dark-500 text-muted mb-4 cursor-pointer" data-toggle="modal" data-modal="#add-plan" style="background-color: rgba(0, 0, 0, 0.5);">
-                            <small class="">
-                                <i class="icofont-caret-down"></i>
-                            </small>
-                            <small class="">Filter</small>
+                    <div class="col-12 col-md-6 mb-4">
+                        <div class="alert alert-info m-0">
+                            <div class="">
+                                <i class="icofont-notification"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -30,7 +24,7 @@
                         @else
                             <div class="row">
                                 @foreach($subscriptions as $subscription)
-                                    <div class="col-12 col-md-4 col-lg-3 mb-4">
+                                    <div class="col-12 col-md-3 col-lg-2 mb-5">
                                         @include('admin.subscriptions.partials.card')
                                     </div>
                                 @endforeach

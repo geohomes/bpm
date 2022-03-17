@@ -50,7 +50,6 @@ class SkillsController extends Controller
             'info' => 'Operation successful',
             'redirect' => ''
         ]);
-
     }
 
     public function edit($id = 0)
