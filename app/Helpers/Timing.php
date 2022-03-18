@@ -49,7 +49,7 @@ class Timing
 	{
 		$daysleft = Carbon::parse($expiry)->diffInDays($started);
 		$daysleft = !empty($paused) ? ($daysleft + $paused) : $daysleft;
-		$fraction = $duration >= $daysleft ? ($daysleft/$duration) : 0;
+		$fraction = $duration >= $daysleft ? ($daysleft/($duration ?: 1)) : 0;
 		return new Timing($duration, round(100 - ($fraction * 100)), ($fraction === 0), $daysleft);
 	}
 

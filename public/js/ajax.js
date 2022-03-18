@@ -18,4 +18,8 @@
         handleAjax({that: $(this), button: 'delete-profile-image-button', spinner: 'delete-profile-image-spinner'});    
     });
 
+    $('.delete-unit').on('click', function() {
+        handleAjax({that: $(this), button: 'delete-unit-button', spinner: 'delete-unit-spinner'});    
+    });
+
 })(jQuery);

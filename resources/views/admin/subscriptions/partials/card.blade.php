@@ -1,5 +1,5 @@
 @set('timing', \App\Helpers\Timing::calculate((int)$subscription->duration, $subscription->expiry, $subscription->started))
-@set('status', strtolower($subscription->status ?? ''))
+@set('status', strtolower($subscription->status ?? 'Nill'))
 <div class="card border-0 shadow-sm pb-0 card-raduis position-relative">
 	<div class="card-body pb-0">
 		<div class="position-relative">
@@ -14,20 +14,17 @@
                     <img src="{{ $subscription->user->profile->image }}" class="img-fluid object-cover rounded-circle w-100 border h-100">
                 @endif
 	        </a>
-	        <a href="{{ route('admin.subscriptions', ['status' => $status]) }}">
-	        	<small class="px-3 rounded-pill bg-info position-absolute" style="top: 6px; left: 30px; border: 3px solid #fff;">
-	            	<small class="text-white tiny-font">
-	            		{{ ucfirst($status) }}
-	            	</small>
-	            </small>
-	        </a>
-		        
+	        <a href="{{ route('admin.subscriptions', ['status' => $status]) }}" class="text-center">
+	        	<div class="px-3 text-white tiny-font rounded-pill bg-{{ ($status == 'active' || $status == 'renewed') ? 'success' : ($status == 'paused' ? 'info' : 'danger') }} position-absolute" style="top: 7.5px; left: 30px; border: 3px solid #fff;">
+	            	{{ ucfirst($status) }}
+	            </div>
+	        </a>  
 		</div>
 		<div class="text-main-dark mb-3">
-			<small class="font-weight-bold">({{ $timing->progress() + rand(10, 56) }}%)</small> Progress for {{ ucwords($subscription->membership->name ?? 'nill') }} Plan
+			({{ $timing->progress() }}%) Progress for {{ ucwords($subscription->membership->name ?? 'nill') }} Plan
 		</div>
 		<div class="progress progress-bar-height m-0 p-0">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar m-0" aria-valuenow="{{ $timing->progress() + rand(10, 56) }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $timing->progress() + rand(10, 56) }}%"></div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar m-0" aria-valuenow="{{ $timing->progress() }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $timing->progress() }}%"></div>
         </div>
         <div class="position-relative icon-raduis alert alert-info m-0" style="bottom: -24px">
 			<small class="text-main-dark">

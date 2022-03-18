@@ -79,7 +79,7 @@
                                         @else: ?>
                                             @foreach ($currencies as $currency)
                                                 <?php $code = $currency['code']; ?>
-                                                <option value="{{ $currency['id'] }}" {{ strtolower($code) === strtolower(currency()->getUserCurrency()) ? 'selected' : '' }}>
+                                                <option value="{{ $currency['id'] }}" {{ strtolower($code) == strtolower(currency()->getUserCurrency()) ? 'selected' : '' }}>
                                                     {{ ucwords($currency['name']) }}({{ strtoupper($code) }})
                                                 </option>
                                             @endforeach

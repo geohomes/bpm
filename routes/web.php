@@ -119,10 +119,19 @@ Route::middleware(['web', 'auth', 'admin', 'revalidate'])->domain(env('ADMIN_URL
         Route::get('/{status?}', [\App\Http\Controllers\Admin\SubscriptionsController::class, 'index'])->name('admin.subscriptions');
     });
 
+    Route::prefix('adverts')->group(function () {
+        Route::get('/{status?}', [\App\Http\Controllers\Admin\AdvertsController::class, 'index'])->name('admin.adverts');
 
-    Route::get('/adverts', [\App\Http\Controllers\Admin\SubscriptionsController::class, 'index'])->name('admin.adverts');
+        Route::post('/edit/{id}', [\App\Http\Controllers\Api\UnitsController::class, 'edit'])->name('admin.unit.edit');
+        Route::post('/delete/{id}', [\App\Http\Controllers\Api\UnitsController::class, 'delete'])->name('admin.unit.delete');
+        Route::post('/add', [\App\Http\Controllers\Api\UnitsController::class, 'add'])->name('admin.unit.add');
+    });
 
-    Route::prefix('plan')->group(function () {
+    Route::prefix('units')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Admin\UnitsController::class, 'index'])->name('admin.units');
+    });
+
+    Route::prefix('plans')->group(function () {
         Route::post('/add', [\App\Http\Controllers\Admin\PlansController::class, 'add'])->name('admin.plan.add');
         Route::post('/edit/{id}', [\App\Http\Controllers\Admin\PlansController::class, 'edit'])->name('admin.plan.edit');
     });

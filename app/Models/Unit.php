@@ -33,4 +33,12 @@ class Unit extends Model
         'cancelled', 
         'error',
     ];
+
+    /**
+     * Many user may buy same unit
+     */
+    public function credits()
+    {
+        return $this->hasMany(Credit::class);
+    }
 }

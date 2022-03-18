@@ -2,6 +2,16 @@
 
 	'use strict';
 
+    $('.add-unit-form').submit(function(event){
+        event.preventDefault();
+        handleForm({form: $(this), button: 'add-unit-button', spinner: 'add-unit-spinner', message: 'add-unit-message'});
+    });
+
+    $('.edit-unit-form').submit(function(event){
+        event.preventDefault();
+        handleForm({form: $(this), button: 'edit-unit-button', spinner: 'edit-unit-spinner', message: 'edit-unit-message'});
+    });
+
     $('.add-review-form').submit(function(event){
         event.preventDefault();
         handleForm({form: $(this), button: 'add-review-button', spinner: 'add-review-spinner', message: 'add-review-message'});

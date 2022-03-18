@@ -1,13 +1,12 @@
 <div class="col-12 col-md-6 mb-4">
     <div class="card position-relative card-raduis border-0" >
-        @set('users', \App\Models\User::where(['role' => 'user'])->get())
         <div class="card-header pt-5 bg-blue card-raduis" style="padding-bottom: 90px !important;">
             <h4 class="text-white">
                 <a href="{{ route('admin.users') }}" class="text-decoration-none text-white">Users</a>
             </h4>
             <div class="d-flex justify-content-between">
                 <div class="">
-                    {{ number_format($users->count()) }}
+                    {{ number_format(\App\Models\User::count()) }}
                 </div>
                 <small class="tiny-font px-3 py-1 bg-pink rounded-pill">
                     <a href="{{ route('admin.users') }}" class="text-white text-decoration-none">0%</a>
@@ -47,7 +46,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  
     </div>
 </div>
 <div class="col-12 col-md-6 mb-4">
@@ -72,7 +71,7 @@
                                 <i class="icofont-users"></i>
                             </small>
                         </div>
-                        <a href="{{ route('admin.payments', ['type' => 'advert']) }}" class="text-decoration-none d-block">Adverts</a>
+                        <a href="{{ route('admin.payments', ['type' => 'advert']) }}" class="text-decoration-none d-block">Advert</a>
                         <div class="d-flex align-items-center">
                             <div class="mr-2">
                                 ${{ number_format(\App\Models\Payment::where(['status' => 'paid', 'type' => 'advert'])->get()->sum('amount')) }}
@@ -87,7 +86,7 @@
                                 <i class="icofont-user-alt-3"></i>
                             </small>
                         </div>
-                        <a href="{{ route('admin.payments', ['type' => 'subscription']) }}" class="text-decoration-none d-block">Subscriptions</a>
+                        <a href="{{ route('admin.payments', ['type' => 'subscription']) }}" class="text-decoration-none d-block">Subscription</a>
                         <div class="d-flex align-items-center">
                             <div class="mr-2">
                                 ${{ number_format(\App\Models\Payment::where(['status' => 'paid', 'type' => 'subscription'])->get()->sum('amount')) }}
@@ -154,6 +153,28 @@
                     </small>
                 </div>
                 <a href="{{ route('admin.blogs') }}" class="d-flex justify-content-between align-items-center text-main-dark text-decoration-none">Blogs</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12 col-md-6 col-lg-3 mb-4">
+    <div class="card card-raduis border-0 shadow-sm" >
+        <div class="card-body">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <small class="px-3 tiny-font py-1 bg-success rounded-pill">
+                    <small class="text-white">+{{ number_format(\App\Models\Credit::count()) }} sold</small> 
+                </small>
+            </div>
+            <div class="">
+                <div class="text-main-dark">
+                    <span>
+                        {{ number_format(\App\Models\Unit::count()) }}
+                    </span>
+                    <small class="text-danger">
+                        <i class="icofont-long-arrow-down"></i>
+                    </small>
+                </div>
+                <a href="{{ route('admin.units') }}" class="d-flex justify-content-between align-items-center text-main-dark text-decoration-none">Units</a>
             </div>
         </div>
     </div>

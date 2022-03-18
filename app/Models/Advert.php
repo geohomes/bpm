@@ -60,4 +60,12 @@ class Advert extends Model
         return $this->belongsTo(Credit::class);
     }
 
+    /**
+     * An advert belongs to a user.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
