@@ -49,9 +49,11 @@
                                                         <div class="">
                                                             {{ $percentage['count'] }}
                                                         </div>
-                                                        <div>
-                                                            {{ ucfirst($name) }}
-                                                        </div>
+                                                        <a href="{{ route('admin.subscriptions', ['status' => $name]) }}" class="text-decoration-none">
+                                                            <small class="text-main-dark">
+                                                                {{ ucfirst($name) }}
+                                                            </small>
+                                                        </a> 
                                                     </div>
                                                     <div class="border lg-circle rounded-circle border-{{ $percentage['color'] }} text-center">
                                                         <small class="tiny-font position-relative" style="top: 4px;">
@@ -94,9 +96,11 @@
                                                         <div class="">
                                                             {{ $percentage['count'] }}
                                                         </div>
-                                                        <div class="">
-                                                            {{ ucfirst($name) }}
-                                                        </div>
+                                                        <a href="{{ route('admin.adverts', ['status' => $name]) }}" class="text-decoration-none">
+                                                            <small class="text-main-dark">
+                                                                {{ ucfirst($name) }}
+                                                            </small>
+                                                        </a>    
                                                     </div>
                                                     <div class="border lg-circle rounded-circle border-{{ $percentage['color'] }} text-center">
                                                         <small class="tiny-font position-relative" style="top: 4px;">
