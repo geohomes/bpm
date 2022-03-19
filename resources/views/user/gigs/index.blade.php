@@ -5,8 +5,8 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <div class="mb-3">
-                    <h4 class="text-main-dark">My Gigs (Services)</h4>
-                    <div class="text-muted">Welcome  <a href="{{ route('user.profile') }}" class="text-decoration-underline">{{ auth()->user()->name }}</a>. View all your gigs here.</div>
+                    <h4 class="text-main-dark">My (Services)</h4>
+                    <div class="text-muted">Welcome  <a href="{{ route('user.profile') }}" class="text-decoration-underline">{{ auth()->user()->name }}</a></div>
                 </div>
                 <div class="d-flex align-items-center flex-wrap">
                     <div class="d-flex align-items-center">

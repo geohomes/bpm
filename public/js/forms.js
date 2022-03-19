@@ -2,6 +2,11 @@
 
 	'use strict';
 
+    $('.update-company-details-form').submit(function(event){
+        event.preventDefault();
+        handleForm({form: $(this), button: 'update-company-details-button', spinner: 'update-company-details-spinner', message: 'update-company-details-message'});
+    });
+
     $('.add-unit-form').submit(function(event){
         event.preventDefault();
         handleForm({form: $(this), button: 'add-unit-button', spinner: 'add-unit-spinner', message: 'add-unit-message'});

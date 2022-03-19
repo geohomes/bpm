@@ -18,11 +18,6 @@
                             {{ ucwords(auth()->user()->name) }}
                         </a>
                     </div>
-                    <div>
-                        <small class="text-main-dark">
-                            <i class="icofont-settings"></i>
-                        </small>
-                    </div>
                 </div>
             @endif
             <div class="row">
@@ -127,17 +122,17 @@
                 <div class="col-12 col-lg-6">
                     <div class="row">
                         <div class="col-12 mb-4">
-                            <div class="card position-relative shadow-sm border-0" >
-                                <div class="card-header icon-raduis py-5 bg-pink">
+                            <div class="card position-relative card-raduis shadow-sm border-0" >
+                                <div class="card-header card-raduis py-5 bg-pink">
                                     <h4 class="text-white">Total Payments</h4>
-                                    <h4 class="m-0">
+                                    <h3 class="text-white">
                                         ${{ number_format(\App\Models\Payment::where(['user_id' => auth()->user()->id])->sum('amount')) }}
-                                    </h4>
+                                    </h3>
                                 </div>
-                                <div class="card-body py-0 position-relative" style="top: -16px;">
+                                <div class="card-body py-0 position-relative" style="top: -20px;">
                                     <div class="row">
                                         <div class="col-12 col-md-6 mb-3">
-                                            <div class="alert alert-warning m-0 rounded p-4">
+                                            <div class="alert alert-info card-raduis mb-3 p-4">
                                                 <h5>Adverts</h5>
                                                 <div>
                                                     ${{ number_format(\App\Models\Payment::where(['user_id' => auth()->user()->id, 'type' => 'advert'])->sum('amount')) }}
@@ -145,7 +140,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
-                                            <div class="alert alert-warning m-0 rounded p-4">
+                                            <div class="alert alert-info card-raduis mb-3 p-4">
                                                 <h5>Subscriptions</h5>
                                                 <div>
                                                     ${{ number_format(\App\Models\Payment::where(['user_id' => auth()->user()->id, 'type' => 'subscription'])->sum('amount')) }}

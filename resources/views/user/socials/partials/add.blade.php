@@ -1,4 +1,4 @@
-<form method="post" class="add-social-form bg-white p-4 mb-4" action="javascript:;" data-action="{{ route('user.social.add') }}" autocomplete="off">
+<form method="post" class="add-social-form bg-white p-4 card-raduis mb-4" action="javascript:;" data-action="{{ route('user.social.add') }}" autocomplete="off">
     <div class="form-row">
         <div class="form-group col-lg-6">
             <label class="text-muted">Linkedin</label>

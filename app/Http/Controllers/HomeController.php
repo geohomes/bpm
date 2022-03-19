@@ -7,6 +7,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('frontend.home.index')->with(['title' => env('APP_NAME'), 'categories' => Category::where(['type' => 'property'])->get(), 'properties' => Property::where('action', '!=', 'sold')->paginate(26)]);
+        return view('frontend.home.index')->with(['title' => env('APP_NAME'), 'properties' => Property::latest('created_at')->where('action', '!=', 'sold')->where(['status' => 'active'])->paginate(27)]);
     }
 }

@@ -18,8 +18,11 @@ class CreateProfilesTable extends Migration
             $table->foreignId('user_id');
             $table->string('designation');
             $table->string('state');
+            $table->string('companyname')->nullable();
+            $table->string('companylogo')->nullable();
             $table->string('type')->default('normal');
             $table->string('role');
+            $table->string('document')->nullable();
             $table->string('image')->nullable();
             $table->string('website')->nullable();
             $table->text('description');

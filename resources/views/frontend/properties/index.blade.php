@@ -40,7 +40,7 @@
                         @else
                             <div class="row">
                                 @foreach($properties as $property)
-                                    <div class="col-12 col-md-6 col-lg-3 mb-4">
+                                    <div class="col-12 col-md-6 col-lg-4 mb-4">
                                         @include('frontend.properties.partials.card')
                                     </div>
                                 @endforeach

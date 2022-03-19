@@ -16,14 +16,10 @@
 	</div>
 	<div class="d-flex justify-content-between align-items-center">
 		<small>
-			<small>
-				<em>By</em> {{ firstname(ucwords($review->user->name ?? 'Nill')) }}
-			</small>
+			<em>By</em> {{ firstname(ucwords($review->user->name ?? 'Nill')) }}
 		</small>
 		<small>
-			<small>
-				{{ $review->created_at->diffForHumans() }}
-			</small>
+			{{ $review->created_at->diffForHumans() }}
 		</small>
 	</div>
 </div>

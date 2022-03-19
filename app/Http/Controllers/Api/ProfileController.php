@@ -196,4 +196,45 @@ class ProfileController extends Controller
             'redirect' => '',
         ]);    
     }
+
+    /**
+     * Updating company specific details
+     */
+    public function company($id = 0) 
+    {
+        $data = request()->all();
+        $validator = Validator::make($data, [
+            'companyname' => ['required', 'string', 'max:300'],
+            'idnumber' => ['required', 'string'],
+            'document' => ['required', 'string'],
+            'rcnumber' => ['required', 'string'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 0, 
+                'error' => $validator->errors()
+            ]);
+        }
+
+        try {
+            $profile = Profile::find($id);
+            $profile->companyname = $data['companyname'];
+            $profile->idnumber = $data['idnumber'];
+            $profile->document = $data['document'];
+            $profile->rcnumber = $data['rcnumber'];
+            $profile->update();
+
+            return response()->json([
+                'status' => 1, 
+                'info' => 'Operation successful',
+                'redirect' => route('user.dashboard'),
+            ]);
+        } catch (Exception $error) {
+            return response()->json([
+                'status' => 0, 
+                'info' => 'Operation failed. Try again.',
+            ]);
+        } 
+    }
 }

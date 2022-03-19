@@ -15,9 +15,9 @@ class Property extends Model
      * @var string[]
      */
     public static $actions = [
+        'sale' => 'for sale', 
         'rent' => 'for rent', 
         'auction' => 'for auction',
-        'sale' => 'for sale', 
         'lease' => 'for lease', 
         'sold' => 'sold off',
     ];

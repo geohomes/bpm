@@ -252,6 +252,7 @@ Route::middleware(['web', 'auth', 'user', 'revalidate', 'profile.setup'])->domai
         Route::post('/add', [\App\Http\Controllers\Api\ProfileController::class, 'add'])->name('user.profile.add');
         Route::post('/edit/{id}', [\App\Http\Controllers\Api\ProfileController::class, 'edit'])->name('user.profile.edit');
         Route::post('/image/upload/{id}', [\App\Http\Controllers\Api\ProfileController::class, 'remove'])->name('user.profile.image.remove');
+        Route::post('/company/details/{id}', [\App\Http\Controllers\Api\ProfileController::class, 'company'])->name('user.profile.company.update');
     });
 
     Route::get('/credits', [\App\Http\Controllers\User\CreditsController::class, 'index'])->name('user.credits');

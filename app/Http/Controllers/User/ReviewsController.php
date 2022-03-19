@@ -18,8 +18,7 @@ class ReviewsController extends Controller
      */
     public function index()
     {
-        $user = auth()->user()->profile;
-        return view('user.reviews.index')->with(['reviews' => Review::where(['profile_id' => $user->id])->paginate(10)]);
+        return view('user.reviews.index')->with(['reviews' => Review::where(['user_id' => auth()->id()])->paginate(10)]);
     }
 
     /**

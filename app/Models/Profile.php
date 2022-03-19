@@ -24,8 +24,11 @@ class Profile extends Model
     protected $fillable = [
         'image',
         'description',
+        'companyname',
+        'document',
         'phone',
         'type',
+        'companylogo',
         'address',
         'country_id',
         'code',
@@ -42,6 +45,19 @@ class Profile extends Model
         'state',
         'city',
         'certified',
+    ];
+
+    /**
+     * Profile documents.
+     *
+     * @var []
+     */
+    public static $documents = [
+        'National Identity Card',
+        'International Passport',
+        'NIN',
+        'Voters Card', 
+        'Drivers Liscence',
     ];
 
     /**
