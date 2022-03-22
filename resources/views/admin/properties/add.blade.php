@@ -72,11 +72,11 @@
                                             <option value="">-- Select currency --</option>
                                             <?php $currencies = currency()->getCurrencies(); ?>
                                             @if(empty($currencies))
-                                                <option>No currencies listed</option>
+                                                <option value="">No currencies listed</option>
                                             @else: ?>
                                                 @foreach ($currencies as $currency)
                                                     <?php $code = $currency['code']; ?>
-                                                    <option value="{{ $currency['id'] }}" {{ strtolower($code) === strtolower(currency()->getUserCurrency()) ? 'selected' : '' }}>
+                                                    <option value="{{ $currency['id'] }}" {{ strtolower($code) == strtolower(currency()->getUserCurrency()) ? 'selected' : '' }}>
                                                         {{ ucwords($currency['name']) }}({{ strtoupper($code) }})
                                                     </option>
                                                 @endforeach

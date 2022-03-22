@@ -2,6 +2,10 @@
 
 	'use strict';
 
+    $('.delete-social').on('click', function() {
+        handleAjax({that: $(this), button: 'delete-social-button', spinner: 'delete-social-spinner'});    
+    });
+
     $('.user-cancel-subscription').on('click', function() {
         handleAjax({that: $(this), button: 'cancel-subscription-button', spinner: 'cancel-subscription-spinner'});    
     });

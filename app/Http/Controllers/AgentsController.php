@@ -17,8 +17,8 @@ class AgentsController extends Controller
     /**
      * Agent profile page
      */
-    public function profile($id, $name)
+    public function profile($id, $name = '')
     {
-        return view('frontend.agents.profile')->with(['profile' => Profile::findOrFail($id)]);
+        return view('frontend.agents.profile')->with(['profile' => Profile::find($id)]);
     }
 }

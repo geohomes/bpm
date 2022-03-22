@@ -98,28 +98,18 @@
                                         {{ ucwords($user->profile->city).', '.ucwords($user->profile->state) }}
                                     </div>
                                 </div>
-                                @if(empty($user->social))
-                                    <div class="alert alert-danger">No social links</div>
-                                @else
-                                    @set('social', $user->social)
-                                    @set('socials', ['facebook' => $social->facebook, 'twitter' => $social->twitter, 'linkedin' => $social->linkedin, 'whatsapp' => $social->whatsapp, 'instagram' => $social->instagram, 'youtube' => $social->youtube ?? ''])
+                                @if($user->socials()->exists())
                                     <div class="d-flex align-items-center justify-content-between rounded-0 bg-white shadow-sm w-100 p-3">
-                                        @foreach($socials as $name => $link)
-                                            @if(empty($link))
-                                                <div class="text-center bg-main-ash border rounded-circle border text-decoration-none md-circle">
-                                                    <small class="text-main-dark">
-                                                        <i class="icofont-{{ $name }}"></i>
-                                                    </small>
-                                                </div>
-                                            @else
-                                                <a href="{{ $name == 'whatsapp' ? "tel:{$link}" : $link }}" class="text-center bg-theme-color rounded-circle border text-decoration-none md-circle">
-                                                    <small class="text-white">
-                                                        <i class="icofont-{{ $name }}"></i>
-                                                    </small>
-                                                </a>
-                                            @endif
+                                        @foreach($user->socials->take(5) as $social)
+                                            <a href="{{ $social->company == 'whatsapp' ? "tel:{$social->phone}" : $social->link }}" class="text-center bg-theme-color rounded-circle border text-decoration-none md-circle">
+                                                <small class="text-white">
+                                                    <i class="icofont-{{ $social->company }}"></i>
+                                                </small>
+                                            </a>
                                         @endforeach
                                     </div>
+                                @else
+                                    <div class="alert alert-danger">No social links</div>
                                 @endif
                             </div>
                         </div>

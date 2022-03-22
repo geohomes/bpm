@@ -112,7 +112,7 @@ class MaterialsController extends Controller
     {
         $image = request()->file('image');
         $validator = Validator::make(['image' => $image], [
-            'image' => ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg|max:10240']
+            'image' => ['required', 'image']
         ]);
 
         if ($validator->fails()) {

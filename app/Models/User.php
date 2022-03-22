@@ -84,11 +84,11 @@ class User extends Authenticatable
     }
 
     /**
-     * A user has one social links
+     * A user may have many social links
      */
-    public function social()
+    public function socials()
     {
-        return $this->hasOne(Social::class);
+        return $this->hasMany(Social::class);
     }
 
     /**

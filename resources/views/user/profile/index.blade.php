@@ -144,34 +144,40 @@
                                         </div>
                                     @endif
                                     <div class="">
-                                        <?php $social = $user->social ?? ''; ?>
-                                        @if(empty($social))
-                                            <div class="alert alert-info mb-4">Add your social handles</div>
-                                            @include('user.socials.partials.add')
-                                        @else
-                                            <h6 class="bg-white p-3 mb-4 rounded d-flex justify-content-between align-items-center" style="top: -30px;">
-                                                Social handles
-                                                @if(!empty($social))
-                                                    <a href="javascript:;" class="text-underline" data-toggle="modal" data-target="#edit-social">Edit</a>
-                                                    @include('user.socials.partials.edit')
-                                                @endif
-                                            </h6>
-                                            <div class="row">
-                                                <?php $socials = ['facebook' => $social->facebook, 'twitter' => $social->twitter, 'linkedin' => $social->linkedin, 'whatsapp' => $social->whatsapp, 'instagram' => $social->instagram, 'youtube' => $social->youtube ?? '']; ?>
-                                                @foreach($socials as $name => $link)
-                                                    <div class="col-3 col-lg-2 mb-4">
-                                                        @if(empty($link))
-                                                            <div class="d-block border p-2 bg-light position-relative">
-                                                                <img src="/images/socials/{{ $name }}.png" class="img-fluid w-100 h-100">
+                                        <div class="alert alert-info d-flex justify-content-between mb-4">
+                                            <div class="">Social handles</div>
+                                            <a href="javascript:;" class="text-decoration-none" data-toggle="modal" data-target="#add-social">
+                                                <i class="icofont-plus"></i>
+                                            </a>
+                                        </div>
+                                        @include('user.socials.partials.add')
+                                        @if($user->socials()->exists())
+                                            <div class="row d-flex align-items-center">
+                                                @foreach($user->socials->take(5) as $social)
+                                                    <div class="col-4 col-md-3 mb-4">
+                                                        <div class="card border-0 bg-white position-relative icon-raduis shadow-sm">
+                                                            <div class="card-body">
+                                                               <a href="{{ ($social->company == 'whatsapp' || $social->company == 'telegram') ? "tel:{$social->phone}" : $social->link }}" class="text-center bg-theme-color rounded-circle d-block md-circle text-decoration-none">
+                                                                    <small class="text-white tiny-font">
+                                                                        <i class="icofont-{{ $social->company }}"></i>
+                                                                    </small>
+                                                                </a> 
                                                             </div>
-                                                        @else
-                                                            <a href="{{ $name == 'whatsapp' ? 'tel:'.$link : $link }}" class="d-block border border-info p-2 bg-white position-relative">
-                                                                <img src="/images/socials/{{ $name }}.png" class="img-fluid w-100 h-100">
-                                                            </a>
-                                                        @endif
+                                                            <div class="card-footer d-flex align-items-center">
+                                                                <small class="text-warning mr-2 cursor-pointer" data-toggle="modal" data-target="#edit-social-{{ $social->id }}">
+                                                                    <i class="icofont-edit"></i>
+                                                                </small>
+                                                                <small class="text-danger cursor-pointer delete-social" data-url="{{ route('user.social.delete', ['id' => $social->id]) }}" data-message="Delete social media handle?">
+                                                                    <i class="icofont-trash"></i>
+                                                                </small>
+                                                            </div>  
+                                                        </div>  
                                                     </div>
+                                                    @include('user.socials.partials.edit')
                                                 @endforeach
                                             </div>
+                                        @else
+                                            <div class="alert alert-info">You have not added any social media handles.</div>
                                         @endif
                                     </div>
                                     <div class="mb-4">

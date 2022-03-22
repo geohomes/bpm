@@ -60,6 +60,28 @@ body {
     background-color: var(--theme-color);
 }
 
+.home-agents {
+    padding: 140px 0;
+    background-image: url('/images/banners/transp.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.home-agents:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    min-height: 100%;
+    width: 100%;
+    z-index: -2;
+    background-color: rgba(160, 15, 15, 0.5);
+}
+
 .user-panel-icon {
     width: 45px;
     height: 45px;
@@ -80,6 +102,28 @@ body {
     width: 30px;
     height: 30px;
     line-height: 30px;
+}
+
+.home-statistics {
+    padding: 100px 0;
+    background-image: url('/images/banners/home.jpg');
+    background-repeat: no-repeat;
+    /*background-size: cover;*/
+    background-position: left;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.home-statistics:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    z-index: -2;
+    background-color: rgba(160, 15, 15, 0.8);
 }
 
 .tiny-font {
@@ -204,15 +248,15 @@ p {
 
 .bottom-section {
     padding: 140px 0 60px;
-    background-image: url('/images/banners/glow.jpg');
+    /*background-image: url('/images/banners/glow.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
+    background-position: center;*/
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
             clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
-.bottom-section:before {
+/*.bottom-section:before {
     content: '';
     position: absolute;
     top: 0;
@@ -222,11 +266,9 @@ p {
     height: 100%;
     width: 100%;
     z-index: -2;
-    background-color: rgba(0, 0, 0, 0.5);
-}
+    background-color: rgba(160, 15, 15, 0.5);
+}*/
 
-
-.verify-banner {}
 
 .bg-green {
     background-color: var(--theme-color);
@@ -296,30 +338,7 @@ ul {
     background-color: rgba(0, 0, 0, 0.75);
 }
 
-.agent-header{
-    background-image: url('/images/banners/trees.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-
-.agent-profile-banner:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    z-index: -2;
-    background-image: url('/images/banners/trees.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-
-.mission-vision {
+/*.mission-vision {
     padding: 140px 0;
     background-image: url('/images/banners/home.jpg');
     background-repeat: no-repeat;
@@ -340,7 +359,7 @@ ul {
     width: 70%;
     z-index: -2;
     background-color: var(--theme-color);
-}
+}*/
 
 
 a:hover, button:hover {

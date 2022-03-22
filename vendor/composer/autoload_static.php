@@ -578,6 +578,7 @@ class ComposerStaticInitf05838768c38dc1ac164e43973dfd3da
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Helpers\\News' => __DIR__ . '/../..' . '/app/Helpers/News.php',
+        'App\\Helpers\\Notification' => __DIR__ . '/../..' . '/app/Helpers/Notification.php',
         'App\\Helpers\\Paystack' => __DIR__ . '/../..' . '/app/Helpers/Paystack.php',
         'App\\Helpers\\Property' => __DIR__ . '/../..' . '/app/Helpers/Property.php',
         'App\\Helpers\\Sms' => __DIR__ . '/../..' . '/app/Helpers/Sms.php',

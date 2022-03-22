@@ -10,6 +10,7 @@ return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Helpers\\News' => $baseDir . '/app/Helpers/News.php',
+    'App\\Helpers\\Notification' => $baseDir . '/app/Helpers/Notification.php',
     'App\\Helpers\\Paystack' => $baseDir . '/app/Helpers/Paystack.php',
     'App\\Helpers\\Property' => $baseDir . '/app/Helpers/Property.php',
     'App\\Helpers\\Sms' => $baseDir . '/app/Helpers/Sms.php',

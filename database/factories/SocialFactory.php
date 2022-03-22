@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\User;
+use App\Models\{Profile, Social};
 use Faker\Factory as Faker;
 
 class SocialFactory extends Factory
@@ -16,13 +16,11 @@ class SocialFactory extends Factory
     {
         $faker = Faker::create();
         return [
-            'whatsapp' => $faker->url(),
-            'twitter' => $faker->url(),
-            // 'instagram' => $faker->url(),
-            // 'facebook' => $faker->url(),
-            'linkedin' => $faker->url(),
-            // 'youtube' => $faker->url(),
-            'user_id' => rand(1, User::count()),
+            'link' => $faker->url(),
+            'company' => $faker->randomElement(Social::$companies),
+            'username' => $faker->username(),
+            'user_id' => rand(1, Profile::count()),
+            'phone' => $faker->phoneNumber(),
         ];
     }
 }

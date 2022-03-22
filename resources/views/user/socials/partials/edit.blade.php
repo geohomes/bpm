@@ -1,4 +1,4 @@
-<div class="modal fade" id="edit-social" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="edit-social-{{ $social->id }}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content border-0">
             <form method="post" class="edit-social-form" action="javascript:;" data-action="{{ route('user.social.edit', ['id' => $social->id]) }}" autocomplete="off">
@@ -11,50 +11,44 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-lg-6">
-                            <label class="text-muted">Linkedin</label>
-                            <div class="input-group">
-                                <input type="url" name="linkedin" class="form-control linkedin" placeholder="Enter linkedin link" value="{{ $social->linkedin }}">
-                            </div>
-                            <small class="error linkedin-error text-danger"></small>
+                            <label class="text-muted">Social Media Company</label>
+                            <select class="custom-select form-control company" name="company">
+                                <option>Select Company</option>
+                                @set('companies', \App\Models\Social::$companies)
+                                @if(empty($companies))
+                                    <option value="">No Companies Listed</option>
+                                @else
+                                    @foreach($companies as $company)
+                                        <option value="{{ $company }}" {{ $social->company == $company ? 'selected' : '' }}>
+                                            {{ ucfirst($company) }}
+                                        </option>
+                                    @endforeach
+                                @endif
+                            </select>
+                            <small class="error company-error text-danger"></small>
                         </div>
                         <div class="form-group col-lg-6">
-                            <label class="text-muted">Facebook</label>
+                            <label class="text-muted">Social Link</label>
                             <div class="input-group">
-                                <input type="url" name="facebook" class="form-control facebook" placeholder="Enter facebook link" value="{{ $social->facebook }}">
+                                <input type="text" name="link" class="form-control link" placeholder="Enter link" value="{{ $social->link }}">
                             </div>
-                            <small class="error facebook-error text-danger"></small>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-lg-6">
-                            <label class="text-muted">Twitter</label>
-                            <div class="input-group">
-                                <input type="url" name="twitter" class="form-control twitter" placeholder="Enter twitter link" value="{{ $social->twitter }}">
-                            </div>
-                            <small class="error twitter-error text-danger"></small>
-                        </div>
-                        <div class="form-group col-lg-6">
-                            <label class="text-muted">Instagram</label>
-                            <div class="input-group">
-                                <input type="url" name="instagram" class="form-control instagram" placeholder="Enter instagram link" value="{{ $social->instagram }}">
-                            </div>
-                            <small class="error instagram-error text-danger"></small>
+                            <small class="error link-error text-danger"></small>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-lg-6">
-                            <label class="text-muted">Whatsapp</label>
+                            <label class="text-muted">Username</label>
                             <div class="input-group">
-                                <input type="text" name="whatsapp" class="form-control whatsapp" placeholder="Enter whatsapp number" value="{{ $social->whatsapp }}">
+                                <input type="text" name="username" class="form-control username" placeholder="Enter username" value="{{ $social->username }}">
                             </div>
-                            <small class="error whatsapp-error text-danger"></small>
+                            <small class="error username-error text-danger"></small>
                         </div>
                         <div class="form-group col-lg-6">
-                            <label class="text-muted">Youtube</label>
+                            <label class="text-muted">Phone</label>
                             <div class="input-group">
-                                <input type="url" name="youtube" class="form-control youtube" placeholder="Enter youtube link" value="{{ $social->youtube }}">
+                                <input type="text" name="phone" class="form-control phone" placeholder="Enter phone" value="{{ $social->phone }}">
                             </div>
-                            <small class="error youtube-error text-danger"></small>
+                            <small class="error phone-error text-danger"></small>
                         </div>
                     </div>
                     <div class="alert mb-3 edit-social-message d-none"></div>

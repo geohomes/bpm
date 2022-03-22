@@ -8,10 +8,10 @@
 				@else
 					<div class="row">
 						<div class="col-12 col-md-5 col-lg-3">
-							<div class="mb-4 p-3 icon-raduis bg-white shadow-sm text-center">
-								<div class="w-auto rounded-pill border">
-									<div class="rounded-circle" style="width: 80px; height: 80px;">
-										<img src="{{ empty($profile->image) ? '/images/profiles/girl.jpg' : $profile->image }}" class="img-fluid w-100 h-100 rounded-circle object-cover">
+							<div class="mb-4 icon-raduis bg-white shadow-sm text-center">
+								<div class="w-auto position-relative">
+									<div class="p-5 rounded" style="height: 240px;">
+										<img src="{{ empty($profile->image) ? '/images/avatar.png' : $profile->image }}" class="img-fluid w-100 h-100 rounded border object-cover">
 									</div>
 								</div>
 							</div>
@@ -63,33 +63,17 @@
 											{{ ucwords($profile->city).', '.ucwords($profile->state) }}
 										</small>
 									</p>
-									<div class="d-flex align-items-center justify-content-between icon-raduis bg-white shadow-sm w-100 p-3">
-										<a href="javascript:;" class="text-center bg-theme-color rounded-circle border text-decoration-none" style="height: 35px; width: 35px; line-height: 30px;">
-											<small class="text-white">
-												<i class="icofont-facebook"></i>
-											</small>
-										</a>
-										<a href="javascript:;" class="text-center bg-theme-color rounded-circle border text-decoration-none" style="height: 35px; width: 35px; line-height: 30px;">
-											<small class="text-white">
-												<i class="icofont-linkedin"></i>
-											</small>
-										</a>
-										<a href="javascript:;" class="text-center bg-theme-color rounded-circle border text-decoration-none" style="height: 35px; width: 35px; line-height: 30px;">
-											<small class="text-white">
-												<i class="icofont-twitter"></i>
-											</small>
-										</a>
-										<a href="javascript:;" class="text-center bg-theme-color rounded-circle border text-decoration-none" style="height: 35px; width: 35px; line-height: 30px;">
-											<small class="text-white">
-												<i class="icofont-whatsapp"></i>
-											</small>
-										</a>
-										<a href="javascript:;" class="text-center bg-theme-color rounded-circle border text-decoration-none" style="height: 35px; width: 35px; line-height: 30px;">
-											<small class="text-white">
-												<i class="icofont-instagram"></i>
-											</small>
-										</a>
-									</div>
+									@if($profile->user->socials()->exists())
+										<div class="d-flex align-items-center justify-content-between icon-raduis bg-white shadow-sm w-100 p-3">
+											@foreach($profile->user->socials->take(5) as $social)
+												<a href="{{ ($social->company == 'whatsapp' || $social->company == 'telegram') ? "tel:{$social->phone}" : $social->link }}" class="text-center bg-theme-color rounded-circle border text-decoration-none" style="height: 35px; width: 35px; line-height: 30px;">
+													<small class="text-white">
+														<i class="icofont-{{ $social->company }}"></i>
+													</small>
+												</a>
+											@endforeach
+										</div>
+									@endif
 								</div>
 							</div>
 						</div>

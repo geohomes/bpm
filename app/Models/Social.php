@@ -15,13 +15,25 @@ class Social extends Model
      * @var string[]
      */
     protected $fillable = [
+        'company',
+        'reference',
+        'link',
+        'phone',
+        'user_id',
+        'username',
+    ];
+
+    /**
+     * The socail media companies
+     *
+     * @var string[]
+     */
+    public static $companies = [
         'facebook',
         'linkedin',
         'twitter',
-        'user_id',
         'instagram',
         'whatsapp',
         'youtube',
-        'reference',
     ];
 }

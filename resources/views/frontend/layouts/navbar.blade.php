@@ -189,7 +189,7 @@
             <div class="mb-3">
                 <div class="">
                     <a class="d-block bg-main-ash text-decoration-none text-main-dark px-3 py-3 icon-raduis d-flex justify-content-between align-items-center" data-toggle="collapse" href="#property-nav-collapse" aria-expanded="false" aria-controls="property-nav-collapse">
-                        <small>Properties</small>
+                        <small class="text-main-dark">Properties</small>
                         <span class="text-theme-color">
                             <i class="icofont-caret-down"></i>
                         </span>
@@ -200,7 +200,9 @@
                         <a href="{{ route('properties') }}" class="d-flex justify-content-between">
                             <small class="text-main-dark">Properties</small>
                             <small class="bg-danger rounded-pill px-3">
-                                <small class="text-white mb-2 tiny-font position-relative" style="top: -1px;">+34</small>
+                                <small class="text-white mb-2 tiny-font position-relative" style="top: -1px;">
+                                    +{{ \App\Models\Property::count() }}
+                                </small>
                             </small>
                         </a>
                     </div>
@@ -212,7 +214,7 @@
             <div class="mb-3">
                 <div class="">
                     <a class="d-block bg-main-ash text-decoration-none text-main-dark px-3 py-3 icon-raduis d-flex justify-content-between align-items-center" data-toggle="collapse" href="#services-nav-collapse" aria-expanded="false" aria-controls="services-nav-collapse">
-                        <small>Services</small>
+                        <small class="text-main-dark">Services</small>
                         <span class="text-theme-color">
                             <i class="icofont-caret-down"></i>
                         </span>
@@ -224,7 +226,7 @@
                             <small class="text-main-dark">Artisans</small>
                             <small class="bg-danger rounded-pill px-3">
                                 <small class="text-white mb-2 tiny-font position-relative" style="top: -1px;">
-                                    +{{ rand(3, 45) }}
+                                    +{{ \App\Models\Profile::where(['role' => 'artisan'])->count() }}
                                 </small>
                             </small>
                         </a>
@@ -234,7 +236,17 @@
                             <small class="text-main-dark">Agents</small>
                             <small class="bg-danger rounded-pill px-3">
                                 <small class="text-white mb-2 tiny-font position-relative" style="top: -1px;">
-                                    +{{ rand(9, 28) }}
+                                    +{{ \App\Models\Profile::where(['role' => 'agent'])->count() }}
+                                </small>
+                            </small>
+                        </a>
+                    </div>
+                    <div class="card card-body">
+                        <a href="{{ route('agents') }}" class="d-flex justify-content-between">
+                            <small class="text-main-dark">Dealers</small>
+                            <small class="bg-danger rounded-pill px-3">
+                                <small class="text-white mb-2 tiny-font position-relative" style="top: -1px;">
+                                    +{{ \App\Models\Profile::where(['role' => 'dealer'])->count() }}
                                 </small>
                             </small>
                         </a>
@@ -250,7 +262,7 @@
             <div class="mb-3">
                 <div class="">
                     <a class="d-block bg-main-ash text-decoration-none text-main-dark px-3 py-3 icon-raduis d-flex justify-content-between align-items-center" data-toggle="collapse" href="#products-nav-collapse" aria-expanded="false" aria-controls="products-nav-collapse">
-                        <small>Products</small>
+                        <small class="text-main-dark">Products</small>
                         <span class="text-theme-color">
                             <i class="icofont-caret-down"></i>
                         </span>
@@ -262,7 +274,7 @@
                             <small class="text-main-dark">Building Materials</small>
                             <small class="bg-danger rounded-pill px-3">
                                 <small class="text-white mb-2 tiny-font position-relative" style="top: -1px;">
-                                    +{{ rand(16, 68) }}
+                                    +{{ \App\Models\Material::count() }}
                                 </small>
                             </small>
                         </a>

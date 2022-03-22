@@ -45,21 +45,21 @@
 								<div class="">
 									<div class="row">
 										<div class="col-4 mb-3">
-											<a href="tel:08158212666" class="btn btn-info btn-block icon-raduis">
+											<a href="{{ empty($profile->phone) ? 'javascript:;' : 'tel:'.$profile->phone }}" class="btn btn-info btn-block icon-raduis">
 												<small class="">
 													<i class="icofont-phone"></i>
 												</small>
 											</a>
 										</div>
 										<div class="col-4 mb-3">
-											<a href="mailto:08158212666" class="btn btn-info btn-block icon-raduis">
+											<a href="{{ empty($profile->email) ? 'javascript:;' : 'mailto:'.$profile->email }}" class="btn btn-info btn-block icon-raduis">
 												<span class="">
 													<i class="icofont-send-mail"></i>
 												</span>
 											</a>
 										</div>
 										<div class="col-4 mb-3">
-											<a href="" class="btn btn-info btn-block icon-raduis">
+											<a href="{{ empty($profile->website) ? 'javascript:;' : $profile->website }}" class="btn btn-info btn-block icon-raduis">
 												<small class="">
 													<i class="icofont-web"></i>
 												</small>
@@ -74,29 +74,17 @@
 											{{ ucwords($profile->city).', '.ucwords($profile->state) }}
 										</small>
 									</p>
-									@if(empty($user->social))
-	                                    <div class="alert alert-danger">No social links</div>
-	                                @else
-	                                    @set('social', $user->social)
-	                                    @set('socials', ['facebook' => $social->facebook, 'twitter' => $social->twitter, 'linkedin' => $social->linkedin, 'whatsapp' => $social->whatsapp, 'instagram' => $social->instagram, 'youtube' => $social->youtube ?? ''])
-	                                    <div class="d-flex align-items-center justify-content-between icon-raduis bg-white shadow-sm w-100 p-3">
-	                                        @foreach($socials as $name => $link)
-	                                            @if(empty($link))
-	                                                <div class="text-center bg-main-ash border rounded-circle border text-decoration-none md-circle">
-	                                                    <small class="text-main-dark">
-	                                                        <i class="icofont-{{ $name }}"></i>
-	                                                    </small>
-	                                                </div>
-	                                            @else
-	                                                <a href="{{ $name == 'whatsapp' ? "tel:{$link}" : $link }}" class="text-center bg-theme-color rounded-circle border text-decoration-none md-circle">
-	                                                    <small class="text-white">
-	                                                        <i class="icofont-{{ $name }}"></i>
-	                                                    </small>
-	                                                </a>
-	                                            @endif
-	                                        @endforeach
-	                                    </div>
-	                                @endif
+									@if($profile->user->socials()->exists())
+										<div class="d-flex align-items-center justify-content-between icon-raduis bg-white shadow-sm w-100 p-3">
+											@foreach($profile->user->socials->take(5) as $social)
+												<a href="{{ ($social->company == 'whatsapp' || $social->company == 'telegram') ? "tel:{$social->phone}" : $social->link }}" class="text-center bg-theme-color rounded-circle border text-decoration-none" style="height: 35px; width: 35px; line-height: 30px;">
+													<small class="text-white">
+														<i class="icofont-{{ $social->company }}"></i>
+													</small>
+												</a>
+											@endforeach
+										</div>
+									@endif
 								</div>
 							</div>
 						</div>

@@ -17,12 +17,10 @@ class SocialsController extends Controller
     {
         $data = request()->all();
         $validator = Validator::make($data, [
-            'linkedin' => ['nullable', 'url'],
-            'instagram' => ['nullable', 'url'],
-            'twitter' => ['nullable', 'url'],
-            'facebook' => ['nullable', 'url'],
-            'youtube' => ['nullable', 'url'],
-            'whatsapp' => ['required', 'numeric'],
+            'company' => ['required', 'string'],
+            'link' => ['nullable', 'string'],
+            'phone' => ['nullable', 'string'],
+            'username' => ['nullable', 'string'],
         ]);
 
         if ($validator->fails()) {
@@ -32,14 +30,26 @@ class SocialsController extends Controller
             ]);
         }
 
+        if ($data['company'] == 'whatsapp' && empty($data['company'])) {
+            return response()->json([
+                'status' => 0, 
+                'info' => 'Enter your whatsapp number',
+            ]); 
+        }
+
+        if ($data['company'] !== 'whatsapp' && empty($data['link'])) {
+            return response()->json([
+                'status' => 0, 
+                'info' => 'Enter your social media link',
+            ]); 
+        }
+
         Social::create([
-            'twitter' => $data['twitter'],
-            'youtube' => $data['youtube'],
-            'facebook' => $data['facebook'],
-            'instagram' => $data['instagram'],
-            'reference' => Str::uuid(),
-            'whatsapp' => $data['whatsapp'],
-            'linkedin' => $data['linkedin'],
+            'company' => $data['company'],
+            'link' => $data['link'],
+            'phone' => $data['phone'],
+            'username' => $data['username'],
+            'reference' => Str::random(64),
             'user_id' => auth()->id(),
         ]);
             
@@ -57,12 +67,10 @@ class SocialsController extends Controller
     {
         $data = request()->all();
         $validator = Validator::make($data, [
-            'linkedin' => ['nullable', 'url'],
-            'instagram' => ['nullable', 'url'],
-            'twitter' => ['nullable', 'url'],
-            'facebook' => ['nullable', 'url'],
-            'youtube' => ['nullable', 'url'],
-            'whatsapp' => ['required', 'numeric'],
+            'company' => ['required', 'string'],
+            'link' => ['nullable', 'string'],
+            'phone' => ['nullable', 'string'],
+            'username' => ['nullable', 'string'],
         ]);
 
         if ($validator->fails()) {
@@ -73,13 +81,26 @@ class SocialsController extends Controller
         }
 
         $social = Social::find($id);
-        $social->whatsapp = $data['whatsapp'];
-        $social->linkedin = $data['linkedin'];
-        $social->twitter = $data['twitter'];
-        $social->facebook = $data['facebook'];
-        $social->instagram = $data['instagram'];
-        $social->youtube = $data['youtube'];
+        $social->company = $data['company'];
+        $social->link = $data['link'];
+        $social->phone = $data['phone'];
+        $social->username = $data['username'];
         $social->update();
+            
+        return response()->json([
+            'status' => 1, 
+            'info' => 'Operation successful.',
+            'redirect' => '',
+        ]);        
+    }
+
+    /**
+     * Edit social
+     */
+    public function delete($id = 0)
+    {
+        $social = Social::find($id);
+        $social->delete();
             
         return response()->json([
             'status' => 1, 

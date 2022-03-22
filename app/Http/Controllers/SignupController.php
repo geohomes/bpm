@@ -83,10 +83,10 @@ class SignupController extends Controller
                 Mail::to($data['email'])->send($mail);
             }
 
-            // Sms::otp([
-            //     'otp' => $otp, 
-            //     'phone' => $data['phone'],
-            // ]);
+            Sms::otp([
+                'otp' => $otp, 
+                'phone' => $data['phone'],
+            ]);
 
             DB::commit();
             return response()->json([

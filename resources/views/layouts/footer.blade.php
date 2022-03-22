@@ -20,8 +20,17 @@
         <script src="{{ env('APP_URL') }}/js/charts.js"></script>
         <!-- Summernote -->
         <script src="{{ env('APP_URL') }}/summernote/summernote-lite.min.js" type="text/javascript"></script>
+        {{-- <script src="{{ env('APP_URL') }}/jquery/waypoints.min.js"></script> --}}
+        {{-- <script src="{{ env('APP_URL') }}/jquery/jquery.counterup.min.js"></script> --}}
 
         <script type="text/javascript">
+
+            // jQuery(document).ready(function($) {
+            //     $('.counter').counterUp({
+            //         delay: 10,
+            //         time: 1000
+            //     });
+            // });
 
             <?php if(!empty(auth()->user()->profile)): ?>
                 var button = $('.upload-profile-image');

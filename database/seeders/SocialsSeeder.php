@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
-use App\Models\{Social, User};
+use App\Models\{Social, Profile};
 
 class SocialsSeeder extends Seeder
 {
@@ -14,6 +14,6 @@ class SocialsSeeder extends Seeder
     public function run()
     {
         Social::truncate();
-        Social::factory()->count(User::count())->create();
+        Social::factory()->count(Profile::count() * 7)->create();
     }
 }

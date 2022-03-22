@@ -114,14 +114,6 @@ class Profile extends Model
     }
 
     /**
-     * A user profile may have many social links
-     */
-    public function socials()
-    {
-        return $this->hasMany(Social::class);
-    }
-
-    /**
      * A profile belongs to a country
      */
     public function country()
