@@ -248,27 +248,7 @@ p {
 
 .bottom-section {
     padding: 140px 0 60px;
-    /*background-image: url('/images/banners/glow.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;*/
-    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
-
-/*.bottom-section:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    z-index: -2;
-    background-color: rgba(160, 15, 15, 0.5);
-}*/
-
 
 .bg-green {
     background-color: var(--theme-color);
@@ -338,7 +318,7 @@ ul {
     background-color: rgba(0, 0, 0, 0.75);
 }
 
-/*.mission-vision {
+.mission-vision {
     padding: 140px 0;
     background-image: url('/images/banners/home.jpg');
     background-repeat: no-repeat;
@@ -359,7 +339,7 @@ ul {
     width: 70%;
     z-index: -2;
     background-color: var(--theme-color);
-}*/
+}
 
 
 a:hover, button:hover {
