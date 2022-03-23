@@ -29,7 +29,7 @@
                                             @endforeach
                                         @endif
                                     </select>
-                                    {{ dd($geoip, request()->ip()); }}
+                                    {{-- {{ dd($geoip, request()->ip()); }} --}}
                                     <small class="invalid-feedback country-error"></small>
                                 </div>
                                 <div class="form-group col-md-6">
