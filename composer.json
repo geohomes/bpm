@@ -18,7 +18,8 @@
         "wildbit/swiftmailer-postmark": "^3.3",
         "yabacon/paystack-php": "^2.2",
         "fakerphp/faker": "^1.9.1",
-        "smknstd/fakerphp-picsum-images": "^1.0"
+        "smknstd/fakerphp-picsum-images": "^1.0",
+        "geoip2/geoip2": "~2.1"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
