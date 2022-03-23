@@ -4,6 +4,7 @@
     <div class="user-content user-properties-banner pb-4">
         <div class="container">
             <div class="row">
+                {{ dd(currency()->getUserCurrency()) }}
                 <div class="col-12 mb-4">
                     @set('globe', \App\Library\Globe::get())
                     <div class="d-flex justify-content-between align-items-center flex-wrap">
