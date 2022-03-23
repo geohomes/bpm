@@ -35,6 +35,20 @@
 							</small>
 						</a>
 					</div>
+					<div class="">
+						<div class="row">
+							<div class="col-6 col-md-4">
+								<a href="javascript:;" class="d-block w-100">
+									<img src="/images/assets/istore.png" class="img-fluid w-100">
+								</a>
+							</div>
+							<div class="col-6 col-md-4">
+								<a href="javascript:;" class="d-block w-100">
+									<img src="/images/assets/gplay.png" class="img-fluid w-100">
+								</a>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="col-12 col-md-5 col-lg-3 mb-4">
 					<h4 class="text-theme-color mb-4">Useful Links</h4>
@@ -101,6 +115,7 @@
 		                    </div>
 		                </div>
 		            </div>
+		            <a href="https://geoprecisegroup.com" class="mb-3 p-3 text-decoration-none d-block bg-main-ash text-main-dark" target="_blank">Surveying</a>
 					<a href="{{ route('membership') }}" class="mb-3 p-3 text-decoration-none d-block bg-main-ash text-main-dark">Membership</a>
 					<a href="{{ route('blog') }}" class="mb-3 p-3 text-decoration-none d-block bg-main-ash text-main-dark">Blog</a>
 					<div class="mb-3">
@@ -125,6 +140,7 @@
 		                    </div>
 		                </div>
 		            </div>
+		            <a href="https://geohomesgroup.com" class="mb-3 p-3 text-decoration-none d-block bg-main-ash text-main-dark" target="_blank">Consultancy</a>
 				</div>
 				<div class="col-12 col-md-12 col-lg-4 mb-4">
 					<div class="">
@@ -141,24 +157,12 @@
 						    </button>
 						</form>
 					</div>
-					<div class="row mb-4">
-						<div class="col-6 col-md-3 col-lg-4">
-							<a href="javascript:;">
-								<img src="/images/assets/gplay.png" class="img-fluid">
-							</a>
+					<div class="row">
+						<div class="col-12 mb-4">
+							<div class="w-100 h-100" id="contactmap">
+								<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.6468249831787!2d7.492911815325601!3d6.439381725920649!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1044a3d8f51f6071%3A0x6b07f5ee68d7e660!2s26%20Moorehouse%20St%2C%20Ogui%20400001%2C%20Enugu!5e0!3m2!1sen!2sng!4v1637755718285!5m2!1sen!2sng" allowfullscreen="" loading="lazy" class="w-100 h-100 rounded"></iframe>
+							</div>
 						</div>
-						<div class="col-6 col-md-3 col-lg-4">
-							<a href="javascript:;">
-								<img src="/images/assets/istore.png" class="img-fluid">
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-12 mb-4">
-					<div class="w-100 h-100" id="contactmap">
-						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.6468249831787!2d7.492911815325601!3d6.439381725920649!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1044a3d8f51f6071%3A0x6b07f5ee68d7e660!2s26%20Moorehouse%20St%2C%20Ogui%20400001%2C%20Enugu!5e0!3m2!1sen!2sng!4v1637755718285!5m2!1sen!2sng" allowfullscreen="" loading="lazy" class="w-100 h-100 rounded"></iframe>
 					</div>
 				</div>
 			</div>

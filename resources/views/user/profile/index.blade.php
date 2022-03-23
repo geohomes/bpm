@@ -16,7 +16,7 @@
                             @set('profile', $user->profile)
                             <div class="row">
                                 <div class="col-12 col-md-6 mb-4">
-                                    <div class="position-relative bg-info mb-4 px-4" style="border-bottom-right-radius: 25px; border-bottom-left-radius: 25px;">
+                                    <div class="position-relative bg-white shadow-sm mb-4 px-4" style="border-bottom-right-radius: 25px; border-bottom-left-radius: 25px;">
                                         <div class="d-flex">
                                             <div class="position-relative rounded-circle mr-3" style="width: 70px; height: 70px; top: -20px;">
                                                 <a href="{{ empty($profile->image) ? 'javascript:;' : $profile->image }}">
@@ -46,16 +46,16 @@
                                             <h5 class="text-main-dark mb-3">
                                                 {{ ucwords($user->name) }}
                                             </h5>
-                                            <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                            <div class="d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
-                                                    <small class="text-white mr-3 rounded-pill tiny-font px-4 py-1 border">
+                                                    <small class="text-main-dark mr-3 rounded-pill tiny-font px-3 py-1 border">
                                                         {{ ucwords($user->created_at->diffForHumans()) }}
                                                     </small>
-                                                    <small class="text-white mr-3 rounded-pill tiny-font px-4 py-1 border">
+                                                    <small class="text-main-dark rounded-pill tiny-font px-3 py-1 border">
                                                         {{ ucwords($profile->designation) }}
                                                     </small>
                                                 </div>
-                                                <div class="{{ $user->status == 'active' ? 'bg-success' : 'bg-secondary' }} text-center border rounded-circle" style="width: 25px; height: 25px; line-height: 20px;">
+                                                <div class="{{ $user->status == 'active' ? 'bg-success' : 'bg-secondary' }} text-center border sm-circle rounded-circle">
                                                     <small class="text-white position-relative tiny-font">
                                                         <i class="icofont-tick-mark"></i>
                                                     </small>

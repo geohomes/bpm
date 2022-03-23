@@ -29,7 +29,7 @@ Company Logo
 Website URL
 
 Certifications
-Intitution, year, type (Bsc, )
+Intitution, year, type (Bsc)
 
 Services - Agent, Dealer, Artisan
 

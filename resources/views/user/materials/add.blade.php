@@ -12,6 +12,7 @@
                         </div>
                     </div>
                     <div class="bg-white p-4 card-raduis">
+                        @set('location', geoip()->getLocation())
                         <form method="post" action="javascript:;" class="add-material-form" data-action="{{ route('user.material.add') }}" autocomplete="off">
                             <div class="form-row">
                                 <div class="form-group col-12">
@@ -25,12 +26,13 @@
                                     <label class="text-muted">Country</label>
                                     <select class="form-control custom-select country" name="country" id="countries">
                                         <option value="">-- Select country --</option>
+                                        @set('countries', \App\Models\Country::all())
                                         @if(empty($countries->count()))
                                             <option value="">No countries listed</option>
                                         @else: ?>
                                             <?php $geoip = geoip()->getLocation(request()->ip());  ?>
                                             @foreach ($countries as $country)
-                                                <option value="{{ $country->id }}" {{ strtolower($geoip->iso_code) == strtolower($country->iso2) ? 'selected' : '' }} id="{{ $country->state_id }}">
+                                                <option value="{{ $country->id }}" {{ strtolower($location['iso_code']) == strtolower($country->iso2) ? 'selected' : '' }}>
                                                     {{ ucwords($country->name ?? '') }}
                                                 </option>
                                             @endforeach
@@ -40,14 +42,14 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-muted">State, county or division</label>
-                                    <input type="text" class="form-control state" name="state" placeholder="e.g., Texas">
+                                    <input type="text" class="form-control state" name="state" placeholder="e.g., Texas" value="{{ $location['state_name'] ?? '' }}">
                                     <small class="invalid-feedback state-error"></small>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label class="text-muted">City, area or town</label>
-                                    <input type="text" class="form-control city" name="city" placeholder="e.g., Plano">
+                                    <input type="text" class="form-control city" name="city" placeholder="e.g., Plano" value="{{ $location['city'] ?? '' }}">
                                     <small class="invalid-feedback city-error"></small>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -68,14 +70,14 @@
                                     <label class="text-muted">Currency</label>
                                     <select class="form-control custom-select currency" name="currency">
                                         <option value="">-- Select currency --</option>
-                                        <?php $currencies = currency()->getCurrencies(); ?>
-                                        @if(empty($currencies))
+                                        @set('currencies', \App\Models\Currency::all())
+                                        @if(empty($currencies->count()))
                                             <option>No currencies listed</option>
                                         @else: ?>
                                             @foreach ($currencies as $currency)
-                                                <?php $code = $currency['code']; ?>
-                                                <option value="{{ $currency['id'] }}" {{ strtolower($code) == strtolower(currency()->getUserCurrency()) ? 'selected' : '' }}>
-                                                    {{ ucwords($currency['name']) }}({{ strtoupper($code) }})
+                                                <?php $code = $currency->code ?? ''; ?>
+                                                <option value="{{ $currency->id }}" {{ strtolower($location['currency']) == strtolower($code) ? 'selected' : '' }}>
+                                                    {{ ucwords($currency->name) }}({{ strtoupper($code) }})
                                                 </option>
                                             @endforeach
                                         @endif

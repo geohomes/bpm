@@ -13,7 +13,6 @@
                     </div>
                     <div class="bg-white p-4 card-raduis">
                         @set('location', geoip()->getLocation())
-                        @set('globe', \App\Library\Globe::get($location['iso_code'] ?? ''))
                         <form method="post" action="javascript:;" class="add-property-form" data-action="{{ route('user.property.add') }}" autocomplete="off">
                             <div class="form-row">
                                 <div class="form-group col-md-6">

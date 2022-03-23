@@ -5,7 +5,7 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <div class="mb-3">
-                    <h4 class="text-main-dark">My (Services)</h4>
+                    <h4 class="text-main-dark">My Services</h4>
                     <div class="text-muted">Welcome  <a href="{{ route('user.profile') }}" class="text-decoration-underline">{{ auth()->user()->name }}</a></div>
                 </div>
                 <div class="d-flex align-items-center flex-wrap">
@@ -14,7 +14,7 @@
                             <small class="mr-1">
                                 <i class="icofont-plus"></i>
                             </small>
-                            <div class="d-inline">Create Gig</div>
+                            <div class="d-inline">Create Service</div>
                         </a>
                     </div>
                     @include('user.gigs.partials.create')
@@ -22,7 +22,7 @@
             </div>
             <div class="">
                 @if(empty($gigs->count()))
-                    <div class="alert-danger alert">You have no gigs yet</div>
+                    <div class="alert-danger alert">You have no services yet</div>
                 @else
                     <div class="row">
                         @foreach($gigs as $gig)
