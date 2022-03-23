@@ -4,7 +4,8 @@
     <div class="user-content user-properties-banner pb-4">
         <div class="container">
             <div class="row">
-                {{ dd(currency()->getUserCurrency()) }}
+                @set('location', geoip()->getLocation())
+                {{-- {{ dd($location) }} --}}
                 <div class="col-12 mb-4">
                     @set('globe', \App\Library\Globe::get())
                     <div class="d-flex justify-content-between align-items-center flex-wrap">
@@ -24,9 +25,8 @@
                                         @if(empty($countries->count()))
                                             <option value="">No countries listed</option>
                                         @else: ?>
-                                            <?php $geoip = geoip()->getLocation(); ?>
                                             @foreach ($countries as $country)
-                                                <option value="{{ $country->id }}" {{ strtolower($geoip['iso_code']) == strtolower($country->iso2) ? 'selected' : '' }}>
+                                                <option value="{{ $country->id }}" {{ strtolower($location['iso_code']) == strtolower($country->iso2) ? 'selected' : '' }}>
                                                     {{ ucwords($country->name ?? '') }}
                                                 </option>
                                             @endforeach
@@ -82,7 +82,7 @@
                                         @else: ?>
                                             @foreach ($currencies as $currency)
                                                 <?php $code = $currency->code ?? ''; ?>
-                                                <option value="{{ $currency->id }}" {{ strtolower(currency()->getUserCurrency()) == strtolower($code) ? 'selected' : '' }}>
+                                                <option value="{{ $currency->id }}" {{ strtolower($location['currency']) == strtolower($code) ? 'selected' : '' }}>
                                                     {{ ucwords($currency->name) }}({{ strtoupper($code) }})
                                                 </option>
                                             @endforeach
