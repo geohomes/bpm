@@ -13,7 +13,14 @@ class Country extends Model
      *
      * @var string[]
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'region',
+        'name',
+        'capital',
+        'phonecode',
+        'iso3',
+        'iso2',
+    ];
 
     /**
      * A country may have many properties

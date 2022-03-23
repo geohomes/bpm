@@ -15,9 +15,9 @@ class CountriesSeeder extends Seeder
     public function run()
     {
         $path = storage_path('/json/globe.json');
-        $globes = json_decode(file_get_contents($path)); 
+        $countries = json_decode(file_get_contents($path)); 
 
-        foreach ($globes as $country) {
+        foreach ($countries as $country) {
             Country::create([
                 'currency' => $country->currency,
                 'iso2' => $country->iso2, 

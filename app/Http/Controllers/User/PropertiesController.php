@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use \Carbon\Carbon;
+use Sk\Geo\Facades\Geo;
 
 
 class PropertiesController extends Controller
@@ -24,6 +25,7 @@ class PropertiesController extends Controller
      */
     public function add()
     {
+        dd(Geo::location()->ipCountry(request()->ip()));
         return view('user.properties.add')->with(['countries' => Country::all()]);
     }
 

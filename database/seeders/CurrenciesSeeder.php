@@ -23,6 +23,7 @@ class CurrenciesSeeder extends Seeder
             ['name' => 'New Zealand Dollar', 'code' => 'NZD', 'symbol' => '$'],
             ['name' => 'Swiss Franc', 'code' => 'CHF', 'symbol' => 'CHf'],
             ['name' => 'Japanese Yen', 'code' => 'JPY', 'symbol' => '¥'],
+            ['name' => 'Nigerian Naira', 'code' => 'NGN', 'symbol' => '₦'],
         ];
 
         foreach ($currencies as $currency) {

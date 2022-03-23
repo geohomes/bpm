@@ -18,7 +18,7 @@ class CreateCountriesTable extends Migration
             $table->id();
             $table->string('region');
             $table->string('name');
-            $table->string('capital');
+            $table->string('capital')->nullable();
             $table->string('phonecode');
             $table->string('currency');
             $table->string('iso3');

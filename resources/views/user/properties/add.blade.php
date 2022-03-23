@@ -5,6 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 mb-4">
+                    @set('globe', \App\Library\Globe::get())
                     <div class="d-flex justify-content-between align-items-center flex-wrap">
                         <div class="mb-3">
                             <h4 class="text-main-dark">List Property</h4>
@@ -23,13 +24,12 @@
                                         @else: ?>
                                             <?php $geoip = geoip()->getLocation(); ?>
                                             @foreach ($countries as $country)
-                                                <option value="{{ $country->id }}" {{ strtolower($geoip->iso_code) == strtolower($country->iso2) ? 'selected' : '' }} id="{{ $country->state_id }}">
+                                                <option value="{{ $country->id }}" {{ strtolower($geoip['iso_code']) == strtolower($country->iso2) ? 'selected' : '' }}>
                                                     {{ ucwords($country->name ?? '') }}
                                                 </option>
                                             @endforeach
                                         @endif
                                     </select>
-                                    {{-- {{ dd($geoip, request()->ip()); }} --}}
                                     <small class="invalid-feedback country-error"></small>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -79,8 +79,8 @@
                                             <option>No currencies listed</option>
                                         @else: ?>
                                             @foreach ($currencies as $currency)
-                                                <?php $code = $currency['code']; ?>
-                                                <option value="{{ $currency['id'] }}" {{ strtolower($code) == strtolower(currency()->getUserCurrency()) ? 'selected' : '' }}>
+                                                <?php $code = $currency['code'] ?? ''; ?>
+                                                <option value="{{ $currency['id'] }}" {{ strtolower(currency()->getUserCurrency()) == strtolower($code) ? 'selected' : '' }}>
                                                     {{ ucwords($currency['name']) }}({{ strtoupper($code) }})
                                                 </option>
                                             @endforeach
@@ -88,6 +88,7 @@
                                     </select>
                                     <small class="invalid-feedback currency-error"></small>
                                 </div>
+                                {{-- {{dd($currencies, currency()->getUserCurrency()) }} --}}
                                 <div class="form-group col-md-6">
                                     <label class="text-muted">Price</label>
                                     <div class="input-group">
