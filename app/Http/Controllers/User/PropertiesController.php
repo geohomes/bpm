@@ -25,7 +25,6 @@ class PropertiesController extends Controller
      */
     public function add()
     {
-        dd(Geo::location()->ipCountry(request()->ip()));
         return view('user.properties.add')->with(['countries' => Country::all()]);
     }
 

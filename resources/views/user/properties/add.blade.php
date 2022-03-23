@@ -88,7 +88,6 @@
                                     </select>
                                     <small class="invalid-feedback currency-error"></small>
                                 </div>
-                                {{-- {{dd($currencies, currency()->getUserCurrency()) }} --}}
                                 <div class="form-group col-md-6">
                                     <label class="text-muted">Price</label>
                                     <div class="input-group">

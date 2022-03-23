@@ -1,9 +1,4 @@
 <div class="fixed-top bg-main-dark">
-    <div class="bg-danger d-block text-center p-0">
-        <div class="container p-0">
-            <small class="text-white tiny-font">{{ dd(geoip()->getLocation()) }}</small>
-        </div>
-    </div>
 	<div class="container">
         <div class="d-flex py-3 align-items-center justify-content-between">
             <div class="">
