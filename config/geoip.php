@@ -38,7 +38,7 @@ return [
     |
     */
 
-    'service' => 'ipapi',
+    'service' => 'maxmind_api',
 
     /*
     |--------------------------------------------------------------------------
@@ -112,7 +112,7 @@ return [
     |
     */
 
-    'cache' => 'all',
+    'cache' => 'none',
 
     /*
     |--------------------------------------------------------------------------
@@ -147,19 +147,19 @@ return [
     */
 
     'default_location' => [
-        'ip' => '127.0.0.0',
-        'iso_code' => 'US',
-        'country' => 'United States',
-        'city' => 'New Haven',
-        'state' => 'CT',
-        'state_name' => 'Connecticut',
-        'postal_code' => '06510',
-        'lat' => 41.31,
-        'lon' => -72.92,
-        'timezone' => 'America/New_York',
+        'ip' => '129.205.124.108',
+        'iso_code' => 'NG',
+        'country' => 'Nigeria',
+        'city' => 'Lagos',
+        'state' => 'LA',
+        'state_name' => 'Lagos',
+        'postal_code' => '100001',
+        'lat' => 6.5244,
+        'lon' => 3.3792,
+        'timezone' => 'Africa/Lagos',
         'continent' => 'NA',
         'default' => true,
-        'currency' => 'USD',
+        'currency' => 'NGN',
     ],
 
 ];

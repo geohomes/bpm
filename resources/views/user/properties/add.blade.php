@@ -21,7 +21,7 @@
                                         @if(empty($countries->count()))
                                             <option value="">No countries listed</option>
                                         @else: ?>
-                                            <?php $geoip = geoip()->getLocation(request()->ip()); ?>
+                                            <?php $geoip = geoip()->getLocation(); ?>
                                             @foreach ($countries as $country)
                                                 <option value="{{ $country->id }}" {{ strtolower($geoip->iso_code) == strtolower($country->iso2) ? 'selected' : '' }} id="{{ $country->state_id }}">
                                                     {{ ucwords($country->name ?? '') }}
