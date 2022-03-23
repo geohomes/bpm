@@ -4,10 +4,7 @@
     <div class="user-content user-properties-banner pb-4">
         <div class="container">
             <div class="row">
-                @set('location', geoip()->getLocation())
-                {{-- {{ dd($location) }} --}}
                 <div class="col-12 mb-4">
-                    @set('globe', \App\Library\Globe::get())
                     <div class="d-flex justify-content-between align-items-center flex-wrap">
                         <div class="mb-3">
                             <h4 class="text-main-dark">List Property</h4>
@@ -15,6 +12,8 @@
                         </div>
                     </div>
                     <div class="bg-white p-4 card-raduis">
+                        @set('location', geoip()->getLocation())
+                        @set('globe', \App\Library\Globe::get($location['iso_code'] ?? ''))
                         <form method="post" action="javascript:;" class="add-property-form" data-action="{{ route('user.property.add') }}" autocomplete="off">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -26,7 +25,7 @@
                                             <option value="">No countries listed</option>
                                         @else: ?>
                                             @foreach ($countries as $country)
-                                                <option value="{{ $country->id }}" {{ strtolower($location['iso_code']) == strtolower($country->iso2) ? 'selected' : '' }}>
+                                                <option value="{{ $country->id }}" {{ strtolower($location['iso_code']) == strtolower($country->iso2) ? 'selected' : '' }} data-code="{{ $country->iso2 }}">
                                                     {{ ucwords($country->name ?? '') }}
                                                 </option>
                                             @endforeach
@@ -36,14 +35,14 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-muted">State, county or division</label>
-                                    <input type="text" class="form-control state" name="state" placeholder="e.g., Texas">
+                                    <input type="text" class="form-control state" name="state" placeholder="e.g., Texas" value="{{ $location['state_name'] ?? '' }}">
                                     <small class="invalid-feedback state-error"></small>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label class="text-muted">City, area or town</label>
-                                    <input type="text" class="form-control city" name="city" placeholder="e.g., Plano">
+                                    <input type="text" class="form-control city" name="city" placeholder="e.g., Plano" value="{{ $location['city'] ?? '' }}">
                                     <small class="invalid-feedback city-error"></small>
                                 </div>
                                 <div class="form-group col-md-6">
