@@ -1,7 +1,7 @@
 <div class="fixed-top bg-main-dark">
     <div class="bg-danger d-block text-center p-0">
         <div class="container p-0">
-            <small class="text-white tiny-font">{{ geoip()->getLocation()['country'] }}</small>
+            <small class="text-white tiny-font">{{ dd(geoip()->getLocation()) }}</small>
         </div>
     </div>
 	<div class="container">
