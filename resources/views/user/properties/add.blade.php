@@ -19,6 +19,7 @@
                                     <label class="text-muted">Country located</label>
                                     <select class="form-control custom-select country" name="country" id="countries">
                                         <option value="">-- Select country --</option>
+                                        @set('countries', \App\Models\Country::all())
                                         @if(empty($countries->count()))
                                             <option value="">No countries listed</option>
                                         @else: ?>
@@ -74,14 +75,14 @@
                                     <label class="text-muted">Currency</label>
                                     <select class="form-control custom-select currency" name="currency">
                                         <option value="">-- Select currency --</option>
-                                        <?php $currencies = currency()->getCurrencies(); ?>
-                                        @if(empty($currencies))
+                                        @set('currencies', \App\Models\Currency::all())
+                                        @if(empty($currencies->count()))
                                             <option>No currencies listed</option>
                                         @else: ?>
                                             @foreach ($currencies as $currency)
-                                                <?php $code = $currency['code'] ?? ''; ?>
-                                                <option value="{{ $currency['id'] }}" {{ strtolower(currency()->getUserCurrency()) == strtolower($code) ? 'selected' : '' }}>
-                                                    {{ ucwords($currency['name']) }}({{ strtoupper($code) }})
+                                                <?php $code = $currency->code ?? ''; ?>
+                                                <option value="{{ $currency->id }}" {{ strtolower(currency()->getUserCurrency()) == strtolower($code) ? 'selected' : '' }}>
+                                                    {{ ucwords($currency->name) }}({{ strtoupper($code) }})
                                                 </option>
                                             @endforeach
                                         @endif
