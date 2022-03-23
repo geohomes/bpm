@@ -1,9 +1,9 @@
 @component('mail::message', ['data' => $data])
 
-<h2>Dear {{ $data['email'] }} Thank you for your registration.</h2> 
-<p>Please click on the button below to verify your Email address.</p>
+<h2>Dear {{ $data['email'] }}.</h2> 
+<p>Please click on the button below to reset your password.</p>
 
-<?php $url = route('verify.email', ['token' => $data['token']]); ?>
+<?php $url = route('reset.verify', ['token' => $data['token']]); ?>
 <div style="text-align: left;">
 	@component('mail::button', ['url' => $url])
 		Click Here

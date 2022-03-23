@@ -17,6 +17,7 @@ class CreatePasswordsTable extends Migration
             $table->id();
             $table->string('email')->index();
             $table->string('token');
+            $table->string('duration')->nullable();
             $table->timestamps();
         });
     }

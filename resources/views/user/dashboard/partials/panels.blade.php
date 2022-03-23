@@ -54,19 +54,19 @@
     </div>
 @endif
 <div class="col-12 mb-4">
-    <div class="card-raduis alert alert-info p-4 m-0 position-relative border-0" >
+    <div class="icon-raduis alert alert-info p-4 m-0 position-relative border-0" >
         <div class="pb-0 position-relative">
             <div class="mb-3">
-                <h4 class="">Total Credits</h4>
+                <h4 class="text-main-dark">Total Credits</h4>
                 <?php $credits = \App\Models\Credit::where(['user_id' => auth()->id()])->get(); ?>
                 <h6 class="">
                     {{ empty($credits->count()) ? 0 : number_format($credits->sum('units')) }} Units
                 </h6>
             </div>
             <div class="d-flex">
-                <a href="javascript:;" class="btn bg-info text-white px-3 icon-raduis mr-3" data-toggle="modal" data-target="#buy-credit">Buy Credit</a>
+                <a href="javascript:;" class="btn bg-info text-white px-3 mr-3" data-toggle="modal" data-target="#buy-credit">Buy Credit</a>
                 @include('user.credits.partials.buy')
-                <a href="{{ route('user.credits') }}" class="btn bg-info text-white px-3 icon-raduis">View all</a>
+                <a href="{{ route('user.credits') }}" class="btn bg-info text-white px-3">View all</a>
             </div>
         </div>
     </div>

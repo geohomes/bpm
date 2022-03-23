@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                @for($key = 1; $key <= 2; $key++)
+                                @for($key = 0; $key <= 1; $key++)
                                     <?php $imageid = $material->images[$key]->id ?? 'create-'.$key; ?>
                                     <div class="col-6 mb-4">
                                         <div class="w-100 position-relative card">

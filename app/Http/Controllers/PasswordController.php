@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Mail\PasswordResetMail;
+use App\Mail\PasswordReset;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -16,9 +16,7 @@ class PasswordController extends Controller
 {
     public function index()
     {
-        return view('frontend.password.index', [
-            'title' => 'Forgot Password | Subrefill'
-        ]);
+        return view('frontend.password.index');
     }
 
     public function email(Request $request)
@@ -38,23 +36,25 @@ class PasswordController extends Controller
         $token = Str::random(64);
         $email = $data['email'];
         Password::where(['email' => $email])->delete();
-        $reset = Password::insert([
+        Password::insert([
             'email' => $email, 
-            'token' => $token
+            'token' => $token,
+            'duration' => 24, //24hours
         ]);
 
-        $link = config('app.url')."/password/reset/{$token}";
-        $info = ['link' => $link, 'email' => $email];
-
         try {
-            $template = new PasswordResetMail($info);
-            Mail::to($email)->send($template);
-            return response()->json([
-                'status' => 1,
-                'info' => 'Check your email. A password reset link has been sent.',
-                'email' => $email,
+            $mail = new PasswordReset([
+                'email' => $email, 
                 'token' => $token
             ]);
+
+            Mail::to($email)->send($mail);
+            return response()->json([
+                'status' => 1,
+                'info' => 'A password reset link has been sent.',
+                'redirect' => route('forgot.password', ['token' => $token]),
+            ]);
+
         } catch (Exception $error) {
             return response()->json([
                 'status' => 0,
@@ -67,7 +67,7 @@ class PasswordController extends Controller
     {   
         $verify = self::check($token);
         $expired = !Carbon::parse($verify['data']->created_at ?? null)->addMinutes($minutes = 1440)->gt(Carbon::now());
-        return view('frontend.password.verify', ['title' => 'Password Reset | Subrefill', 'token' => $verify['data']->token ?? null, 'expired' => $expired, 'user' => $verify['user'] ?? null]);
+        return view('frontend.password.verify', ['title' => 'Password Reset | Best Property Market', 'token' => $verify['data']->token ?? null, 'expired' => $expired, 'user' => $verify['user'] ?? null]);
     }
 
     private static function check($token = '') {
@@ -112,7 +112,7 @@ class PasswordController extends Controller
             return response()->json([
                 'status' => 1,
                 'info' => 'Operation Successful',
-                'redirect' => route('login')
+                'redirect' => route('logout')
             ]);
         }
 
@@ -120,50 +120,5 @@ class PasswordController extends Controller
             'status' => 0,
             'info' => 'Operation Failed. Try Again.',
         ]);
-    }
-
-    public function update(Request $request)
-    {
-        $data = $request->only('password', 'newpassword', 'confirmpassword', 'email');
-        $validator = Validator::make($data, [
-            'password' => ['required'],
-            'newpassword' => ['required', 'min:8'],
-            'confirmpassword' => ['required'],
-        ]);
-
-        if (!$validator->passes()) {
-            return response()->json([
-                'status' => 0,
-                'error' => $validator->errors()
-            ]);
-        }
-
-        if ($data['newpassword'] !== $data['confirmpassword']) {
-            return response()->json([
-                'status' => 0,
-                'info' => 'Passwords do not match.'
-            ]);
-        }
-
-        $user = User::find(auth()->user()->id);
-        if (!Hash::check($data['password'], $user->password)) {
-            return response()->json([
-                'status' => 0,
-                'info' => 'Your current password is not correct.'
-            ]);
-        }
-
-        $user->password = Hash::make($data['newpassword']);
-        $user->update();
-        auth()->logout();
-        $request->session()->flush();
-        $request->session()->invalidate();
-
-        return response()->json([
-            'status' => 1,
-            'info' => 'Operation Successful. Try Again.',
-            'redirect' => route('login'),
-        ]);
- 
     }
 }

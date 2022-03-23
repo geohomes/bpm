@@ -43,20 +43,22 @@
                         <a href="{{ route('user.reviews') }}" class="dropdown-item">
                             <small class="text-main-dark">My Reviews</small>
                         </a>
-                        @set('profile', auth()->user()->profile)
-                        <div class="dropdown-divider"></div>
-                        @if($profile->role == 'artisan')
-                            <a href="{{ route('user.gigs') }}" class="dropdown-item">
-                                <small class="text-main-dark">My Services</small>
-                            </a>
-                        @elseif($profile->role == 'dealer')
-                            <a href="{{ route('user.materials') }}" class="dropdown-item">
-                                <small class="text-main-dark">My Materials</small>
-                            </a>
-                        @elseif($profile->role == 'agent')
-                            <a href="{{ route('user.properties') }}" class="dropdown-item">
-                                <small class="text-main-dark">My Properties</small>
-                            </a>
+                        @if(auth()->user()->profile)
+                            @set('profile', auth()->user()->profile)
+                            <div class="dropdown-divider"></div>
+                            @if($profile->role == 'artisan')
+                                <a href="{{ route('user.gigs') }}" class="dropdown-item">
+                                    <small class="text-main-dark">My Services</small>
+                                </a>
+                            @elseif($profile->role == 'dealer')
+                                <a href="{{ route('user.materials') }}" class="dropdown-item">
+                                    <small class="text-main-dark">My Materials</small>
+                                </a>
+                            @elseif($profile->role == 'agent')
+                                <a href="{{ route('user.properties') }}" class="dropdown-item">
+                                    <small class="text-main-dark">My Properties</small>
+                                </a>
+                            @endif
                         @endif
                     </div>
                 </div>

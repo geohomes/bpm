@@ -2,8 +2,8 @@
 <div class="bg-alabaster min-vh-100">
     @include('frontend.partials.navbar')
     <div class="position-relative">
-        <div class="user-dashboard">
-            <div class="container">
+        <div class="">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <form method="post" action="javascript:;" class="update-password-form p-4 bg-white" data-action="{{ route('password.update') }}" autocomplete="off">
@@ -26,6 +26,11 @@
                                 </button>
                             </div>
                         </form>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="">
+                            <img src="/images/banners/safe.png" class="img-fluid w-100">
+                        </div>
                     </div>
                 </div>
             </div>

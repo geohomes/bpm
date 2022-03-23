@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Promotion extends Model
+class Password extends Model
 {
     use HasFactory;
 
@@ -14,15 +15,9 @@ class Promotion extends Model
      * @var string[]
      */
     protected $fillable = [
-        'credit_id',
+        'email',
+        'token',
         'duration',
-        'started',
-        'expiry',
-        'promoted',
-        'status',
-        'user_id',
-        'property_id',
-        'material_id',
     ];
 
     /**
@@ -31,13 +26,5 @@ class Promotion extends Model
     public function property()
     {
         return $this->belongsTo(Property::class);
-    }
-
-    /**
-     * A credit may belong to a property listed
-     */
-    public function credit()
-    {
-        return $this->belongsTo(Credit::class);
     }
 }

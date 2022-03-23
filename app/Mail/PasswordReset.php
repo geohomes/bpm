@@ -16,16 +16,16 @@ class PasswordReset extends Mailable
      *
      * @var array
      */
-    public $reset;
+    public $data;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($reset)
+    public function __construct($data)
     {
-        $this->reset = $reset;
+        $this->data = $data;
     }
 
     /**
@@ -35,6 +35,6 @@ class PasswordReset extends Mailable
      */
     public function build()
     {
-        return $this->from(env('HELLO_SUBREFILL_USERNAME'), 'Subrefill')->view('mails.password');
+        return $this->markdown('emails.link')->subject('Password Reset Link');
     }
 }

@@ -119,7 +119,7 @@
                     </div>
                     @if(auth()->check())
                         <div class="dropdown cursor-pointer rounded-circle bg-theme-color" style="width: 30px; height: 30px; line-height: 30px;">
-                            <div class="text-center" id="website-user-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0, 38">
+                            <div class="text-center" id="website-user-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0, 36">
                                 <small class="text-white">
                                     @if(empty(auth()->user()->name))
                                         <i class="icofont-ui-user"></i>
@@ -128,7 +128,7 @@
                                     @endif
                                 </small>
                             </div>
-                            <div class="dropdown-menu card-raduis border-0 shadow dropdown-menu-right" aria-labelledby="website-user-icon">
+                            <div class="dropdown-menu border-0 shadow dropdown-menu-right" aria-labelledby="website-user-icon">
                                 <a class="dropdown-item" href="{{ route('user.profile') }}">
                                     <small class="text-theme-color mr-1">
                                       <i class="icofont-login"></i>
@@ -149,7 +149,7 @@
                             <small class="text-main-dark">Login</small>
                         </a>
                         <div class="">
-                            <a href="{{ route('signup') }}" class="btn icon-raduis px-4 text-white bg-theme-color">Signup for free</a>
+                            <a href="{{ route('signup') }}" class="btn px-4 text-white bg-theme-color">Signup</a>
                         </div>
                     @endif
                 </div>

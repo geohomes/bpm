@@ -26,77 +26,7 @@
                         @include('user.dashboard.partials.panels')
                     </div>
                     {{-- Subscription section starts --}}
-                    <div class="alert alert-success shadow-sm p-3 mb-4 icon-raduis">
-                        <div class="pb-3">
-                            @if(empty($subscription))
-                                <div class="alert alert-danger m-0">Subscribe to list more properties. <a href="javascript:;" data-target="#membership-subscription" data-toggle="modal">Click here</a> to get started.</div>
-                                @include('user.subscriptions.partials.subscribe')
-                            @else
-                                <?php 
-                                    $status = strtolower($subscription->status ?? ''); 
-                                    $expiry = empty($subscription->expiry) ? null : $subscription->expiry;
-
-                                    $remainingdays = (\Carbon\Carbon::parse($expiry))->diffInDays(\Carbon\Carbon::today());
-                                    $duration = empty($subscription->membership->duration) ? 1 : (int)$subscription->duration;
-
-                                    $fraction = $duration > $remainingdays ? ($remainingdays/$duration) : 0;
-                                    $progress = (100 - round($fraction * 100));  
-                                ?>
-
-                                <div class="d-flex position-relative" style="top: -25px;">
-                                    <small class="text-white bg-{{ $status == 'expired' ? 'danger' : ($status === 'cancelled' ? 'secondary' : 'success') }} px-2 rounded mr-3">
-                                        {{ ucfirst($status) }}
-                                    </small>
-                                    <small class="text-white bg-{{ $progress <= 90 ? 'success' : 'danger' }} px-2 rounded mr-3">
-                                        {{ $progress <= 0 ? 1 : $progress }}%
-                                    </small>
-                                </div>
-                                <div class="">
-                                    <div class="d-flex align-items-center justify-content-between mb-3">
-                                        <small class="">
-                                            {{ ucwords($subscription->membership->name ?? 'Nill') }} Plan ({{ ucwords($duration) }}days)
-                                        </small>
-                                        <small class="">
-                                            {{ $remainingdays }} Day(s) remaining
-                                        </small>
-                                    </div>
-                                    <div class="mb-4">
-                                        <div class="progress" style="height: 7.5px;">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ $progress <= 90 ? 'success' : 'danger' }}" role="progressbar" aria-valuenow="{{ $progress <= 0 ? 1 : $progress }}" aria-valuemin="1" aria-valuemax="100" style="width: {{ $progress <= 0 ? 1 : $progress }}%"></div>
-                                        </div>
-                                    </div>
-                                    <div class="">
-                                        @if($status === 'active' || $progress <= 50)
-                                            <div class="d-flex">
-                                                <a href="javascript:;" class="btn btn-info icon-raduis px-4 mr-3" data-toggle="modal" data-target="#renew-subscription">
-                                                    Renew
-                                                </a>
-                                                <a href="javascript:;" class="btn btn-dark icon-raduis px-4 user-cancel-subscription" data-url="{{ route('user.subscription.cancel', ['id' => $subscription->id]) }}">
-                                                    <img src="/images/spinner.svg" class="mr-2 d-none cancel-subscription-spinner mb-1">
-                                                    Cancel
-                                                </a>
-                                            </div>
-                                            @include('user.subscriptions.partials.renew')
-                                        @elseif($status === 'cancelled')
-                                            <div class="d-flex align-items-center">
-                                                <a href="javascript:;" class="btn btn-info icon-raduis btn-block px-4 user-activate-subscription" data-url="{{ route('user.subscription.activate', ['id' => $subscription->id]) }}">
-                                                    <img src="/images/spinner.svg" class="mr-2 d-none activate-subscription-spinner mb-1">
-                                                    Activate
-                                                </a>
-                                            </div>
-                                        @else
-                                            <div class="d-flex align-items-center">
-                                                <a href="javascript:;" class="btn btn-info icon-raduis btn-block px-4 user-cancel-subscription" data-url="{{ route('user.subscription.cancel', ['id' => $subscription->id]) }}">
-                                                    <img src="/images/spinner.svg" class="mr-2 d-none cancel-subscription-spinner mb-1">
-                                                    Cancel
-                                                </a>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
+                    @include('user.subscriptions.partials.card')
                     {{-- Advert section starts --}}
                     <div class="">
                         <div class="d-flex justify-content-between alert alert-info mb-4 icon-raduis">
@@ -122,17 +52,17 @@
                 <div class="col-12 col-lg-6">
                     <div class="row">
                         <div class="col-12 mb-4">
-                            <div class="card position-relative card-raduis shadow-sm border-0" >
-                                <div class="card-header card-raduis py-5 bg-pink">
+                            <div class="card position-relative shadow-sm border-0" >
+                                <div class="card-header py-5 bg-theme-color">
                                     <h4 class="text-white">Total Payments</h4>
                                     <h3 class="text-white">
-                                        ${{ number_format(\App\Models\Payment::where(['user_id' => auth()->user()->id])->sum('amount')) }}
+                                        ${{ number_format(\App\Models\Payment::where(['user_id' => auth()->id()])->sum('amount')) }}
                                     </h3>
                                 </div>
                                 <div class="card-body py-0 position-relative" style="top: -20px;">
                                     <div class="row">
                                         <div class="col-12 col-md-6 mb-3">
-                                            <div class="alert alert-info card-raduis mb-3 p-4">
+                                            <div class="alert alert-info icon-raduis mb-3 p-4">
                                                 <h5>Adverts</h5>
                                                 <div>
                                                     ${{ number_format(\App\Models\Payment::where(['user_id' => auth()->user()->id, 'type' => 'advert'])->sum('amount')) }}
@@ -140,7 +70,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
-                                            <div class="alert alert-info card-raduis mb-3 p-4">
+                                            <div class="alert alert-info icon-raduis mb-3 p-4">
                                                 <h5>Subscriptions</h5>
                                                 <div>
                                                     ${{ number_format(\App\Models\Payment::where(['user_id' => auth()->user()->id, 'type' => 'subscription'])->sum('amount')) }}
@@ -159,7 +89,7 @@
                                             <div class="">
                                                 <h5 class="text-white mb-3">List Building Materials</h5>
                                                 <div class="mb-3">With over 5,000 weekly visitors, you stand a change to leverage our platform.</div>
-                                                <a href="{{ route('logout', ['redirect' => 'signup']) }}" class="btn bg-main-dark text-white icon-raduis px-4">Get Started</a>
+                                                <a href="{{ route('logout', ['redirect' => 'signup']) }}" class="btn bg-main-dark text-white px-4">Get Started</a>
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +102,7 @@
                                             <div class="">
                                                 <h5 class="text-white mb-3">List Your Properties</h5>
                                                 <div class="mb-3">With over 5,000 weekly visitors, you stand a change to leverage our platform.</div>
-                                                <a href="{{ route('logout', ['redirect' => 'signup']) }}" class="btn bg-main-dark text-white icon-raduis px-4">Get Started</a>
+                                                <a href="{{ route('logout', ['redirect' => 'signup']) }}" class="btn bg-main-dark text-white px-4">Get Started</a>
                                             </div>
                                         </div>
                                     </div>
@@ -185,7 +115,7 @@
                                             <div class="">
                                                 <h5 class="text-white mb-3">List Your Services</h5>
                                                 <div class="mb-3">Become an artisan, With over 5,000 weekly visitors, you stand a change to leverage our platform.</div>
-                                                <a href="{{ route('logout', ['redirect' => 'signup']) }}" class="btn bg-main-dark text-white icon-raduis px-4">Get Started</a>
+                                                <a href="{{ route('logout', ['redirect' => 'signup']) }}" class="btn bg-main-dark text-white px-4">Get Started</a>
                                             </div>
                                         </div>
                                     </div>

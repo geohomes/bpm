@@ -22,8 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(BlogsSeeder::class);
         $this->call(MaterialsSeeder::class);
         $this->call(ImagesSeeder::class);
-        
-        $this->call(VisitorsSeeder::class);
 
         $this->call(PaymentsSeeder::class);
         $this->call(SubscriptionsSeeder::class);

@@ -17,10 +17,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        //dd(auth()->user()->profile);
         $reference = request()->get('reference');
-        $properties = Property::latest('created_at')->where(['user_id' => auth()->id()])->paginate(4);
-        return view('user.dashboard.index')->with(['properties' => $properties, 'subscription' => Subscription::where(['user_id' => auth()->id()])->first(), 'units' => Unit::all(), 'reference' => $reference, 'verify' => $this->verify($reference), 'credits' => Credit::where(['user_id' => auth()->id()])->get()]);
+        $id = auth()->id();
+        $properties = Property::latest('created_at')->where(['user_id' => $id])->paginate(4);
+        return view('user.dashboard.index')->with(['properties' => $properties, 'subscription' => Subscription::where(['user_id' => $id])->first(), 'units' => Unit::all(), 'reference' => $reference, 'verify' => $this->verify($reference), 'credits' => Credit::where(['user_id' => $id])->get()]);
     }
 
     /**
@@ -50,7 +50,7 @@ class DashboardController extends Controller
             ];
         }
 
-        try {
+        // try {
             $verify = (new Paystack())->verify($reference);
             if (empty($verify) || $verify === false) {
                 return [
@@ -78,6 +78,7 @@ class DashboardController extends Controller
                         'user_id' => auth()->id(),
                         'reference' => $reference,
                         'membership_id' => $planid,
+                        'duration' => $duration,
                         'status' => 'active',
                         'payment_id' => $paymentid,
                     ]);
@@ -109,13 +110,13 @@ class DashboardController extends Controller
                 'status' => 0,
                 'info' => 'Payment verification failed. Refresh you page.'
             ];
-        } catch (Exception $error) {
+        // } catch (Exception $error) {
             DB::rollback();
-            return [
-                'status' => 0,
-                'info' => 'Unknown error. Try again.'
-            ];
-        }    
+        //     return [
+        //         'status' => 0,
+        //         'info' => 'Unknown error. Try again.'
+        //     ];
+        // }    
             
     }
 }

@@ -54,8 +54,11 @@
                 </small>
             </div>
             <div>
+                <small class="text-theme-color">
+                    <i class="icofont-camera"></i>
+                </small>
                 <small class="text-white">
-                    {{ $property->created_at->diffForHumans() }}
+                    {{ $property->images()->count() + (empty($property->image) ? 0 : 1) }}
                 </small>
             </div>
         </div>

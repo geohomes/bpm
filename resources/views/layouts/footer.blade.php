@@ -216,8 +216,7 @@
             <?php endif; ?>
 
             <?php if(!empty($property)): ?>
-                <?php $total = 3; ?>
-                <?php for($key = 0; $key <= $total; $key++): ?>
+                <?php for($key = 0; $key <= 3; $key++): ?>
                     <?php $imageid = $property->images[$key]->id ?? 'create-'.$key; ?>
                     var button = $('.add-other-property-image-<?= $imageid; ?>');
 
@@ -329,7 +328,7 @@
             <?php endif; ?>
 
             <?php if(!empty($material)): ?>
-                <?php for($key = 1; $key <= 2; $key++): ?>
+                <?php for($key = 0; $key <= 1; $key++): ?>
                     <?php $imageid = $material->images[$key]->id ?? 'create-'.$key; ?>
                     var button = $('.add-other-material-image-<?= $imageid; ?>');
 
