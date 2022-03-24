@@ -32,22 +32,27 @@
         </div>
         <div class="position-relative" style="top: -150px;">
             <div class="container-fluid">
-                <div class="">
-                    <div class="alert alert-info mb-4">Global Properties</div>
-                    <div class="">
-                        @if(empty($properties->count()))
-                            <div class="alert-info alert">No Properties Yet</div>
-                        @else
-                            <div class="row">
-                                @foreach($properties as $property)
-                                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                                        @include('frontend.properties.partials.card')
-                                    </div>
-                                @endforeach
-                            </div>
-                            {{ $properties->appends(request()->query())->links('vendor.pagination.default') }}
-                        @endif
+                <div class="row">
+                    <div class="col-12 col-md-9">
+                        <div class="alert alert-info mb-4">Global Properties ({{ \App\Models\Property::count() }})</div>
+                        <div class="">
+                            @if(empty($properties->count()))
+                                <div class="alert-info alert">No Properties Yet</div>
+                            @else
+                                <div class="row">
+                                    @foreach($properties as $property)
+                                        <div class="col-12 col-md-6 col-lg-4 mb-4">
+                                            @include('frontend.properties.partials.card')
+                                        </div>
+                                    @endforeach
+                                </div>
+                                {{ $properties->appends(request()->query())->links('vendor.pagination.default') }}
+                            @endif
+                        </div>
                     </div>
+                    <div class="col-12 col-md-3">
+                        @include('frontend.properties.partials.categories')
+                    </div>  
                 </div>
             </div>
         </div>

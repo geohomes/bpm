@@ -216,10 +216,10 @@ Route::middleware(['web', 'auth', 'user', 'revalidate', 'profile.setup'])->domai
     Route::get('/', [\App\Http\Controllers\User\DashboardController::class, 'index'])->name('user.dashboard');
     Route::get('/subscription', [\App\Http\Controllers\User\DashboardController::class, 'index'])->name('user.subscription');
 
-    Route::prefix('gigs')->group(function () {
-        Route::get('/', [\App\Http\Controllers\User\GigsController::class, 'index'])->name('user.gigs');
-        Route::post('/create', [\App\Http\Controllers\User\GigsController::class, 'create'])->name('user.gig.create');
-        Route::post('/edit/{id}', [\App\Http\Controllers\User\GigsController::class, 'edit'])->name('user.gig.edit');
+    Route::prefix('services')->group(function () {
+        Route::get('/', [\App\Http\Controllers\User\ServicesController::class, 'index'])->name('user.services');
+        Route::post('/create', [\App\Http\Controllers\User\ServicesController::class, 'create'])->name('user.service.create');
+        Route::post('/edit/{id}', [\App\Http\Controllers\User\ServicesController::class, 'edit'])->name('user.service.edit');
     });
 
     Route::prefix('socials')->group(function () {
@@ -245,6 +245,11 @@ Route::middleware(['web', 'auth', 'user', 'revalidate', 'profile.setup'])->domai
         Route::post('/remove/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'remove'])->name('user.advert.remove');
         
         Route::post('/cancel/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'cancel'])->name('user.advert.cancel');
+    });
+
+    
+    Route::prefix('promotions')->group(function () {
+        Route::post('/promote', [\App\Http\Controllers\Api\PromotionsController::class, 'promote'])->name('user.promotions.promote');
     });
 
     Route::post('/image/upload/{id}', [\App\Http\Controllers\Api\ProfileController::class, 'upload'])->name('user.profile.image.upload');
@@ -274,7 +279,6 @@ Route::middleware(['web', 'auth', 'user', 'revalidate', 'profile.setup'])->domai
         Route::get('/edit/{category}/{id}', [\App\Http\Controllers\User\PropertiesController::class, 'edit'])->name('user.property.edit');
         Route::get('/add', [\App\Http\Controllers\User\PropertiesController::class, 'add'])->name('user.property.add');
 
-        Route::post('/promote/{id}', [\App\Http\Controllers\Api\PropertiesController::class, 'promote'])->name('user.property.promote');
         Route::post('/specifics/{id}', [\App\Http\Controllers\Api\PropertiesController::class, 'specifics'])->name('user.property.specifics.update');
         Route::post('/update/{id}', [\App\Http\Controllers\Api\PropertiesController::class, 'update'])->name('user.property.update');
         Route::post('/add', [\App\Http\Controllers\Api\PropertiesController::class, 'add'])->name('user.property.add');

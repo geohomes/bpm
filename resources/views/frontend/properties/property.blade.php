@@ -4,11 +4,12 @@
     	<section class="property-banner">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-12 col-md-8 col-lg-8">
+					<div class="col-12 col-md-8 col-lg-9">
 						<div class="mb-4">
 							@empty($property)
 								<div class="alert alert-danger">Property No Found</div>
 							@else
+								<?php $property->views = $property->views + 1; $property->update(); ?>
 								<div class="mb-4">
 									<h3 class="text-main-dark mb-3">
 										{{ retitle($property) }}
@@ -16,22 +17,16 @@
 									<div class="mb-4 position-relative">
 										<div class="position-absolute ml-4 mt-4" style="z-index: 2;">
 								            <div class="d-flex align-items-center">
-								                @if($property->promoted)
-								                    <small class="bg-success px-3 py-1 mr-3">
-								                        <small class="text-white">Promoted</small>
-								                    </small>
-								                @else
-								                    <small class="bg-info px-3 py-1 mr-3">
-								                        <small class="text-white">Active</small>
-								                    </small>
+								                @if($property->promoted == true && $property->promotion->status ?? '' == 'active')
+								                    <small class="bg-success text-white tiny-font px-3 py-1 mr-3">Promoted</small>
 								                @endif
+								                <small class="bg-info text-white tiny-font px-3 py-1 mr-3">
+								                	{{ $property->views }} views
+								                </small>
 								                <?php $action = strtolower($property->action); $actions = \App\Models\Property::$actions; ?>
 								                @if(isset($actions[$action]))
-								                    <small class="bg-theme-color px-3 py-1 mr-3">
-								                        <small class="text-white">
-								                            {{ ucwords($actions[$action]) }}
-								                        </small>
-								                    </small>
+								                    <small class="bg-theme-color tiny-font text-white px-3 py-1 mr-3">{{ ucwords($actions[$action]) }}
+								                        </small></small>
 								                @endif
 								                <small class="bg-white text-theme-color cursor-pointer px-3 py-1 rounded">
 								                    <i class="icofont-share"></i>
@@ -42,9 +37,7 @@
 											<img src="{{ $property->image ?: '/images/banners/placeholder.png' }}" class="img-fluid w-100 h-100 border object-cover">
 								        </a>
 									</div>
-									@if(!$property->images->count())
-							        	<div class="alert alert-danger mb-4">Other property images not available</div>
-							        @else
+									@if($property->images()->count())
 								        <div class="">
 								        	<div class="row">
 								        		@foreach($property->images as $image)
@@ -59,6 +52,31 @@
 							        @endif
 									<div class="row">
 							            <div class="col-12 col-md-6 mb-4">
+							            	<div class="px-4 pt-4 bg-white mb-4">
+							            		<div class="row">
+								            		@if($property->user)
+								            			<div class="col-3 col-md-4 col-lg-2 mb-4">
+								            				<a href="tel:{{ $property->user->phone }}" class="text-center border-theme-color d-block py-2 text-theme-color text-decoration-none">
+										            			<i class="icofont-phone"></i>
+										            		</a>
+								            			</div>
+										            	<div class="col-3 col-md-4 col-lg-2 mb-4">	
+										            		<a href="mailto:{{ $property->user->email }}" class="text-center border-theme-color d-block py-2 text-theme-color text-decoration-none">
+										            			<i class="icofont-email"></i>
+										            		</a>
+										            	</div>
+										            	@if($property->user->socials()->exists())
+										            		@foreach($property->user->socials as $social)
+											            		<div class="col-3 col-md-4 col-lg-2 mb-4">
+											            			<a href="{{ $social->company == 'whatsapp' ? "tel:$social->phone" : $social->link }}" class="text-center border-theme-color d-block py-2 text-theme-color text-decoration-none">
+												            			<i class="icofont-{{ $social->company }}"></i>
+												            		</a>
+												            	</div>
+										            		@endforeach
+										            	@endif
+									            	@endif
+								            	</div>
+							            	</div>
 							                <a href="javascript:;" class="btn btn-block bg-theme-color">
 							                    <small class="text-white">
 							                        NGN{{ number_format($property->price) }}
@@ -66,29 +84,24 @@
 							                </a>
 							            </div>
 							            <div class="col-12 col-md-6 mb-4">
-							                <a href="tel:{{ $property->user->phone ?? 'Nill' }}" class="btn btn-block" style="border: 1px solid var(--theme-color)">
-							                    <small class="text-theme-color">{{ $property->user->phone ?? 'Nill' }}</small>
-							                </a>
+							            	<div class="">
+												<div class="text-main-dark d-block mb-3 pb-3 border-bottom">
+													Location: {{ $property->address }}
+												</div>
+											</div>
 							            </div>
 							        </div>
-									<div class="">
-										<div class="text-main-dark d-block mb-3 pb-3 border-bottom">
-											Location: {{ $property->address }}
+							        <div class="p-4 border">
+							        	<p class="text-main-dark">Description</p>
+										<div class="text-main-dark">
+											{{ $property->additional }}
 										</div>
-										<p class="text-main-dark font-weight-bold">Description</p>
-										<div class="p-3 border rounded">
-											<div class="text-main-dark">
-												{{ $property->additional }}
-											</div>
-										</div>
-									</div>
+							        </div>
 								</div>
 							@endempty
 						</div>
 						<div class="">
-							<div class="p-3 mb-4 bg-white shadow-sm icon-raduis">
-								<h5 class="m-0">Related Properties</h5>
-							</div>
+							<div class="alert alert-info mb-4">Related Properties</div>
 							@empty($related->count())
 								<div class="alert alert-danger">No Related Properties</div>
 							@else
@@ -102,24 +115,10 @@
 							@endempty
 						</div>
 					</div>
-					<div class="col-12 col-md-4 col-lg-4">
+					<div class="col-12 col-md-4 col-lg-3">
 						<div class="mb-4">
-							<div class="p-3 mb-4 bg-white shadow-sm icon-raduis">
-								<h5 class="m-0">Property Categories</h5>
-							</div>
-							<?php $categories = \App\Models\Property::query()->distinct()->pluck('category'); ?>
-							@empty($categories->count())
-			                    <div class="alert alert-info">No Categories Yet</div>
-			                @else
-			                	<div class="row">
-			                        @foreach($categories as $category)
-				                        <div class="col-12">
-				                        	@include('frontend.properties.partials.categories')
-				                        </div>
-			                        @endforeach
-			                    </div>
-			                @endempty
-						</div>
+				            @include('frontend.properties.partials.categories')
+			            </div>
 					</div>
 				</div>
 			</div>

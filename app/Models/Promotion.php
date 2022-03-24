@@ -21,16 +21,27 @@ class Promotion extends Model
         'promoted',
         'status',
         'user_id',
-        'property_id',
-        'material_id',
+        'type',
+        'reference' // either property, material or profile id (primary key)
     ];
 
     /**
-     * A promotion may belong to a property listed
+     * Promotion types
+     *
+     * @var string[]
      */
-    public function property()
+    public static $types = [
+        'property',
+        'profile',
+        'material',
+    ];
+
+    /**
+     * A promotion may belong to a user
+     */
+    public function user()
     {
-        return $this->belongsTo(Property::class);
+        return $this->belongsTo(User::class);
     }
 
     /**

@@ -12,6 +12,10 @@
     background-color: var(--theme-color);
 }
 
+.border-theme-color {
+    border:  1px solid var(--theme-color);
+}
+
 .lg-circle {
     width: 50px !important;
     height: 50px !important;

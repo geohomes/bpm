@@ -34,7 +34,7 @@
                                         @foreach($actions as $action => $value)
                                             @if($action !== 'sold')
                                                 <li class="nav-item" role="presentation">
-                                                    <a class="nav-link border-theme-color mr-3 mb-4 py-1 text-main-dark px-4 {{ $action == 'rent' ? 'active' : '' }}" id="pills-{{ $action }}-tab" data-toggle="pill" href="#pills-{{ $action }}" role="tab" aria-controls="pills-{{ $action }}" aria-selected="true">
+                                                    <a class="nav-link border-theme-color mr-3 mb-4 py-1 text-main-dark px-4 {{ $action == 'sale' ? 'active' : '' }}" id="pills-{{ $action }}-tab" data-toggle="pill" href="#pills-{{ $action }}" role="tab" aria-controls="pills-{{ $action }}" aria-selected="true">
                                                         <small class="position-relative" style="top: -2.5px;">
                                                             <small>{{ ucwords($value) }}</small>
                                                         </small>
@@ -47,13 +47,13 @@
                             </div>
                             <div class="d-flex">
                                 <a href="{{ route('properties') }}" class="btn text-white btn-sm bg-theme-color d-block mb-4">
-                                    <i class="icofont-long-arrow-right"></i>
+                                    All <i class="icofont-long-arrow-right"></i>
                                 </a>
                                 @set('categories', \App\Models\Property::$categories)
                                 @if(!empty($categories))
                                     <div class="dropdown ml-3">
                                         <a class="btn btn-sm border-theme-color text-main-dark text-decoration-none" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                                            <i class="icofont-caret-down"></i>
+                                            Categories <i class="icofont-caret-down"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm icon-raduis" aria-labelledby="dropdownMenuButton">
                                             @foreach($categories as $category => $values)
@@ -79,11 +79,11 @@
                                 @if(!empty($actions))
                                     @foreach($actions as $action => $value)
                                         @if($action !== 'sold')
-                                            <div class="tab-pane fade show {{ $action == 'rent' ? 'active' : '' }}" id="pills-{{ $action }}" role="tabpanel" aria-labelledby="pills-{{ $action }}-tab">
+                                            <div class="tab-pane fade show {{ $action == 'sale' ? 'active' : '' }}" id="pills-{{ $action }}" role="tabpanel" aria-labelledby="pills-{{ $action }}-tab">
                                                 <div class="row">
                                                     @foreach($properties as $property)
                                                         @if($property->action == $action)
-                                                            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                                                            <div class="col-12 col-md-4 col-lg-3 mb-4">
                                                                 @include('frontend.properties.partials.card')
                                                             </div>
                                                         @endif
@@ -95,7 +95,7 @@
                                 @else
                                     <div class="row">
                                         @foreach($properties as $property)
-                                            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                                            <div class="col-12 col-md-4 col-lg-3 mb-4">
                                                 @include('frontend.properties.partials.card')
                                             </div>
                                         @endforeach

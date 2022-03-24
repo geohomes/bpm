@@ -29,7 +29,6 @@ class Property extends Model
      */
     protected $fillable = [
         'country_id',
-        'listed',
         'state',
         'address',
         'currency_id',
@@ -42,6 +41,7 @@ class Property extends Model
         'reference',
         'price',
         'group',
+        'status',
     ];
 
     /**
@@ -121,6 +121,14 @@ class Property extends Model
     public static $listed = ['yes', 'no'];
 
     /**
+     * Scope only active properties
+     */
+    public function scopeActive($query)
+    {
+        return $query->where(['status' => 'active']);
+    }
+
+    /**
      * A property belongs to a user who listed it.
      * An agent, realtor, company etc
      */
@@ -173,9 +181,9 @@ class Property extends Model
     /**
      * A property may have been promoted
      */ 
-    public function promoted()
+    public function promotion()
     {
-        return $this->hasOne(Promotion::class);
+        return $this->hasOne(Promotion::class, 'reference');
     }
     
 }

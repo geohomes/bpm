@@ -84,12 +84,12 @@
                         @if(auth()->user()->profile)
                             @if(auth()->user()->profile->role !== 'dealer')
                                 <div class="col-12 mb-4">
-                                    <div class="card bg-info card-raduis shadow-sm">
+                                    <div class="card bg-white card-raduis shadow-sm">
                                         <div class="card-body">
                                             <div class="">
-                                                <h5 class="text-white mb-3">List Building Materials</h5>
+                                                <h5 class="text-main-dark mb-3">List Building Materials</h5>
                                                 <div class="mb-3">With over 5,000 weekly visitors, you stand a change to leverage our platform.</div>
-                                                <a href="{{ route('logout', ['redirect' => 'signup']) }}" class="btn bg-main-dark text-white px-4">Get Started</a>
+                                                <a href="{{ route('logout', ['redirect' => 'signup']) }}" class="btn bg-theme-color text-white px-4">Get Started</a>
                                             </div>
                                         </div>
                                     </div>
@@ -97,12 +97,12 @@
                             @endif
                             @if(auth()->user()->profile->role !== 'agent')
                                 <div class="col-12 mb-4">
-                                    <div class="card bg-info card-raduis shadow-sm">
+                                    <div class="card bg-white card-raduis shadow-sm">
                                         <div class="card-body">
                                             <div class="">
-                                                <h5 class="text-white mb-3">List Your Properties</h5>
+                                                <h5 class="text-main-dark mb-3">List Your Properties</h5>
                                                 <div class="mb-3">With over 5,000 weekly visitors, you stand a change to leverage our platform.</div>
-                                                <a href="{{ route('logout', ['redirect' => 'signup']) }}" class="btn bg-main-dark text-white px-4">Get Started</a>
+                                                <a href="{{ route('logout', ['redirect' => 'signup']) }}" class="btn bg-theme-color text-white px-4">Get Started</a>
                                             </div>
                                         </div>
                                     </div>
@@ -110,12 +110,12 @@
                             @endif
                             @if(auth()->user()->profile->role !== 'artisan')
                                 <div class="col-12 mb-4">
-                                    <div class="card bg-info card-raduis shadow-sm">
+                                    <div class="card bg-white card-raduis shadow-sm">
                                         <div class="card-body">
                                             <div class="">
-                                                <h5 class="text-white mb-3">List Your Services</h5>
+                                                <h5 class="text-main-dark mb-3">List Your Services</h5>
                                                 <div class="mb-3">Become an artisan, With over 5,000 weekly visitors, you stand a change to leverage our platform.</div>
-                                                <a href="{{ route('logout', ['redirect' => 'signup']) }}" class="btn bg-main-dark text-white px-4">Get Started</a>
+                                                <a href="{{ route('logout', ['redirect' => 'signup']) }}" class="btn bg-theme-color text-white px-4">Get Started</a>
                                             </div>
                                         </div>
                                     </div>

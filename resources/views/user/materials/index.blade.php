@@ -5,16 +5,16 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <div class="mb-3">
-                    <h4 class="text-main-dark">Building Materials</h4>
-                    <div class="text-muted">Welcome {{ ucwords(auth()->user()->name) }}. List your building materials.</div>
+                    <h4 class="text-main-dark">Building Materials ({{ number_format(auth()->user()->materials->count()) }})</h4>
+                    <div class="text-muted">View list of all your building materials. List your building materials.</div>
                 </div>
                 <div class="">
                     <div class="d-flex align-items-center">
-                        <a href="{{ route('user.material.add') }}" class="btn btn-info mb-4 icon-raduis">
+                        <a href="{{ route('user.material.add') }}" class="btn bg-theme-color mb-4 text-white">
                             <small class="mr-1">
                                 <i class="icofont-plus"></i>
                             </small>
-                            <div class="d-inline">List Building Material</div>
+                            <div class="d-inline">List Material</div>
                         </a>
                     </div>
                 </div>

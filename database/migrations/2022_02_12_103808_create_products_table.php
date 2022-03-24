@@ -24,6 +24,7 @@ class CreateProductsTable extends Migration
             $table->decimal('price', 10, 2);
             $table->string('status')->default('active');
             $table->string('reference')->nullable();
+            $table->boolean('promoted')->default(false);
             $table->timestamps();
         });
     }

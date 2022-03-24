@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Models\{Category, Property, Country, Image, Division};
+use App\Models\{Credit, Property, Country, Image, Promotion};
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use \Carbon\Carbon;
 use \Exception;
 use Validator;
+use DB;
 
 class PropertiesController extends Controller
 {
@@ -44,11 +45,12 @@ class PropertiesController extends Controller
             'action' => $data['action'],
             'category' => $data['category'],
             'measurement' => $data['measurement'],
-            'user_id' => auth()->user()->id,
+            'user_id' => auth()->id(),
             'additional' => $data['additional'],
             'reference' => Str::random(64),
             'currency_id' => $data['currency'] ?? 0,
             'price' => $data['price'],
+            'status' => 'inactive',
         ]);
 
         return response()->json([
@@ -246,8 +248,8 @@ class PropertiesController extends Controller
             'group' => ['nullable', 'string'],
             'bedrooms' => ['nullable', 'integer'],
             'toilets' => ['nullable', 'integer'],
-            'listed' => ['required', 'string'],
-        ], ['listed.required' => 'Please select yes or no']);
+            'status' => ['required', 'string'],
+        ], ['status.required' => 'Please select yes or no']);
 
         if ($validator->fails()) {
             return response()->json([
@@ -257,7 +259,7 @@ class PropertiesController extends Controller
         }
 
         $property = Property::find($id);
-        if (empty($property->image) && $data['listed'] == 'yes') {
+        if (empty($property->image) && $data['status'] == 'yes') {
             return response()->json([
                 'status' => 0, 
                 'info' => 'You have to upload property images before listing.',
@@ -268,7 +270,7 @@ class PropertiesController extends Controller
         $property->group = $data['group'];
         $property->bedrooms = $data['bedrooms'] ?? null;
         $property->toilets = $data['toilets'] ?? null;
-        $property->listed = $data['listed'];
+        $property->status = 'active';
         $updated = $property->update();
 
         return response()->json([
@@ -276,72 +278,5 @@ class PropertiesController extends Controller
             'info' => 'Operation successful',
             'redirect' => route(request()->subdomain().'.properties'),
         ]);
-    }
-
-    /**
-     * Api promote a property
-     */
-    public function promote($id = 0)
-    {
-        $data = request()->only(['credit', 'property']);
-        $validator = Validator::make($data, [
-            'credit' => ['required', 'integer'],
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 0, 
-                'error' => $validator->errors()
-            ]);
-        }
-
-        $creditid = $data['credit'];
-        $credit = Credit::find($creditid);
-        if (empty($credit)) {
-            return response()->json([
-                'status' => 0, 
-                'info' => 'Invalid credit.',
-            ]);
-        }
-
-        $propertyid = $data['property'] ?? 0;
-        $property = Property::find($propertyid);
-        if (empty($property)) {
-            return response()->json([
-                'status' => 0, 
-                'info' => 'Invalid property promotion.',
-            ]);
-        }
-
-        try {
-            DB::beginTransaction();
-            $credit->status = 'running';
-            $credit->update();
-
-            $days = $credit->duration ?? 0;
-            Promotion::create([
-                'credit_id' => $credit->id,
-                'duration' => $days,
-                'started' => Carbon::today(),
-                'expiry' => Carbon::today()->addDays($days),
-                'status' => 'active',
-                'user_id' => auth()->user()->id,
-                'property_id' => $property->id,
-            ]);
-
-            DB::commit();
-            return response()->json([
-                'status' => 1, 
-                'info' => 'Operation successful',
-                'redirect' => '',
-            ]);
-            
-        } catch (Exception $error) {
-            DB::rollback();
-            return response()->json([
-                'status' => 0, 
-                'info' => 'Operation failed',
-            ]);
-        }
     }
 }

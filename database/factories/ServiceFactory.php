@@ -1,11 +1,11 @@
 <?php
 
 namespace Database\Factories;
-use App\Models\{Service, User};
+use App\Models\{Skill, User};
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Faker\Factory as Faker;
 
-class GigFactory extends Factory
+class ServiceFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,7 +21,7 @@ class GigFactory extends Factory
             'description' => $faker->text($maxNbChars = 400),
             'price' => $faker->numberBetween(2000, 11000),
             'image' => $faker->imageUrl($width = 460, $height = 824),
-            'service_id' => rand(1, Service::count()),
+            'skill_id' => rand(1, Skill::count()),
             'status' => 'active',
             'clicks' => $faker->numberBetween(40, 670),
         ];

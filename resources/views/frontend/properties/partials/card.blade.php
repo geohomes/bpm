@@ -6,37 +6,31 @@
                 <div class="d-flex align-items-center flex-wrap">
                     <?php $actions = \App\Models\Property::$actions; $action = strtolower($property->action); ?>
                     @if(isset($actions[$action]))
-                        <small class="bg-theme-color px-3 py-1 mr-3 mb-3">
-                            <small class="text-white">
-                                {{ ucwords($actions[$action]) }}
-                            </small>
+                        <small class="bg-theme-color px-3 py-1 tiny-font text-white mr-2 mb-2">
+                            {{ ucwords($actions[$action]) }}
                         </small>
                     @endif
-                    <small class="bg-theme-color px-3 py-1 mr-3 mb-3">
-                        <small class="text-white">
-                            {{ ucwords($property->category) }}
-                        </small>
+                    <small class="bg-theme-color tiny-font px-3 py-1 mr-2 text-white mb-2">
+                        {{ ucwords($property->category) }}
                     </small>
                 </div>
                 @if($property->promoted)
-                    <a href="" class="d-block">
-                        <small class="bg-success px-3 py-1 mr-3 mb-3">
-                            <small class="text-white">Promoted</small>
-                        </small>
+                    <a href="javascript:;" class="d-block text-decoration-none">
+                        <small class="bg-success px-3 py-1 text-white tiny-font mb-2">Promoted</small>
                     </a>  
                 @endif
             </div>
             <div>
-                <a href="javascript:;" class="d-block text-decoration-none mb-3">
+                <a href="javascript:;" class="d-block text-decoration-none mb-2">
                     <small class="bg-white border text-theme-color rounded cursor-pointer px-2 py-1">
                         <i class="icofont-share"></i>
                     </small>
                 </a>
-                <a href="javascript:;" class="d-block text-decoration-none">
+                {{-- <a href="javascript:;" class="d-block text-decoration-none like-property" data-url="{{ route('property.like', ['id' => $property->id]) }}">
                     <small class="bg-white border text-theme-color rounded cursor-pointer px-2 py-1">
                         <i class="icofont-love"></i>
                     </small>
-                </a> 
+                </a>  --}}
             </div>
         </div>   
     </div>
@@ -50,15 +44,15 @@
                     <i class="icofont-location-pin"></i>
                 </small>
                 <small class="text-white">
-                    {{ \Str::limit(ucwords($property->city), 18) }}
+                    {{ \Str::limit(ucwords($property->city), 16) }}
                 </small>
             </div>
             <div>
                 <small class="text-theme-color">
-                    <i class="icofont-camera"></i>
+                    <i class="icofont-eye"></i>
                 </small>
                 <small class="text-white">
-                    {{ $property->images()->count() + (empty($property->image) ? 0 : 1) }}
+                    {{ $property->views }}
                 </small>
             </div>
         </div>
@@ -66,7 +60,7 @@
     <div class="card-body">
         <div class="font-weight-bolder mb-3">
             <a href="{{ route('property.category.id.slug', ['category' => $property->category, 'id' => $property->id ?? 0, 'slug' => \Str::slug($title)]) }}" class="text-main-dark text-underline">
-                {{ \Str::limit($title, 44) }}
+                {{ \Str::limit($title, 62) }}
             </a>
         </div>
         <h4 class="text-theme-color">
@@ -75,7 +69,7 @@
         <div class="geodir-card-text">
             <a href="{{ route('property.category.id.slug', ['category' => $property->category->name ?? 'any', 'id' => $property->id ?? 0, 'slug' => \Str::slug($title)]) }}" class="text-underline text-main-dark">
                 <span class="">
-                    {{ \Str::limit($property->additional, 65) }}
+                    {{ \Str::limit($property->additional, 18) }}
                 </span>
             </a>
         </div>
@@ -98,7 +92,7 @@
             <div class="ml-2">
                 <a href="javascript:;" class="text-decoration-none d-block">
                     <small class="text-main-dark">
-                        {{ $property->user ? \Str::limit(ucwords($property->user->name), 18) : 'Our Agent' }}
+                        {{ $property->user ? \Str::limit(ucwords($property->user->name), 12) : 'Our Agent' }}
                     </small>
                 </a>
                 <small class="text-muted">

@@ -11,7 +11,7 @@
 					</div>
 					<a href="{{ route('about') }}" class="btn btn-lg bg-theme-color text-white px-4 mb-4">Learn More</a>
 					<div class="mb-4">
-						<h4 class="text-main-dark mb-3 rounded">To send a message, <a href="{{ route('contact') }}" class="text-decoration-underline">Click Here</a>. To call us now, <a href="tel:{{ env('OFFICE_PHONE') }}" class="text-decoration-underline">Click Here</a>.</h4>
+						<h5 class="text-main-dark mb-3 rounded">To send a message, <a href="{{ route('contact') }}" class="text-decoration-underline">Click Here</a>. To call us now, <a href="tel:{{ env('OFFICE_PHONE') }}" class="text-decoration-underline">Click Here</a>.</h5>
 					</div>
 					<div class="d-flex mb-4">
 						<a href="" class="d-block bg-theme-color text-center rounded md-circle  text-decoration-none mr-3">
@@ -96,7 +96,7 @@
 					<div class="mb-3">
 		                <div class="">
 		                    <a class="d-block bg-main-ash text-decoration-none text-main-dark px-3 py-3 icon-raduis d-flex justify-content-between align-items-center" data-toggle="collapse" href="#property-nav-collapse" aria-expanded="false" aria-controls="property-nav-collapse">
-		                        <small class="text-main-dark">Properties</small>
+		                        <div class="text-main-dark">Properties</div>
 		                        <span class="text-theme-color">
 		                            <i class="icofont-caret-down"></i>
 		                        </span>
@@ -121,7 +121,7 @@
 					<div class="mb-3">
 		                <div class="">
 		                    <a class="d-block bg-main-ash text-decoration-none text-main-dark px-3 py-3 icon-raduis d-flex justify-content-between align-items-center" data-toggle="collapse" href="#products-nav-collapse" aria-expanded="false" aria-controls="products-nav-collapse">
-		                        <small class="text-main-dark">Products</small>
+		                        <div class="text-main-dark">Products</div>
 		                        <span class="text-theme-color">
 		                            <i class="icofont-caret-down"></i>
 		                        </span>

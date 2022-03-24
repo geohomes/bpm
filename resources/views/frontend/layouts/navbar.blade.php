@@ -18,7 +18,7 @@
                         </a>
                     </li>
                     <li class="dropdown mr-3">
-                        <a class="text-decoration-none" href="javascript:;" id="nav-services" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0, 38">
+                        <a class="text-decoration-none" href="javascript:;" id="nav-services" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0, 39">
                            <small class="">
                                 <span class="text-main-dark">Services</span>
                                 <span class="text-theme-color position-relative" style="top: 1px;">
@@ -26,18 +26,24 @@
                                 </span>
                             </small>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right icon-raduis border-0 shadow" aria-labelledby="nav-services">
+                        <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm" aria-labelledby="nav-services">
                             <a class="dropdown-item" href="{{ route('artisans') }}">
-                                <small class="text-dark">Artisans</small>
+                                <small class="text-theme-color mr-1">
+                                    <i class="icofont-users"></i>
+                                </small>
+                                <small class="text-main-dark">Artisans</small>
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('agents') }}">
-                                <small class="text-dark">Agents</small>
+                                <small class="text-theme-color mr-1">
+                                    <i class="icofont-users"></i>
+                                </small>
+                                <small class="text-main-dark">Agents</small>
                             </a>
                         </div>
                     </li>
                     <li class="dropdown mr-3">
-                        <a class="text-decoration-none" href="javascript:;" id="nav-products" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0, 38">
+                        <a class="text-decoration-none" href="javascript:;" id="nav-products" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0, 39">
                            <small class="">
                                 <span class="text-main-dark">Properties</span>
                                 <span class="text-theme-color position-relative" style="top: 1px;">
@@ -45,9 +51,12 @@
                                 </span>
                             </small>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right icon-raduis border-0 shadow" aria-labelledby="nav-products">
+                        <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm" aria-labelledby="nav-products">
                             <a class="dropdown-item" href="{{ route('properties') }}">
-                                <small class="text-dark">Properties</small>
+                                <small class="text-theme-color mr-1">
+                                    <i class="icofont-building-alt"></i>
+                                </small>
+                                <small class="text-main-dark">Properties</small>
                             </a>
                         </div>
                     </li>
@@ -62,7 +71,7 @@
                         </a>
                     </li>
                     <li class="dropdown mr-3">
-                        <a class="text-decoration-none" href="javascript:;" id="nav-products" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0, 38">
+                        <a class="text-decoration-none" href="javascript:;" id="nav-products" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0, 39">
                            <small class="">
                                 <span class="text-main-dark">Products</span>
                                 <span class="text-theme-color position-relative" style="top: 1px;">
@@ -70,9 +79,12 @@
                                 </span>
                             </small>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right icon-raduis border-0 shadow" aria-labelledby="nav-products">
+                        <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm" aria-labelledby="nav-products">
                             <a class="dropdown-item" href="{{ route('materials') }}">
-                                <small class="text-dark">Building Materials</small>
+                                <small class="text-theme-color">
+                                    <i class="icofont-building"></i>
+                                </small>
+                                <small class="text-main-dark">Building Materials</small>
                             </a>
                         </div>
                     </li>
@@ -90,16 +102,16 @@
                 <div class="d-flex align-items-center navbar-right">
                     <div class="dropdown text-main-ash cursor-pointer mr-3">
                         <?php $languages = config()->get('languages'); ?>
-                        <div class="d-flex align-items-center" id="global-languages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0, 38">
+                        <div class="d-flex align-items-center" id="global-languages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0, 36">
                             <span class="mr-1 text-theme-color">
-                                {{-- <img src="{{ env('COUNTRY_FLAG_URL') }}/{{ $languages[app()->getLocale()]['code'] }}.svg" height="13" width="20"> --}}
-                                <i class="icofont-web"></i>
+                                <img src="{{ env('COUNTRY_FLAG_URL') }}/{{ $languages[app()->getLocale()]['code'] }}.svg" height="13" width="20">
+                                {{-- <i class="icofont-web"></i> --}}
                             </span> 
-                            <span class="">
+                            <small class="">
                                 {{ $languages[app()->getLocale()]['name'] }}
-                            </span>
+                            </small>
                         </div>
-                        <div class="dropdown-menu card-raduis border-0 shadow dropdown-menu-right" aria-labelledby="global-languages">
+                        <div class="dropdown-menu border-0 shadow-sm dropdown-menu-right" aria-labelledby="global-languages">
                             @foreach ($languages as $code => $language)
                                 @if($language['code'] !== $languages[app()->getLocale()]['code'])
                                     <a class="dropdown-item" href="{{ route('translate', ['locale' => $code]) }}">
@@ -119,7 +131,7 @@
                     </div>
                     @if(auth()->check())
                         <div class="dropdown cursor-pointer rounded-circle bg-theme-color" style="width: 30px; height: 30px; line-height: 30px;">
-                            <div class="text-center" id="website-user-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0, 36">
+                            <div class="text-center" id="website-user-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0, 32">
                                 <small class="text-white">
                                     @if(empty(auth()->user()->name))
                                         <i class="icofont-ui-user"></i>
@@ -129,18 +141,18 @@
                                 </small>
                             </div>
                             <div class="dropdown-menu border-0 shadow dropdown-menu-right" aria-labelledby="website-user-icon">
-                                <a class="dropdown-item" href="{{ route('user.profile') }}">
+                                <a class="dropdown-item" href="{{ auth()->user()->role == 'user' ? route('user.dashboard') : route('admin.dashboard') }}">
                                     <small class="text-theme-color mr-1">
                                       <i class="icofont-login"></i>
                                     </small>
-                                    <small class="text-main-dark">My Profile</small></span>
+                                    <small class="text-main-dark">My Dashboard</small>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}">
                                     <small class="text-theme-color mr-1">
                                       <i class="icofont-ui-play"></i>
                                     </small>
-                                    <span class="text-main-dark"><small>Logout</small></span>
+                                    <small class="text-main-dark">Logout</small>
                                 </a>
                             </div>
                         </div>

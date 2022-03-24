@@ -37,7 +37,7 @@ class Profile extends Model
         'status',
         'role',
         'rcnumber',
-        'iscertified',
+        'certified',
         'email',
         'reference',
         'designation',
@@ -45,6 +45,7 @@ class Profile extends Model
         'state',
         'city',
         'certified',
+        'partner',
     ];
 
     /**

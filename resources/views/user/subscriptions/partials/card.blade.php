@@ -5,16 +5,6 @@
             @include('user.subscriptions.partials.subscribe')
         @else
             @set('timing', \App\Helpers\Timing::calculate($subscription->duration, $subscription->paused_at, $subscription->started))
-{{--             <?php 
-                $status = strtolower($subscription->status ?? ''); 
-                $expiry = empty($subscription->expiry) ? null : $subscription->expiry;
-
-                $remainingdays = (\Carbon\Carbon::parse($expiry))->diffInDays(\Carbon\Carbon::today());
-                $duration = empty($subscription->membership->duration) ? 1 : (int)$subscription->duration;
-
-                $fraction = $duration > $remainingdays ? ($remainingdays/$duration) : 0;
-                $progress = (100 - round($fraction * 100));  
-            ?> --}}
             @set('status', strtolower($subscription->status ?? ''))
             <div class="d-flex position-relative" style="top: -32px;">
                 <small class="text-white bg-info px-2 rounded mr-3">

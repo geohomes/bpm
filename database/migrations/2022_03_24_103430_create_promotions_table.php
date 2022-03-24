@@ -17,14 +17,13 @@ class CreatePromotionsTable extends Migration
             $table->id();
             $table->foreignId('credit_id');
             $table->dateTime('started');
+            $table->string('duration')->nullable();
             $table->dateTime('expiry');
-            $table->foreignId('property_id')->nullable();
+            $table->string('reference');
             $table->string('type')->nullable();
             $table->boolean('promoted')->default(true);
             $table->string('status');
             $table->foreignId('user_id');
-            $table->foreignId('material_id')->nullable();
-            $table->foreignId('profile_id')->nullable();
             $table->timestamps();
         });
     }

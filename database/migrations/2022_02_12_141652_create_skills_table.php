@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGigsTable extends Migration
+class CreateSkillsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,10 @@ class CreateGigsTable extends Migration
      */
     public function up()
     {
-        Schema::create('gigs', function (Blueprint $table) {
+        Schema::create('skills', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('service_id');
-            $table->foreignId('user_id');
-            $table->text('description');
-            $table->bigInteger('price')->nullable();
-            $table->string('image')->nullable();
+            $table->string('name');
             $table->string('status')->default('active');
-            $table->bigInteger('clicks')->default(0);
             $table->timestamps();
         });
     }
@@ -33,6 +28,6 @@ class CreateGigsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gigs');
+        Schema::dropIfExists('skills');
     }
 }

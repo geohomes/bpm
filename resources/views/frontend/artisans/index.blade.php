@@ -6,7 +6,7 @@
 				<div class="row">
 					<div class="col-12 col-md-6 col-lg-8">
 						<div class="mb-3">
-							<h3 class="text-main-dark">Global Artisans</h3>
+							<h4 class="text-main-dark">Global Artisans ({{ \App\Models\Profile::where(['role' => 'artisan'])->count() }})</h4>
 							<div class="text-main-dark">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod laboris nisi ut aliquip ex ea commodo  Duis aute irure dolor in</div>
 						</div>
 					</div>

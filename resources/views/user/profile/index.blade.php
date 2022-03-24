@@ -64,12 +64,12 @@
                                         </div>   
                                     </div>
                                     @if($profile->role == 'artisan')
-                                        @if($user->gigs()->exists())
+                                        @if($user->services()->exists())
                                             <div class="d-flex flex-wrap alert alert-info pt-4 icon-raduis mb-4">
-                                                @foreach($user->gigs as $gig)
+                                                @foreach($user->services as $service)
                                                     <div class="mr-3 mb-4 position-relative">
                                                         <small class="px-3 py-1 text-main-dark rounded-pill border border-info">
-                                                            {{ ucfirst($gig->service->name) }}
+                                                            {{ ucfirst($service->service->name) }}
                                                         </small>
                                                     </div>
                                                 @endforeach
@@ -177,14 +177,16 @@
                                                 @endforeach
                                             </div>
                                         @else
-                                            <div class="alert alert-info">You have not added any social media handles.</div>
+                                            <div class="alert alert-danger mb-4">You have not added any social media handles.</div>
                                         @endif
                                     </div>
                                     <div class="mb-4">
                                         <?php $qualifications = \App\Models\Profile::$qualifications; ?>
                                         <h6 class="alert alert-info mb-4 d-flex align-items-center justify-content-between">
                                             <span>Certifications list</span>
-                                            <a href="javascript:;" data-toggle="modal" data-target="#add-certification">Add</a>
+                                            <a href="javascript:;" data-toggle="modal" data-target="#add-certification">
+                                                <i class="icofont-plus"></i>
+                                            </a>
                                         </h6>
                                         @if($user->certifications()->exists())
                                             <?php $certifications = $certifications; ?>
@@ -229,7 +231,7 @@
                                                 @endforeach
                                             </div>   
                                         @else
-                                            <div class="alert alert-danger">No certifications. <a href="javascript:;" data-toggle="modal" data-target="#add-certification">Add certificate</a></div>
+                                            <div class="alert alert-danger">You have no certifications.</div>
                                         @endif
                                         @include('user.certifications.partials.add')
                                     </div>

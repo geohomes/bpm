@@ -1,7 +1,7 @@
 <div class="card border-0 bg-white w-100 card-raduis position-relative">
         <div class="position-absolute ml-4 mt-4" style="z-index: 2;">
             <div class="d-flex align-items-center flex-wrap">
-                @if($material->promoted)
+                @if($material->promotion->status ?? '' == 'active' && $material->promoted)
                     <small class="bg-success px-3 py-1 mr-3 mb-3">
                         <small class="text-white">Promoted</small>
                     </small>
@@ -18,12 +18,12 @@
                     <i class="icofont-location-pin"></i>
                 </small>
                 <small class="text-white">
-                    {{ ucwords(\Str::limit($material->city, 14)) }} 
+                    {{ ucwords(\Str::limit($material->city, 10)) }} 
                 </small>
             </small>
             @if($material->user)
                 <a href="tel:{{ $material->user->phone }}" class="text-decoration-none">
-                    <small class="text-theme-color">
+                    <small class="text-white">
                         <i class="icofont-phone"></i>
                     </small>
                 </a>
@@ -33,7 +33,7 @@
     <div class="card-body">
         <div class="mb-3">
             <a href="{{ route('material.id.slug', ['id' => $material->id ?? 0, 'slug' => \Str::slug($material->name)]) }}" class="text-main-dark text-underline">
-                <small>{{ \Str::limit($material->name, 12) }}</small>
+                <small>{{ \Str::limit($material->name, 10) }}</small>
             </a>
         </div>
         <div class="mb-2">

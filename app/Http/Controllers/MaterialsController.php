@@ -13,7 +13,7 @@ class MaterialsController extends Controller
     public function index()
     {
         $term = request()->get('query');
-        $materials = $term ? Material::where('city', 'LIKE', '%'.$term.'%')->orWhere('state', 'LIKE', '%'.$term.'%')->orWhere('price', 'LIKE', '%'.$term.'%')->orWhere('name', 'LIKE', '%'.$term.'%')->orWhere('address', 'LIKE', '%'.$term.'%')->orderBy('id', 'desc')->paginate(15) : Material::paginate(15);
+        $materials = $term ? Material::latest('created_at')->where('city', 'LIKE', '%'.$term.'%')->orWhere('state', 'LIKE', '%'.$term.'%')->orWhere('price', 'LIKE', '%'.$term.'%')->orWhere('name', 'LIKE', '%'.$term.'%')->orWhere('address', 'LIKE', '%'.$term.'%')->orderBy('id', 'desc')->paginate(24) : Material::latest('created_at')->paginate(24);
         return view('frontend.materials.index')->with(['materials' => $materials]);
     }
 

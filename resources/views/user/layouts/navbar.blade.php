@@ -1,9 +1,9 @@
-<div class="fixed-top bg-main-dark">
+<div class="fixed-top bg-white">
 	<div class="container">
         <div class="d-flex py-3 align-items-center justify-content-between">
             <div class="">
                 <h5 class="m-0">
-                	<a href="{{ route('user.dashboard') }}" class="text-white text-decoration-none">Dashboard</a>
+                	<a href="{{ route('user.dashboard') }}" class="text-main-dark text-decoration-none">Dashboard</a>
                 </h5>
             </div>
         	<div class="d-flex align-items-center">
@@ -47,7 +47,7 @@
                             @set('profile', auth()->user()->profile)
                             <div class="dropdown-divider"></div>
                             @if($profile->role == 'artisan')
-                                <a href="{{ route('user.gigs') }}" class="dropdown-item">
+                                <a href="{{ route('user.services') }}" class="dropdown-item">
                                     <small class="text-main-dark">My Services</small>
                                 </a>
                             @elseif($profile->role == 'dealer')

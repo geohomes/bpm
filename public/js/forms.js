@@ -2,6 +2,11 @@
 
 	'use strict';
 
+    $('.promotion-form').submit(function(event){
+        event.preventDefault();
+        handleForm({form: $(this), button: 'promotion-button', spinner: 'promotion-spinner', message: 'promotion-message'});
+    });
+
     $('.forgot-password-form').submit(function(event){
         event.preventDefault();
         handleForm({form: $(this), button: 'forgot-password-button', spinner: 'forgot-password-spinner', message: 'forgot-password-message'});
@@ -120,11 +125,6 @@
     $('.renew-subscription-form').submit(function(event){
         event.preventDefault();
         handleForm({form: $(this), button: 'renew-subscription-button', spinner: 'renew-subscription-spinner', message: 'renew-subscription-message'});
-    });
-
-    $('.promote-property-form').submit(function(event){
-        event.preventDefault();
-        handleForm({form: $(this), button: 'promote-property-button', spinner: 'promote-property-spinner', message: 'promote-property-message'});
     });
 
     $('.membership-subscription-form').submit(function(event){

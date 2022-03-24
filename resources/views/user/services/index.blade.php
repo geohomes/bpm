@@ -6,33 +6,33 @@
             <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <div class="mb-3">
                     <h4 class="text-main-dark">My Services</h4>
-                    <div class="text-muted">Welcome  <a href="{{ route('user.profile') }}" class="text-decoration-underline">{{ auth()->user()->name }}</a></div>
+                    <div class="text-muted">You listed services would show here.</div>
                 </div>
                 <div class="d-flex align-items-center flex-wrap">
                     <div class="d-flex align-items-center">
-                        <a href="javascript:;" class="btn-info btn px-4 text-white mb-4 icon-raduis text-decoration-none" data-toggle="modal" data-target="#create-gig">
+                        <a href="javascript:;" class="bg-theme-color btn px-4 text-white mb-4 text-decoration-none" data-toggle="modal" data-target="#create-service">
                             <small class="mr-1">
                                 <i class="icofont-plus"></i>
                             </small>
                             <div class="d-inline">Create Service</div>
                         </a>
                     </div>
-                    @include('user.gigs.partials.create')
+                    @include('user.services.partials.create')
                 </div>
             </div>
             <div class="">
-                @if(empty($gigs->count()))
+                @if(empty($services->count()))
                     <div class="alert-danger alert">You have no services yet</div>
                 @else
                     <div class="row">
-                        @foreach($gigs as $gig)
+                        @foreach($services as $service)
                             <div class="col-12 col-md-6 col-lg-4 mb-4">
-                                @include('user.gigs.partials.card')
+                                @include('user.services.partials.card')
                             </div>
-                            @include('user.gigs.partials.edit')
+                            @include('user.services.partials.edit')
                         @endforeach
                     </div>
-                    {{-- {{ $gigs->links('vendor.pagination.default') }} --}}
+                    {{ $services->links('vendor.pagination.default') }}
                 @endif
             </div>
         </div>

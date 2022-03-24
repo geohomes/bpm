@@ -104,17 +104,17 @@
                                             <small class="invalid-feedback group-error"></small>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label class="text-muted">List Now?</label>
-                                            <select class="form-control custom-select listed" name="listed">
+                                            <label class="text-muted">Activate Now?</label>
+                                            <select class="form-control custom-select status" name="status">
                                                 <option value="">-- Select yes or no --</option>
                                                 <?php $listed = \App\Models\Property::$listed; ?>
-                                                @foreach($listed as $answer)
-                                                    <option value="{{ $answer }}" {{ $property->listed == $answer ? 'selected' : '' }}>
-                                                        {{ ucfirst($answer) }}
+                                                @foreach($listed as $status)
+                                                    <option value="{{ $status }}" {{ $property->listed == $status ? 'selected' : '' }}>
+                                                        {{ ucfirst($status) }}
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            <small class="invalid-feedback listed-error"></small>
+                                            <small class="invalid-feedback status-error"></small>
                                         </div>
                                     </div>
                                     <div class="alert mb-3 update-property-specifics-message d-none"></div>

@@ -30,6 +30,7 @@ class CreateMaterialsTable extends Migration
             $table->uuid('reference');
             $table->bigInteger('views')->nullable();
             $table->foreignId('currency_id');
+            $table->boolean('promoted')->default(false);
             $table->timestamps();
         });
     }

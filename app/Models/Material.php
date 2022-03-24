@@ -76,4 +76,12 @@ class Material extends Model
         return $this->hasMany(Image::class)->take(2);
     }
 
+    /**
+     * A material may have been promoted
+     */ 
+    public function promotion()
+    {
+        return $this->hasOne(Promotion::class, 'reference');
+    }
+
 }

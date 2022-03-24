@@ -6,7 +6,7 @@
             <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <div class="mb-3">
                     <h4 class="text-main-dark">All Credits ( {{ auth()->user()->credits->count() }} )</h4>
-                    <div class="text-muted">Welcome <a href="{{ route('user.profile') }}">{{ auth()->user()->name }}</a>. List of all your purchased promotion credits.</div>
+                    <div class="text-muted">List of all your purchased credits.</div>
                 </div>
                 <div class="">
                     <div class="d-flex align-items-center">

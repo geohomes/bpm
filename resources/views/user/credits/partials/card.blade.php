@@ -25,7 +25,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="card-footer bg-info d-flex align-items-center justify-content-between">
+	<div class="card-footer bg-theme-color d-flex align-items-center justify-content-between">
 		<small class="text-white">
 			<small>
 				{{ $credit->created_at->diffForHumans() }}

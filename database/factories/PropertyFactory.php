@@ -34,7 +34,6 @@ class PropertyFactory extends Factory
             'category' => $faker->randomElement(array_keys(Property::$categories)),
             'currency_id' => $faker->numberBetween(1, Currency::count()),
             'reference' => \Str::random(64),
-            'views' => $faker->numberBetween(78, 534),
             'measurement' => $faker->numberBetween(500, 6500),
             'city' => $faker->city(),
             'additional' => $faker->text($maxNbChars = 400),

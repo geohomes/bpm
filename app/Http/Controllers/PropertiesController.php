@@ -11,7 +11,7 @@ class PropertiesController extends Controller
      */
     public function index()
     {
-        return view('frontend.properties.index')->with(['categories' => Category::where(['type' => 'property'])->get(), 'properties' => Property::where('action', '!=', 'sold')->paginate(15),]);
+        return view('frontend.properties.index')->with(['properties' => Property::latest('created_at')->where('action', '!=', 'sold')->paginate(15),]);
     }
 
     /**
@@ -20,7 +20,7 @@ class PropertiesController extends Controller
     public function property($category = 'land', $id = 45, $slug = '')
     {
         $property = Property::findOrFail($id);
-        return view('frontend.properties.property')->with(['title' => Str::headline($slug), 'property' => $property, 'related' => Property::where(['category' => $category, 'country_id' => $property->country_id ?? 0])->paginate(6)]); 
+        return view('frontend.properties.property')->with(['title' => Str::headline($slug), 'property' => $property, 'related' => Property::where(['category' => $category])->orWhere(['country_id' => $property->country_id ?? 0])->paginate(6)]); 
     }
 
     /**
@@ -28,8 +28,8 @@ class PropertiesController extends Controller
      */
     public function category($category = 'land')
     {
-        $properties = Property::where(['category' => $category])->where('action', '!=', 'sold')->paginate(16);
-        return view('frontend.properties.category')->with(['title' => "$category Propertes", 'properties' => $properties, 'soldProperties' => Property::where(['action' => 'sold'])->paginate(3), 'name' => $category]);
+        $properties = Property::latest('created_at')->where(['category' => $category, 'status' => 'active'])->where('action', '!=', 'sold')->paginate(16);
+        return view('frontend.properties.category')->with(['title' => "$category Propertes | Best Property Market", 'properties' => $properties, 'name' => $category]);
     }
 
     /**
@@ -37,9 +37,9 @@ class PropertiesController extends Controller
      */
     public function country($iso2 = 'us')
     {
-        $country = Country::where('iso2', 'LIKE', $iso2)->first();
-        $countryProperties = Property::where(['country_id' => $country->id])->where('action', '!=', 'sold')->paginate(16);
-        return view('frontend.properties.country')->with(['countryProperties' => $countryProperties, 'propertyCategories' => Category::where(['type' => 'property'])->get(), 'soldProperties' => Property::where(['status' => 'sold off'])->paginate(3), 'country' => $country]);
+        $country = Country::where(['iso2' => $iso2])->first();
+        $properties = Property::where(['country_id' => $country->id])->where('action', '!=', 'sold')->paginate(16);
+        return view('frontend.properties.country')->with(['properties' => $properties, 'soldProperties' => Property::where(['status' => 'sold off'])->paginate(3), 'country' => $country]);
     }
 
     public function search()
@@ -60,7 +60,7 @@ class PropertiesController extends Controller
      */
     public function action($action = 'lease')
     {
-        $properties =  Property::where(['action' => $action])->where('action', '!=', 'sold')->paginate(16);
+        $properties =  Property::where(['action' => $action])->paginate(16);
         return view('frontend.properties.action')->with(['properties' => $properties]);
     }
 

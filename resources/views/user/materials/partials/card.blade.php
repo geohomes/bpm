@@ -1,31 +1,71 @@
-<?php $categoryname = strtolower($material->category->name ?? 'any'); ?>
 <div class="card border-0 position-relative">
-	<div class="position-relative" style="height: 160px; line-height: 160px;">
-		<a href="{{ route('user.material.edit', ['id' => $material->id]) }}" class="text-decoration-none">
-			<img src="{{ empty($material->image) ? '/images/banners/holder.png' : $material->image }}" class="img-fluid border-0 w-100 h-100 object-cover">
-		</a>
+	<div class="position-relative">
+		@set('promoted', $material->promoted == true && ($material->promotion->status ?? '') == 'active')
+		<div class="position-absolute d-flex w-100" style="z-index: 2; top: 20px; left: 20px;">
+			<div class="dropdown">
+	            <a href="javascript:;" class="align-items-center d-flex text-decoration-none
+	            " id="promote-{{ $material->id }}" data-toggle="dropdown">
+	                <small class="{{ $promoted ? 'bg-success' : 'bg-main-dark' }} tiny-font px-3 py-1 text-white">
+	                	{{ $promoted ? 'Promoted' : 'Promote' }}
+	                	<i class="icofont icofont-caret-down"></i>
+	                </small>
+	            </a>
+	            <div class="dropdown-menu border-0 shadow-sm dropdown-menu-left" aria-labelledby="promote-{{ $material->id }}" style="width: 210px !important;">
+	            	@if($promoted)
+	            		@set('timing', \App\Helpers\Timing::calculate($material->promotion->duration, $material->promotion->expiry, $material->promotion->started))
+	            		<div class="px-3 py-1 w-100">
+	            			<div class="d-flex">
+	            				<div class="mr-2">
+						            <small class="text-{{ $timing->progress() <= 90 ? 'success' : 'danger' }}">
+						                ({{ $timing->progress() <= 0 ? 1 : $timing->progress() }}%)
+						            </small>
+						        </div>
+		            	 		<div class="">
+		            	 			<small class="">
+					                    {{ $timing->daysleft() }} Day(s) Left
+					                </small>
+		            	 		</div>
+	            			</div>
+	            		</div>
+	            	@else
+	            		@set('reference', $material->id)
+	            		@set('type', 'material')
+		            	@include('user.promotions.partials.form')
+					@endif
+	            </div>
+	        </div>
+	        <div class="bg-{{ $material->status !== 'active' ? 'danger' : 'success' }} tiny-font px-3 py-1 text-white ml-3">
+	        	{{ ucfirst($material->status) }}
+	        </div>
+		</div>
+		<div style="height: 160px; line-height: 160px;">
+			<a href="{{ route('user.material.edit', ['id' => $material->id]) }}" class="text-decoration-none">
+				<img src="{{ empty($material->image) ? '/images/banners/holder.png' : $material->image }}" class="img-fluid border-0 w-100 h-100 object-cover">
+			</a>
+		</div>
+			
 		<div class="position-absolute w-100 px-3 border-top d-flex align-items-center justify-content-between" style="height: 45px; line-height: 45px; bottom: 0; background-color: rgba(0, 0, 0, 0.8);">
 			<small class="text-white">
-				<small>{{ \Str::limit(ucwords($material->city, 14)) }}</small>
+				{{ \Str::limit(ucwords($material->city), 8) }}
 			</small>
-			<small class="cursor-pointer text-underline">
-				<small class="text-danger">Promote</small>
+			<small class="text-white">
+				{{ \Str::limit(ucwords($material->country->name), 8) }}
 			</small>
 		</div>
 	</div>
 	<div class="card-body">
 		<div class="d-flex justify-content-between align-items-center">
-			<small class="text-dark">
-				{{ $material->currency->symbol ?? 'USD' }}{{ number_format($material->price) }}
-			</small>
 			<a href="{{ route('user.material.edit', ['id' => $material->id]) }}" class="text-underline text-main-dark">
-				<small class="">
-					{{ \Str::limit($material->name, 14, ' ( . . . )') }}
-				</small>
+				<div class="">
+					{{ \Str::limit($material->name, 14) }}
+				</div>
 			</a>
+			<div class="text-main-dark">
+				{{ $material->currency->symbol ?? 'USD' }}{{ number_format($material->price) }}
+			</div>
 		</div>
 	</div>
-	<div class="card-footer bg-main-dark d-flex justify-content-between">
+	<div class="card-footer bg-theme-color d-flex justify-content-between">
 		<small class="text-white">
 			{{ $material->created_at->diffForHumans() }}
 		</small>

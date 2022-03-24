@@ -126,9 +126,9 @@ class User extends Authenticatable
     /**
      * A user may have many service offerings
      */
-    public function gigs()
+    public function services()
     {
-        return $this->hasMany(Gig::class);
+        return $this->hasMany(Service::class);
     }
 
     /**

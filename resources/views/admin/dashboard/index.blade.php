@@ -57,7 +57,7 @@
                                                     </div>
                                                     <div class="border lg-circle rounded-circle border-{{ $percentage['color'] }} text-center">
                                                         <small class="tiny-font position-relative" style="top: 4px;">
-                                                            {{ round(($percentage['count']/$total_subscriptions) * 100) }}%
+                                                            {{ round(($percentage['count']/($total_subscriptions == 0 ? 1 : $total_subscriptions)) * 100) }}%
                                                         </small>
                                                     </div>  
                                                 </div>
@@ -104,7 +104,7 @@
                                                     </div>
                                                     <div class="border lg-circle rounded-circle border-{{ $percentage['color'] }} text-center">
                                                         <small class="tiny-font position-relative" style="top: 4px;">
-                                                            {{ round(($percentage['count']/$total_adverts) * 100) }}%
+                                                            {{ round(($percentage['count']/($total_adverts == 0 ? 1 : $total_adverts)) * 100) }}%
                                                         </small>
                                                     </div>  
                                                 </div>

@@ -16,7 +16,12 @@
                         </div>
                         <div class="">
                             <div class="position-relative card mb-4">
-                                <small class="card-header bg-light">Main material view</small>
+                                <div class="card-header d-flex justify-content-between">
+                                    <small class="bg-light">Main view</small>
+                                    <small class="mt-2 add-main-material-image-{{ $material->id }} cursor-pointer text-main-dark" data-id="{{ $material->id }}">
+                                        <i class="icofont-camera"></i>
+                                    </small>
+                                </div>
                                 <form action="javascript:;">
                                     <input type="file" name="image" accept="image/*" class="main-material-image-input-{{ $material->id }}" data-url="{{ route('api.material.image.upload', ['id' => $material->id, 'role' => 'main' ]) }}" style="display: none;">
                                 </form>
@@ -29,21 +34,20 @@
                                         <img src="{{ $imagelink }}" class="img-fluid main-material-image-preview-{{ $material->id }} h-100 w-100 object-cover">
                                     </a>
                                 </div>
-                                <div class=" card-footer d-flex align-items-center justify-content-between">
-                                    <small class="mt-2 add-main-material-image-{{ $material->id }} cursor-pointer text-main-dark" data-id="{{ $material->id }}">
-                                        <small>Upload</small>
-                                    </small>
-                                    <a class="text-decoration-none" href="{{ $imagelink }}">
-                                        <i class="icofont-long-arrow-right"></i>
-                                    </a>
-                                </div>
                             </div>
                             <div class="row">
                                 @for($key = 0; $key <= 1; $key++)
                                     <?php $imageid = $material->images[$key]->id ?? 'create-'.$key; ?>
                                     <div class="col-6 mb-4">
                                         <div class="w-100 position-relative card">
-                                            <small class="card-header bg-light">View ({{ $key }})</small>
+                                            <div class="card-header d-flex justify-content-between">
+                                                <small class="bg-light">
+                                                View ({{ $key }})</small>
+                                                <small class="add-other-material-image-{{ $imageid }} cursor-pointer text-main-dark" data-id="{{ $imageid }}">
+                                                    <i class="icofont-camera"></i>
+                                                </small>
+                                            </div>
+                                                
                                             <form action="javascript:;">
                                                 <input type="file" name="image" accept="image/*" class="other-material-image-input-{{ $imageid }}" data-url="{{ route('api.material.image.upload', ['id' => $material->id, 'role' => $imageid ]) }}" style="display: none;">
                                             </form>
@@ -54,14 +58,6 @@
                                                 <?php $imagelink = !empty($material->images[$key]->link) ? $material->images[$key]->link  : '/images/banners/holder.png'; ?>
                                                 <a href="{{ $imagelink }}" class="text-main-dark">
                                                     <img src="{{ $imagelink }}" class="img-fluid other-material-image-preview-{{ $imageid }} h-100 w-100 object-cover">
-                                                </a>
-                                            </div>
-                                            <div class=" card-footer d-flex justify-content-between align-items-center">
-                                                <small class="add-other-material-image-{{ $imageid }} cursor-pointer text-main-dark" data-id="{{ $imageid }}">
-                                                    <small>Upload</small>
-                                                </small>
-                                                <a class="text-decoration-none" href="{{ $imagelink }}">
-                                                    <i class="icofont-long-arrow-right"></i>
                                                 </a>
                                             </div>
                                         </div>

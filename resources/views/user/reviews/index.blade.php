@@ -6,7 +6,6 @@
             <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <div class="mb-3">
                     <h4 class="text-main-dark">All Reviews ({{ auth()->user()->reviews()->count() }})</h4>
-                    <div class="text-muted">Welcome <a href="{{ route('user.profile') }}">{{ auth()->user()->name }}</a>. List of all your reviews.</div>
                 </div>
             </div>
             <div class="">

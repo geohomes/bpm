@@ -6,11 +6,11 @@
             <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <div class="mb-3">
                     <h4 class="text-main-dark">Listed Properties</h4>
-                    <div class="text-muted">Welcome  <a href="{{ route('user.profile') }}" class="text-decoration-underline">{{ auth()->user()->name }}</a>. All your listed properties below.</div>
+                    <div class="text-muted">All your listed properties below. List your properties.</div>
                 </div>
                 <div class="d-flex align-items-center flex-wrap">
                     <div class="d-flex align-items-center">
-                        <a href="{{ route('user.property.add') }}" class="btn-info btn text-white mb-4 icon-raduis text-decoration-none">
+                        <a href="{{ route('user.property.add') }}" class="bg-theme-color btn text-white mb-4 text-white text-decoration-none">
                             <small class="mr-1">
                                 <i class="icofont-plus"></i>
                             </small>

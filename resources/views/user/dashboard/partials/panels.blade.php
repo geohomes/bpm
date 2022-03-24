@@ -45,28 +45,33 @@
             <div class="py-2">
                 <div class="d-flex justify-content-between align-items-center align-items-center">
                     <h5 class="text-main-dark text-shadow-white m-0">
-                        {{ number_format(auth()->user()->gigs->count()) }}
+                        {{ number_format(auth()->user()->services->count()) }}
                     </h5>
                 </div>
-                <a href="{{ route('user.gigs') }}" class="text-white">Services</a>
+                <a href="{{ route('user.services') }}" class="text-white">Services</a>
             </div>
         </div>
     </div>
 @endif
 <div class="col-12 mb-4">
-    <div class="icon-raduis alert alert-info p-4 m-0 position-relative border-0" >
+    <div class="icon-raduis bg-white shadow-sm p-4 border-0" >
         <div class="pb-0 position-relative">
             <div class="mb-3">
-                <h4 class="text-main-dark">Total Credits</h4>
+                <h5 class="text-main-dark">Total Credits</h5>
                 <?php $credits = \App\Models\Credit::where(['user_id' => auth()->id()])->get(); ?>
-                <h6 class="">
+                <h5 class="">
                     {{ empty($credits->count()) ? 0 : number_format($credits->sum('units')) }} Units
-                </h6>
+                </h5>
             </div>
-            <div class="d-flex">
-                <a href="javascript:;" class="btn bg-info text-white px-3 mr-3" data-toggle="modal" data-target="#buy-credit">Buy Credit</a>
-                @include('user.credits.partials.buy')
-                <a href="{{ route('user.credits') }}" class="btn bg-info text-white px-3">View all</a>
+            <div class="row">
+                <div class="col-6 col-md-3 col-lg-4">
+                    <a href="javascript:;" class="btn bg-theme-color btn-block text-white" data-toggle="modal" data-target="#buy-credit">Buy Credit</a>
+                </div>
+                <div class="col-6 col-md-3 col-lg-4">
+                    @include('user.credits.partials.buy')
+                    <a href="{{ route('user.credits') }}" class="btn bg-theme-color btn-block text-white">View all</a>
+                </div>
+                
             </div>
         </div>
     </div>

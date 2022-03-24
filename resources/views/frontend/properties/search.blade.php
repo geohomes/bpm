@@ -32,8 +32,8 @@
         </div>
         <div class="position-relative" style="top: -150px;">
             <div class="container-fluid">
-                <div class="">
-                    <div class="">
+                <div class="row">
+                    <div class="col-12 col-md-9">
                         @if(empty($properties->count()))
                             <div class="alert-info alert mb-4">No Properties Found for ({{ request()->get('query') }})</div>
                             <?php $properties = \App\Models\Property::where('action', '!=', 'sold')->inRandomOrder('id')->paginate(25); ?>
@@ -56,6 +56,9 @@
                             </div>
                             {{ $properties->appends(request()->query())->links('vendor.pagination.default') }}
                         @endif
+                    </div>
+                    <div class="col-12 col-md-3">
+                        @include('frontend.properties.partials.categories')
                     </div>
                 </div>
             </div>

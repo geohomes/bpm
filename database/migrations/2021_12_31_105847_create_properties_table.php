@@ -28,14 +28,15 @@ class CreatePropertiesTable extends Migration
             $table->string('address');
             $table->bigInteger('bathrooms')->nullable();
             $table->string('measurement');
+            $table->bigInteger('likes')->nullable();
             $table->string('city');
             $table->string('group')->nullable();
             $table->text('additional')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->default('inactive');
             $table->text('reference')->nullable();
-            $table->bigInteger('views')->nullable();
+            $table->bigInteger('views')->default(0);
             $table->foreignId('currency_id');
-            $table->string('listed')->nullable();
+            $table->boolean('promoted')->default(false);
             $table->timestamps();
         });
     }

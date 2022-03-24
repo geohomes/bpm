@@ -1,10 +1,18 @@
-<div class="">
-	<a href=" {{ route('properties.category', ['category' => strtolower($category)]) }}" class="pb-3 mb-3 d-flex justify-content-between border-bottom align-items-center w-100">
-		<div class="w-100 text-main-dark">
-			{{ ucwords($category) }}
-		</div>
-		<small class="text-theme-color">
-			<i class="fa-solid fa-angle-right"></i>
-		</small>
-	</a>
+<div class="alert alert-info mb-4">Property Categories</div>
+<div class="bg-white p-4">
+    @set('categories', \App\Models\Property::$categories)
+    @if(!empty($categories))
+        @foreach($categories as $category => $values)
+            <a class="text-decoration-none rounded bg-main-ash d-flex justify-content-between mb-4 p-4" href="{{ route('properties.category', ['category' => $category]) }}">
+                <small class="text-main-dark">
+                    {{ ucfirst($category) }}s
+                </small>
+                <small class="">
+                    ({{ \App\Models\Property::where(['category' => $category])->get()->count() }})
+                </small>
+            </a>
+        @endforeach
+    @else
+        <div class="alert alert-danger">No Categories</div>
+    @endif
 </div>

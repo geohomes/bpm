@@ -37,6 +37,8 @@ class CreateProfilesTable extends Migration
             $table->string('email')->nullable();
             $table->boolean('certified')->default(false);
             $table->string('reference');
+            $table->boolean('promoted')->default(false);
+            $table->boolean('partner')->default(false);
             $table->timestamps();
         });
     }

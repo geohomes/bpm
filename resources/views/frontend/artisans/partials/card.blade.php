@@ -33,6 +33,7 @@
 						</small>
 					</a>	
 				</div>
+				@if($artisan->)
 				<small class="px-3 py-1 bg-success rounded-pill">
 					<small class="text-white position-relative" style="top: -1px;">Painter</small>
 				</small>

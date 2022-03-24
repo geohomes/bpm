@@ -13,23 +13,19 @@
 				@if(empty($memberships->count()))
 					<div class="alert alert-danger">No membership plans listed</div>
 				@else
-					<div class="row no-gutters mb-4">
+					<div class="row">
 						@foreach($memberships as $plan)
-							<div class="col-12 col-md-4 col-lg-3">
-								<div class="card border-bottom rounded-0 shadow">
+							<div class="col-12 col-md-4 col-lg-3 mb-4">
+								<div class="card border-bottom rounded-0 shadow-sm">
 									<div class="card-body">
-										<h5 class="mb-3">
-											{{ ucwords($plan->name) }} ({{ ucwords($plan->duration) }})
+										<h5 class="mb-3 text-main-dark">
+											{{ ucwords($plan->name) }}
 										</h5>
-										<h6 class="mb-4">
+										<h6 class="mb-4 text-main-dark">
 											NGN{{ number_format($plan->price) }}
 										</h6>
 										<div class="mb-2">
-											@if(auth()->check())
-				                            	<a href="{{ route('user.dashboard') }}" class="btn btn-info rounded-0 px-4">To dashboard</a>
-											@else
-												<a href="{{ route('signup') }}" class="btn btn-info rounded-0 px-4">Get started</a>
-											@endif
+				                            <a href="{{ auth()->check() ? route('user.dashboard') : route('signup') }}" class="btn bg-theme-color text-white px-4">Get Started</a>
 										</div>
 									</div>
 								</div>

@@ -32,9 +32,10 @@ class DatabaseSeeder extends Seeder
         $this->call(CreditsSeeder::class);
         
         $this->call(ReviewsSeeder::class);
+        $this->call(SkillsSeeder::class);
         $this->call(ServicesSeeder::class);
-        $this->call(GigsSeeder::class);
         $this->call(AdvertsSeeder::class);
         $this->call(ProfilesSeeder::class);
+        $this->call(SocialsSeeder::class);
     }
 }

@@ -1,19 +1,19 @@
 <?php
 
 namespace App\Http\Controllers\User;
-use App\Models\Gig;
+use App\Models\Service;
 use App\Http\Controllers\Controller;
 use Validator;
 
 
-class GigsController extends Controller
+class ServicesController extends Controller
 {
 	/**
-     * User gigs list view
+     * User services list view
      */
     public function index()
     {
-        return view('user.gigs.index')->with(['gigs' => Gig::where(['user_id' => auth()->user()->id])->get()]);
+        return view('user.services.index')->with(['services' => service::where(['user_id' => auth()->id()])->get()]);
     }
 
     /**
@@ -24,19 +24,19 @@ class GigsController extends Controller
         $data = request()->all();
         $validator = Validator::make($data, [
             'description' => ['required', 'string', 'max:400'],
-            'service' => ['required', 'integer',],
+            'skill' => ['required', 'integer',],
             'price' => ['required', 'numeric'],
         ]);
 
-        $gig = Gig::where([
+        $service = Service::where([
             'user_id' => auth()->user()->id, 
-            'service_id' => $data['service']
+            'skill_id' => $data['skill']
         ])->first();
 
-        if (!empty($gig)) {
+        if (!empty($service)) {
             return response()->json([
                 'status' => 0, 
-                'info' => 'You have already created a gig with the service selected.'
+                'info' => 'You have already created a service with the service selected.'
             ]);
         }
 
@@ -47,9 +47,9 @@ class GigsController extends Controller
             ]);
         }
 
-        Gig::create([
+        Service::create([
             'description' => $data['description'],
-            'service_id' => $data['service'],
+            'skill_id' => $data['skill'],
             'price' => $data['price'],
             'status' => 'active',
             'user_id' => auth()->user()->id,
@@ -70,7 +70,7 @@ class GigsController extends Controller
         $data = request()->all();
         $validator = Validator::make($data, [
             'description' => ['required', 'string', 'max:400'],
-            'service' => ['required', 'integer',],
+            'skill' => ['required', 'integer',],
             'price' => ['nullable', 'numeric'],
         ]);
 
@@ -81,11 +81,11 @@ class GigsController extends Controller
             ]);
         }
 
-        $gig = Gig::find($id);
-        $gig->description = $data['description'];
-        $gig->service_id = $data['service'];
-        $gig->price = $data['price'];
-        $gig->update();
+        $service = Service::find($id);
+        $service->description = $data['description'];
+        $service->skill_id = $data['skill'];
+        $service->price = $data['price'];
+        $service->update();
 
         return response()->json([
             'status' => 1, 
