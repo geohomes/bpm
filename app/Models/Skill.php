@@ -18,4 +18,12 @@ class Skill extends Model
         'name',
         'status',
     ];
+
+    /**
+     * A skill may have many services
+     */
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
 }

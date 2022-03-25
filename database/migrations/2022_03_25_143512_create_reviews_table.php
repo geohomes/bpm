@@ -15,9 +15,10 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id'); //The user reviewing the profile
-            $table->foreignId('profile_id'); //The profile being reviewed
+            $table->foreignId('user_id'); //The user that reviewed the profile
+            $table->foreignId('profile_id'); //The user profile being reviewed
             $table->text('review');
+            $table->boolean('verified')->default(false);
             $table->string('status');
             $table->timestamps();
         });

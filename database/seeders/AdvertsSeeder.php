@@ -14,6 +14,6 @@ class AdvertsSeeder extends Seeder
     public function run()
     {
         Advert::truncate();
-        Advert::factory()->count(Credit::count())->create();
+        Advert::factory()->count(Credit::count() * 4)->create();
     }
 }

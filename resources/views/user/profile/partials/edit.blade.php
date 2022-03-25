@@ -39,10 +39,12 @@
                 @if(empty($roles))
                     <option value="">No roles listed</option>
                 @else
-                    @foreach ($roles as $role => $name)
-                        <option value="{{ $role }}" {{ $profile->role == $role ? 'selected' : '' }}>
-                            {{ ucfirst($name) }}
-                        </option>
+                    @foreach ($roles as $role => $description)
+                        @foreach($description as $key => $value)
+                            <option value="{{ $role.'|'.$value['code'] }}" {{ $profile->role == $role && $profile->code == $value['code'] ? 'selected' : '' }}>
+                                {{ ucfirst($value['name']) }}
+                            </option>
+                        @endforeach
                     @endforeach
                 @endif
             </select>

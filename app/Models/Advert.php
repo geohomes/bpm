@@ -49,7 +49,7 @@ class Advert extends Model
     public static $sizes = [
         ['name' => 'Sidebar small banner', 'code' => 'ssb', 'width' => '100%', 'height' => '200px'],
         ['name' => 'Fullwidth horizontal banner', 'code' => 'fhb', 'width' => '100%', 'height' => '120px'],
-        ['name' => 'Sidebar veritcal banner', 'code' => 'svb', 'width' => '100%', 'height' => '680px'],
+        ['name' => 'Sidebar veritcal banner', 'code' => 'svb', 'width' => '100%', 'height' => '480px'],
     ];
 
     /**

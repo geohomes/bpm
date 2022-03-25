@@ -80,11 +80,16 @@ class Profile extends Model
      * @var []
      */
     public static $roles = [
-        'agent' => 'Property Developer',
-        'artisan' => 'Artisan',
-        'agent' => 'Real Estate Agent',
-        'dealer' => 'Building Materials Dealer',
-        'agent' => 'Real Estate Developer',
+        'agent' => [
+            ['name' => 'Real Estate Developer', 'code' => 'red'],
+            ['name' => 'Real Estate Agent', 'code' => 'rea'],
+        ],
+        'artisan' => [
+            ['name' => 'Artisan', 'code' => 'ats'],
+        ],
+        'dealer' => [
+            ['name' => 'Building Materials Dealer', 'code' => 'bmd'],
+        ],
     ];
 
     /**
@@ -129,4 +134,5 @@ class Profile extends Model
     {
         return $this->hasMany(Review::class);
     }
+
 }

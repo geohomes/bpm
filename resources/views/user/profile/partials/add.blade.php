@@ -34,10 +34,12 @@
                 @if(empty($roles))
                     <option value="">No roles listed</option>
                 @else
-                    @foreach ($roles as $role => $name)
-                        <option value="{{ $role }}">
-                            {{ ucfirst($name) }}
-                        </option>
+                    @foreach ($roles as $role => $description)
+                        @foreach($description as $key => $value)
+                            <option value="{{ $role.'|'.$value['code'] }}">
+                                {{ ucfirst($value['name']) }}
+                            </option>
+                        @endforeach
                     @endforeach
                 @endif
             </select>

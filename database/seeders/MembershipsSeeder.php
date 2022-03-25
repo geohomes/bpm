@@ -13,7 +13,7 @@ class MembershipsSeeder extends Seeder
      */
     public function run()
     {
-
+        Membership::truncate();
         $memberships = [
             ['name' => 'Daily', 'price' => 3000, 'paidlisting' => 12, 'freelisting' => 6, 'freeboost' => 6, 'status' => 'active', 'duration' => 1],
             ['name' => 'Weekly', 'price' => 8500, 'paidlisting' => 95, 'freelisting' => 27, 'freeboost' => 18, 'status' => 'active', 'duration' => 1],

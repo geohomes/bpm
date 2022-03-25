@@ -77,6 +77,11 @@ class ProfileController extends Controller
             ]);
         }
 
+        $role = $data['role'] ?? '';
+        if (Str::contains($role, '|')) {
+            [$role, $code] = explode('|', $role);
+        }
+
         try {
             DB::beginTransaction();
             $profile = Profile::create([
@@ -90,8 +95,9 @@ class ProfileController extends Controller
                 'user_id' => auth()->id(),
                 'designation' => $data['designation'],
                 'reference' => Str::random(64),
-                'role' => $data['role'],
+                'role' => $role,
                 'phone' => $data['phone'],
+                'code' => empty($code) ? '' : $code,
             ]);
 
             $user = auth()->user();
@@ -138,6 +144,11 @@ class ProfileController extends Controller
             ]);
         }
 
+        $role = $data['role'] ?? '';
+        if (Str::contains($role, '|')) {
+            [$role, $code] = explode('|', $role);
+        }
+
         try {
             DB::beginTransaction();
             if (auth()->user()->name !== $data['name']) {
@@ -153,8 +164,9 @@ class ProfileController extends Controller
             $profile->designation = $data['designation'];
             $profile->city = $data['city'];
             $profile->description = $data['description'];
+            $profile->code = empty($code) ? '' : $code;
             $profile->phone = $data['phone'];
-            $profile->role = $data['role'];
+            $profile->role = $role;
             $profile->update();
 
             DB::commit();

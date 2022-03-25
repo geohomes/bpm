@@ -28,9 +28,32 @@
 								                    <small class="bg-theme-color tiny-font text-white px-3 py-1 mr-3">{{ ucwords($actions[$action]) }}
 								                        </small></small>
 								                @endif
-								                <small class="bg-white text-theme-color cursor-pointer px-3 py-1 rounded">
-								                    <i class="icofont-share"></i>
-								                </small>
+								                <div class="dropdown">
+								                    <a href="javascript:;" class="d-block text-decoration-none" id="share-dropdown" data-toggle="dropdown" aria-expanded="false">
+								                        <small class="bg-white border text-theme-color rounded cursor-pointer px-2 py-1">
+								                            <i class="icofont-share"></i>
+								                        </small>
+								                    </a>
+								                    <div class="dropdown-menu border-0 p-0 m-0 shadow-sm dropdown-menu-right" aria-labelledby="share-dropdown">
+								                        @set('socials', ['twitter', 'facebook', 'linkedin', 'whatsapp', 'telegram'])
+								                        <div class="d-flex align-items-center justify-content-between p-3 text-center">
+								                            @if(empty($socials))
+								                                <div class="alert alert-danger m-0">No social handles</div>
+								                            @else
+								                                @set('categories', \App\Models\Property::$categories)
+                                								@set('last', array_values($socials))
+								                                @foreach($socials as $social)
+								                                    <div class="p-2 {{ end($last) == $social ? '' : 'mr-2' }} border-theme-color text-decoration-none  text-theme-color" data-sharer="{{ $social }}" data-title="Checkout this {{ $categories[$property->category]['name'] }}" data-hashtags="bestpropertymarket, realestate, globalproperties, lands, buildings" data-url="{{ route('property.category.id.slug', ['category' => $property->category, 'id' => $property->id ?? 0, 'slug' => \Str::slug($title)]) }}">
+								                                        <div class="tiny-font">
+								                                            <i class="icofont-{{ $social }}"></i>
+								                                        </div>
+								                                    </div>
+								                                @endforeach
+								                            @endif 
+								                        </div>
+								                        
+								                    </div>
+								                </div>
 								            </div>
 								        </div>
 								        <a href="{{ $property->image ?: '/images/banners/placeholder.png' }}" style="height: 340px;" class="mb-4 d-block">
@@ -51,8 +74,39 @@
 								        </div>
 							        @endif
 									<div class="row">
-							            <div class="col-12 col-md-6 mb-4">
-							            	<div class="px-4 pt-4 bg-white mb-4">
+										<div class="col-12 col-md-6 mb-4">
+							            	<div class="">
+							            		<h4 class="text-theme-color mb-4 pb-3 border-bottom">
+								                    Price {{ $property->currency ? $property->currency->symbol : 'NGN' }}{{ number_format($property->price) }}
+								                </h4>
+												<div class="text-main-dark d-block mb-4">
+													Located at {{ ucwords($property->address) }}
+												</div>
+												<div class="text-main-dark d-block mb-4 p-3 bg-white">
+													Listed By {{ ucwords($property->user->name) }}
+												</div>
+												@if($property->category !== 'land')
+													<div class="d-flex align-items-center d-block mb-4">
+														<div class="mr-3">
+															<small class="text-theme-color">
+																<i class="icofont-bucket text-theme-color"></i>
+															</small>
+															{{ empty($property->toilets) ? 0 : $property->toilets }} Toilets
+														</div>
+														<div class="mr-3">
+															<span class="text-theme-color">
+																<i class="icofont-bathtub"></i>
+															</span>{{ empty($property->bathrooms) ? 0 : $property->bathrooms }} Bathrooms
+														</div>
+														<div class="">
+															<span class="text-theme-color">
+																<i class="icofont-cube"></i>
+															</span>{{ empty($property->measurement) ? 0 : $property->measurement }}
+														</div>
+													</div>
+												@endif
+											</div>
+											<div class="px-4 pt-4 bg-white border rounded">
 							            		<div class="row">
 								            		@if($property->user)
 								            			<div class="col-3 col-md-4 col-lg-2 mb-4">
@@ -61,14 +115,14 @@
 										            		</a>
 								            			</div>
 										            	<div class="col-3 col-md-4 col-lg-2 mb-4">	
-										            		<a href="mailto:{{ $property->user->email }}" class="text-center border-theme-color d-block py-2 text-theme-color text-decoration-none">
+										            		<a href="mailto:{{ $property->user->email }}" class="text-center border-theme-color d-block py-2 text-theme-color text-decoration-none rounded">
 										            			<i class="icofont-email"></i>
 										            		</a>
 										            	</div>
 										            	@if($property->user->socials()->exists())
 										            		@foreach($property->user->socials as $social)
 											            		<div class="col-3 col-md-4 col-lg-2 mb-4">
-											            			<a href="{{ $social->company == 'whatsapp' ? "tel:$social->phone" : $social->link }}" class="text-center border-theme-color d-block py-2 text-theme-color text-decoration-none">
+											            			<a href="{{ $social->company == 'whatsapp' ? "tel:$social->phone" : $social->link }}" class="text-center border-theme-color d-block py-2 text-theme-color text-decoration-none rounded">
 												            			<i class="icofont-{{ $social->company }}"></i>
 												            		</a>
 												            	</div>
@@ -77,25 +131,15 @@
 									            	@endif
 								            	</div>
 							            	</div>
-							                <a href="javascript:;" class="btn btn-block bg-theme-color">
-							                    <small class="text-white">
-							                        NGN{{ number_format($property->price) }}
-							                    </small>
-							                </a>
 							            </div>
-							            <div class="col-12 col-md-6 mb-4">
-							            	<div class="">
-												<div class="text-main-dark d-block mb-3 pb-3 border-bottom">
-													Location: {{ $property->address }}
+							            <div class="col-12 col-md-6">
+							            	<div class="mb-3">
+									        	<p class="text-main-dark">Description</p>
+												<div class="text-main-dark">
+													{{ $property->additional }}
 												</div>
-											</div>
+									        </div>
 							            </div>
-							        </div>
-							        <div class="p-4 border">
-							        	<p class="text-main-dark">Description</p>
-										<div class="text-main-dark">
-											{{ $property->additional }}
-										</div>
 							        </div>
 								</div>
 							@endempty
@@ -118,6 +162,9 @@
 					<div class="col-12 col-md-4 col-lg-3">
 						<div class="mb-4">
 				            @include('frontend.properties.partials.categories')
+			            </div>
+			            <div class="">
+			            	@include('frontend.adverts.partials.sidebar')
 			            </div>
 					</div>
 				</div>

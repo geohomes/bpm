@@ -112,7 +112,7 @@
                                             <small class="invalid-feedback group-error"></small>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label class="text-muted">List Now?</label>
+                                            <label class="text-muted">Activate Now?</label>
                                             <select class="form-control custom-select listed" name="listed">
                                                 <option value="">-- Select yes or no --</option>
                                                 <?php $listed = \App\Models\Property::$listed; ?>

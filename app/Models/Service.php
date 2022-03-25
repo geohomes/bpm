@@ -24,10 +24,18 @@ class Service extends Model
     ];
 
     /**
-     * A gig is created with a particular skill
+     * A service is created with a particular skill
      */
     public function skill()
     {
-        return $this->belongsTo(Service::class);
+        return $this->belongsTo(Skill::class);
+    }
+
+    /**
+     * A service is created by a perticular user
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

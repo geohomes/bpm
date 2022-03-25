@@ -2,16 +2,16 @@
 	<div class="card-body d-flex justify-content-between align-items-center">
 		<div class="d-flex align-items-center">
 			<div class="md-circle text-center rounded-circle text-main-dark mr-2" style="background-color: {{ randomrgba() }};">
-				<small class="">
-					{{ ucfirst(substr($subscription->user->name, 0, 1)) }}
-				</small>
+				<div class="mt-1">
+					{{ ucfirst(substr($subscription->user->name ?? 'Nill', 0, 1)) }}
+				</div>
 			</div>
-			<div>
+			<div class="">
 				<a href="{{ route('admin.user.profile', ['id' => $subscription->user->id]) }}" class="text-main-dark font-weight-bold d-block">
 					{{ \Str::limit(ucwords($subscription->user->name), 12) }}
 				</a>
 				<small class="text-main-dark">
-					{{ $subscription->membership->name }} Plan
+					{{ $subscription->membership->name ?? 'No' }} Plan
 				</small>
 			</div>
 		</div>

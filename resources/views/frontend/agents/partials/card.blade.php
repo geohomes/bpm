@@ -1,7 +1,9 @@
 <div class="card p-0 border-0 shadow-sm position-relative">
 	<div class="position-relative" style="height: 240px;">
-		<img src="{{ empty($agent->image) ? '/images/avatar.png' : $agent->image }}" class="img-fluid object-cover h-100 w-100">
-		<div class="position-absolute w-100 px-4" style="top: 20px;">
+		<a href="{{ route('account.profile', ['id' => $agent->id, 'name' => \Str::slug($agent->user->name)]) }}" class="text-decoration-none w-100 h-100 d-block">
+			<img src="{{ empty($agent->image) ? '/images/avatar.png' : $agent->image }}" class="img-fluid object-cover h-100 w-100">
+		</a>
+		<div class="position-absolute w-100 px-4" style="top: 20px; z-index: 2;">
 			<div class="d-flex justify-content-between">
 				<div class="">
 					@if($agent->user->properties()->exists())
@@ -33,7 +35,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="position-absolute px-4 py-2 w-100" style="bottom: 0; background-color: rgba(160, 15, 15, 0.5);">
+		<div class="position-absolute px-4 py-2 w-100" style="bottom: 0; background-color: rgba(160, 15, 15, 0.5); z-index: 2;">
 			<div class="d-flex justify-content-between align-items-center">
 				<div class="d-flex align-items-center">
 					<div class="text-main-dark mr-2">
@@ -54,13 +56,13 @@
 				</small>
 			</div>
 			<div class="">
-				<a href="{{ route('agent.profile', ['id' => $agent->id, 'name' => \Str::slug($agent->user->name)]) }}" class="text-main-dark">
+				<a href="{{ route('account.profile', ['id' => $agent->id, 'name' => \Str::slug($agent->user->name)]) }}" class="text-main-dark">
 					{{ ucwords($agent->user->name) }}
 				</a>
 			</div>
 		</div>
 		<div class="mb-3">
-			<a href="{{ route('agent.profile', ['id' => $agent->id, 'name' => \Str::slug($agent->user->name)]) }}">
+			<a href="{{ route('account.profile', ['id' => $agent->id, 'name' => \Str::slug($agent->user->name)]) }}">
 				<small class="text-main-dark text-underline">
 					{{ \Str::limit(ucfirst($agent->description), 34) }}
 				</small>
@@ -86,7 +88,7 @@
 			</a>
 		</div>
 		<div>
-			<a href="{{ route('agent.profile', ['id' => $agent->id, 'name' => \Str::slug($agent->user->name)]) }}" class="text-theme-color text-decoration-none">
+			<a href="{{ route('account.profile', ['id' => $agent->id, 'name' => \Str::slug($agent->user->name)]) }}" class="text-theme-color text-decoration-none">
 				<i class="icofont-long-arrow-right"></i>
 			</a>
 		</div>

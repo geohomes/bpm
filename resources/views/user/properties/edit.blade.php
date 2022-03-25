@@ -105,16 +105,16 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label class="text-muted">Activate Now?</label>
-                                            <select class="form-control custom-select status" name="status">
+                                            <select class="form-control custom-select listed" name="listed">
                                                 <option value="">-- Select yes or no --</option>
                                                 <?php $listed = \App\Models\Property::$listed; ?>
-                                                @foreach($listed as $status)
-                                                    <option value="{{ $status }}" {{ $property->listed == $status ? 'selected' : '' }}>
-                                                        {{ ucfirst($status) }}
+                                                @foreach($listed as $answer)
+                                                    <option value="{{ $answer }}" {{ $property->listed == $answer ? 'selected' : '' }}>
+                                                        {{ ucfirst($answer) }}
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            <small class="invalid-feedback status-error"></small>
+                                            <small class="invalid-feedback listed-error"></small>
                                         </div>
                                     </div>
                                     <div class="alert mb-3 update-property-specifics-message d-none"></div>

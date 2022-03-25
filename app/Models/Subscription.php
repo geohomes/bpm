@@ -50,8 +50,7 @@ class Subscription extends Model
     }
 
     /**
-     * A subscription belongs to a user.
-     * An agent, realtor, company etc
+     * A subscription belongs to a memberhip plan
      */
     public function membership()
     {

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
-use App\Models\{Service, User};
+use App\Models\{Service, Profile};
 
 class ServicesSeeder extends Seeder
 {
@@ -14,6 +14,6 @@ class ServicesSeeder extends Seeder
     public function run()
     {
         Service::truncate();
-        Service::factory()->count(User::count() * 7)->create();
+        Service::factory()->count(Profile::count() * 7)->create();
     }
 }

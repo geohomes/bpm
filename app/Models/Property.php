@@ -33,6 +33,7 @@ class Property extends Model
         'address',
         'currency_id',
         'city',
+        'listed',
         'action',
         'category',
         'measurement',

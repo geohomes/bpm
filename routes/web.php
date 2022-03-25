@@ -51,6 +51,9 @@ Route::middleware(['web'])->domain(env('APP_URL'))->group(function() {
 
     Route::prefix('properties')->group(function () {
         Route::get('/', [\App\Http\Controllers\PropertiesController::class, 'index'])->name('properties');
+
+        Route::post('/property/like', [\App\Http\Controllers\Api\PropertiesController::class, 'like'])->name('property.like');
+
         Route::get('/country/{iso2}', [\App\Http\Controllers\PropertiesController::class, 'country'])->name('properties.country');
         Route::get('/category/{category}', [\App\Http\Controllers\PropertiesController::class, 'category'])->name('properties.category');
 
@@ -73,15 +76,17 @@ Route::middleware(['web'])->domain(env('APP_URL'))->group(function() {
 
     Route::get('/services', [\App\Http\Controllers\ServicesController::class, 'index'])->name('services');
     Route::get('/dealers', [\App\Http\Controllers\ServicesController::class, 'index'])->name('dealers');
-    Route::get('/surveying', [\App\Http\Controllers\ServicesController::class, 'index'])->name('surveying');
+
+    Route::prefix('profiles')->group(function () {
+        Route::get('/profile/{id}/{name}', [\App\Http\Controllers\ProfilesController::class, 'profile'])->name('account.profile');
+    });
+
     Route::prefix('artisans')->group(function () {
         Route::get('/', [\App\Http\Controllers\ArtisansController::class, 'index'])->name('artisans');
-        Route::get('/profile/{id}/{name}', [\App\Http\Controllers\ArtisansController::class, 'profile'])->name('artisan.profile');
     });
 
     Route::prefix('agents')->group(function () {
         Route::get('/', [\App\Http\Controllers\AgentsController::class, 'index'])->name('agents');
-        Route::get('/profile/{id}/{name}', [\App\Http\Controllers\AgentsController::class, 'profile'])->name('agent.profile');
     });
 
     Route::group(['prefix' => 'password', 'middleware' => 'guest'], function () {
@@ -98,17 +103,10 @@ Route::middleware(['web'])->domain(env('APP_URL'))->group(function() {
         Route::get('/{id}/{slug}', [\App\Http\Controllers\MaterialsController::class, 'material'])->name('material.id.slug');
         Route::get('/search', [\App\Http\Controllers\MaterialsController::class, 'search'])->name('materials.search');
     });
-});
-
-Route::middleware(['web', 'auth'])->domain(env('APP_URL'))->group(function() {
-    Route::prefix('materials')->group(function () {
-        Route::post('/edit/{id}', [\App\Http\Controllers\Api\MaterialsController::class, 'edit'])->name('material.edit');
-        Route::post('/add', [\App\Http\Controllers\Api\MaterialsController::class, 'add'])->name('material.add');
-    });
 
     Route::prefix('review')->group(function () {
-        Route::post('/edit/{id}', [\App\Http\Controllers\User\ReviewsController::class, 'edit'])->name('review.edit');
-        Route::post('/add/{profileid}', [\App\Http\Controllers\User\ReviewsController::class, 'add'])->name('review.add');
+        Route::post('/edit/{id}', [\App\Http\Controllers\Api\ReviewsController::class, 'edit'])->name('review.edit');
+        Route::post('/add/{profileid}', [\App\Http\Controllers\Api\ReviewsController::class, 'add'])->name('review.add');
     });
 });
 
@@ -118,6 +116,10 @@ Route::middleware(['web', 'auth', 'admin', 'revalidate'])->domain(env('ADMIN_URL
 
     Route::prefix('subscriptions')->group(function () {
         Route::get('/{status?}', [\App\Http\Controllers\Admin\SubscriptionsController::class, 'index'])->name('admin.subscriptions');
+    });
+
+    Route::prefix('reviews')->group(function () {
+        Route::get('/{status?}', [\App\Http\Controllers\Admin\SubscriptionsController::class, 'index'])->name('admin.reviews');
     });
 
     Route::prefix('adverts')->group(function () {

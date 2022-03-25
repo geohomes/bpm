@@ -14,29 +14,50 @@
                         {{ ucwords($property->category) }}
                     </small>
                 </div>
-                @if($property->promoted)
+                @if($property->promoted == true && ($property->promotion ? $property->promotion->status == 'active' : ''))
                     <a href="javascript:;" class="d-block text-decoration-none">
                         <small class="bg-success px-3 py-1 text-white tiny-font mb-2">Promoted</small>
                     </a>  
                 @endif
             </div>
-            <div>
-                <a href="javascript:;" class="d-block text-decoration-none mb-2">
-                    <small class="bg-white border text-theme-color rounded cursor-pointer px-2 py-1">
-                        <i class="icofont-share"></i>
-                    </small>
-                </a>
+            <div class="">
+                <div class="dropdown">
+                    <a href="javascript:;" class="d-block text-decoration-none mb-2" id="share-dropdown" data-toggle="dropdown" aria-expanded="false">
+                        <small class="bg-white border text-theme-color rounded cursor-pointer px-2 py-1">
+                            <i class="icofont-share"></i>
+                        </small>
+                    </a>
+                    <div class="dropdown-menu border-0 p-0 m-0 shadow-sm dropdown-menu-right" aria-labelledby="share-dropdown">
+                        @set('socials', ['twitter', 'facebook', 'linkedin', 'whatsapp', 'telegram'])
+                        <div class="d-flex align-items-center justify-content-between p-3 text-center">
+                            @if(empty($socials))
+                                <div class="alert alert-danger m-0">No social handles</div>
+                            @else
+                                @set('categories', \App\Models\Property::$categories)
+                                @set('last', array_values($socials))
+                                @foreach($socials as $social)
+                                    <div class="p-2 {{ end($last) == $social ? '' : 'mr-2' }} border-theme-color text-decoration-none  text-theme-color" data-sharer="{{ $social }}" data-title="Checkout this {{ $categories[$property->category]['name'] }}" data-hashtags="bestpropertymarket, realestate, globalproperties, lands, buildings" data-url="{{ route('property.category.id.slug', ['category' => $property->category, 'id' => $property->id ?? 0, 'slug' => \Str::slug($title)]) }}">
+                                        <div class="tiny-font">
+                                            <i class="icofont-{{ $social }}"></i>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif 
+                        </div>
+                        
+                    </div>
+                </div>
                 {{-- <a href="javascript:;" class="d-block text-decoration-none like-property" data-url="{{ route('property.like', ['id' => $property->id]) }}">
                     <small class="bg-white border text-theme-color rounded cursor-pointer px-2 py-1">
                         <i class="icofont-love"></i>
                     </small>
-                </a>  --}}
+                </a> --}} 
             </div>
         </div>   
     </div>
     <div class="position-relative" style="height: 280px; line-height: 280px;">
         <a href="{{ route('property.category.id.slug', ['category' => $property->category, 'id' => $property->id ?? 0, 'slug' => \Str::slug($title)]) }}" class="text-decoration-none rounded-top">
-            <img src="{{ empty($property->image) ? '/images/banners/holder.png' : $property->image }}" class="img-fluid w-100 h-100 object-cover rounded-top">
+            <img src="{{ empty($property->image) ? '/images/banners/holder.png' : $property->image }}" class="img-fluid w-100 h-100 object-cover">
         </a>
         <div class="position-absolute w-100 px-3 d-flex align-items-center justify-content-between" style="height: 45px; line-height: 45px; bottom: 0; background-color: rgba(0, 0, 0, 0.6);">
             <div class="">
@@ -48,11 +69,11 @@
                 </small>
             </div>
             <div>
-                <small class="text-theme-color">
-                    <i class="icofont-eye"></i>
-                </small>
+                <span class="text-theme-color">
+                    <i class="icofont-bullseye"></i>
+                </span>
                 <small class="text-white">
-                    {{ $property->views }}
+                    {{ empty($property->views) ? 0 : $property->views }}
                 </small>
             </div>
         </div>
@@ -101,8 +122,8 @@
             </div>      
         </div>
         <div class="">
-            <a href="{{ route('property.category.id.slug', ['category' => $property->category, 'id' => $property->id ?? 0, 'slug' => \Str::slug($title)]) }}" class="text-theme-color text-decoration-none">
-                <i class="icofont-long-arrow-right"></i>
+            <a href="{{ $property->user ? 'tel:'.$property->user->phone : 'javascript:;' }}" class="text-theme-color text-decoration-none">
+                <i class="icofont-phone"></i>
             </a>
         </div>
     </div>

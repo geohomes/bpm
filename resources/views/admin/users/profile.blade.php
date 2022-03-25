@@ -49,14 +49,14 @@
                                 </div>s
                             </div>
                             @if($role == 'artisan')
-                                <div class="d-flex flex-wrap">
-                                    @if(empty($user->gigs))
-                                        <div class="alert alert-danger">No services listed</div>
-                                    @else
-                                        @foreach($user->gigs as $gig)
+                                @if(empty($user->services))
+                                    <div class="alert alert-danger">No services listed</div>
+                                @else
+                                    <div class="d-flex flex-wrap">
+                                        @foreach($user->services as $service)
                                             <small class="px-3 py-1 bg-success rounded-pill mb-3 mr-2">
                                                 <small class="text-white">
-                                                    {{ ucwords($gig->service->name ?? '') }}
+                                                    {{ ucwords($service->skill->name ?? '') }}
                                                 </small>
                                             </small>
                                         @endforeach
@@ -177,10 +177,10 @@
                                         <div class="">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <h5 class="text-main-dark text-shadow-white m-0">
-                                                    {{ number_format($user->gigs->count()) }}
+                                                    {{ $user->services()->exists() ? number_format($user->services->count()) : 0 }}
                                                 </h5>
                                             </div>
-                                            <a href="javascript:;" class="text-white text-decoration-none">Gigs</a>
+                                            <a href="javascript:;" class="text-white text-decoration-none">Services</a>
                                         </div>
                                         <div class="md-circle text-center bg-pink rounded-circle position-relative">
                                             <small class="text-white h-100  position-relative tiny-font" style="top: 0px;">

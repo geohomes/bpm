@@ -26,6 +26,7 @@ class CreatePropertiesTable extends Migration
             $table->string('condition')->nullable();
             $table->string('image')->nullable();
             $table->string('address');
+            $table->string('listed')->default('no');
             $table->bigInteger('bathrooms')->nullable();
             $table->string('measurement');
             $table->bigInteger('likes')->nullable();

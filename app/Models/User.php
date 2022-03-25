@@ -154,4 +154,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Subscription::class);
     }
+
+    /**
+     * A user has one verify
+     */
+    public function verify()
+    {
+        return $this->hasOne(Verify::class, 'phone');
+    }
 }

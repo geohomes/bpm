@@ -12,6 +12,8 @@
         <script src="{{ env('APP_URL') }}/js/upload.js"></script>
         {{-- Sending Ajax request --}}
         <script src="{{ env('APP_URL') }}/js/ajax.js"></script>
+        {{-- Social Sharing --}}
+        <script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
         {{-- Sagreit --}}
         {{-- <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=61a5e6cb1bd25500123c9634&product=inline-share-buttons" async="async"></script> --}}
         {{-- Chartjs --}}

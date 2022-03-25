@@ -74,7 +74,7 @@ class SkillsSeeder extends Seeder
 			'Pet Sales',
 			'Phone dealers',
 			'Phone dealer and Repairs',
-			'Plumbers',
+			'Plumbeing',
 			'Pumping Machine installation and maintenance',
 			'Real Estate agents',
 			'Rental Services',
@@ -96,7 +96,7 @@ class SkillsSeeder extends Seeder
 			'Window blinds',
 			'Solar Power Equipment Sales',
 			'2d-3d design',
-			'Solar Equipment installation'
+			'Solar Equipment installation',
 		];
 
         foreach ($skills as $skill) {

@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="dropdown">
-                    <a href="javascript:;" class="text-decoration-none d-block rounded-circle cursor-pointer bg-theme-color text-center" id="user-{{ auth()->id() }}" data-toggle="dropdown" data-offset="35, 15" style="width: 30px; height: 30px; line-height: 25px;">
+                    <a href="javascript:;" class="text-decoration-none d-block rounded-circle cursor-pointer bg-theme-color text-center" id="user-{{ auth()->id() }}" data-toggle="dropdown" data-offset="0, 15" style="width: 30px; height: 30px; line-height: 25px;">
                         <small class="text-white">
                             <small>
                                 <i class="icofont-navigation-menu"></i>

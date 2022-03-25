@@ -53,6 +53,7 @@
         </div>
     </div>
 @endif
+{{-- {{ dd(auth()->user()->profile) }} --}}
 <div class="col-12 mb-4">
     <div class="icon-raduis bg-white shadow-sm p-4 border-0" >
         <div class="pb-0 position-relative">

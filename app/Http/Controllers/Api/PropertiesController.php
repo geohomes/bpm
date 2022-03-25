@@ -248,8 +248,8 @@ class PropertiesController extends Controller
             'group' => ['nullable', 'string'],
             'bedrooms' => ['nullable', 'integer'],
             'toilets' => ['nullable', 'integer'],
-            'status' => ['required', 'string'],
-        ], ['status.required' => 'Please select yes or no']);
+            'listed' => ['required', 'string'],
+        ], ['listed.required' => 'Please select yes or no']);
 
         if ($validator->fails()) {
             return response()->json([
@@ -259,7 +259,8 @@ class PropertiesController extends Controller
         }
 
         $property = Property::find($id);
-        if (empty($property->image) && $data['status'] == 'yes') {
+        $listed = $data['listed'] ?? '';
+        if (empty($property->image) && $listed == 'yes') {
             return response()->json([
                 'status' => 0, 
                 'info' => 'You have to upload property images before listing.',
@@ -270,7 +271,8 @@ class PropertiesController extends Controller
         $property->group = $data['group'];
         $property->bedrooms = $data['bedrooms'] ?? null;
         $property->toilets = $data['toilets'] ?? null;
-        $property->status = 'active';
+        $property->listed = $listed;
+        $property->status = $listed == 'yes' ? 'active' : 'inactive';
         $updated = $property->update();
 
         return response()->json([

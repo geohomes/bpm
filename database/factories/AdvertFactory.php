@@ -17,14 +17,17 @@ class AdvertFactory extends Factory
     public function definition()
     {
         $faker = Faker::create();
+        $faker->addProvider(new \Smknstd\FakerPicsumImages\FakerPicsumImagesProvider($faker));
         return [
             'description' => $faker->sentence(),
             'user_id' => rand(1, User::count()),
             'clicks' => $faker->numberBetween(103, 765),
             'link' => $faker->url(),
+            'size' => $faker->randomElement(['fhb', 'ssb', 'svb']),
             'credit_id' => rand(1, Credit::count()),
             'reference' => Str::random(64),
             'status' => $faker->randomElement(Advert::$status),
+            'banner' => $faker->imageUrl($width = 960, $height = 1024),
         ];
     }
 }
