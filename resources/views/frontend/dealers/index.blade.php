@@ -22,7 +22,7 @@
 							</div>
 						@endforeach
 					</div>
-					{{ $dealers->appends(request()->query())->links('vendor.pagination.links') }}
+					{{ $dealers->appends(request()->query())->links('vendor.pagination.default') }}
 				@endif
 			</div>
 		</section>

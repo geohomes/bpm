@@ -756,7 +756,7 @@ a:hover, button:hover {
     }
 }
 
-/*Small devices (less than 375px)*/
+/*Small devices (less than 320px)*/
 @media (max-width: 320px) {
 
     .membership-banner:before {
