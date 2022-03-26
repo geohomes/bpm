@@ -75,7 +75,7 @@ Route::middleware(['web'])->domain(env('APP_URL'))->group(function() {
     });
 
     Route::get('/services', [\App\Http\Controllers\ServicesController::class, 'index'])->name('services');
-    Route::get('/dealers', [\App\Http\Controllers\ServicesController::class, 'index'])->name('dealers');
+    Route::get('/dealers', [\App\Http\Controllers\DealersController::class, 'index'])->name('dealers');
 
     Route::prefix('profiles')->group(function () {
         Route::get('/profile/{id}/{name}', [\App\Http\Controllers\ProfilesController::class, 'profile'])->name('account.profile');
@@ -247,6 +247,7 @@ Route::middleware(['web', 'auth', 'user', 'revalidate', 'profile.setup'])->domai
         Route::post('/remove/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'remove'])->name('user.advert.remove');
         
         Route::post('/cancel/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'cancel'])->name('user.advert.cancel');
+        Route::post('/renew/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'renew'])->name('user.advert.renew');
     });
 
     

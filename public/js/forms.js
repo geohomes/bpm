@@ -82,6 +82,11 @@
         handleForm({form: $(this), button: 'pause-advert-button', spinner: 'pause-advert-spinner', message: 'pause-advert-message'});
     });
 
+    $('.remove-advert-form').submit(function(event){
+        event.preventDefault();
+        handleForm({form: $(this), button: 'remove-advert-button', spinner: 'remove-advert-spinner', message: 'remove-advert-message'});
+    });
+
     $('.edit-advert-form').submit(function(event){
         event.preventDefault();
         handleForm({form: $(this), button: 'edit-advert-button', spinner: 'edit-advert-spinner', message: 'edit-advert-message'});

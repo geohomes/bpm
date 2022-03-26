@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="form-group mb-4">
-                        <label class="text-main-dark">Description (Maximum of 400 characters)</label>
+                        <label class="text-main-dark">Description (Maximum of 200 characters)</label>
                         <textarea class="form-control description" placeholder="Enter description of your service" name="description" rows="8"></textarea>
                         <small class="invalid-feedback description-error"></small>
                     </div>

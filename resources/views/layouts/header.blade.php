@@ -64,6 +64,8 @@
         <link rel="stylesheet" type="text/css" href="/css/utility.css">
         <!-- index CSS -->
         <link rel="stylesheet" type="text/css" href="/css/index.css">
+        <!-- dealers CSS -->
+        <link rel="stylesheet" type="text/css" href="/css/dealers.css">
         <!-- ico font css -->
         <link rel="stylesheet" type="text/css" href="/icofont/icofont.min.css">
         <!-- fontawesome css -->

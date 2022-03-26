@@ -156,12 +156,7 @@
 
             <?php if(!empty($adverts)): ?>
                 <?php foreach($adverts as $advert): ?>
-
                     <?php $id = empty($advert->id) ? 0 : $advert->id; ?>
-                    $('.remove-advert-button-<?= $id; ?>').on('click', function() {
-                        handleAjax({that: $(this), button: 'remove-advert-button-<?= $id; ?>', spinner: 'remove-advert-spinner-<?= $id; ?>'});
-                    });
-
                     var button = $('.add-advert-image-<?= $id; ?>');
                     if (button) {
                         button.click(function(event) {

@@ -36,7 +36,7 @@
 						@if($artisan->user->services()->exists())
 							@foreach($artisan->user->services->take(1) as $service)
 								<div class="px-3 py-1 bg-success text-white tiny-font rounded-pill">
-									{{ ucwords($service->skill->name ?? 'Nill') }}
+									{{ \Str::limit(ucwords($service->skill->name ?? 'Nill'), 10) }}
 								</div>
 							@endforeach
 						@else

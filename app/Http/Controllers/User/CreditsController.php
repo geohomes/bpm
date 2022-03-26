@@ -42,7 +42,7 @@ class CreditsController extends Controller
         if (empty($unit)) {
             return response()->json([
                 'status' => 0, 
-                'info' => 'Invalid ads unit'
+                'info' => 'Invalid operation'
             ]);
         }
 
@@ -50,7 +50,6 @@ class CreditsController extends Controller
             $amount = $unit->price ?? 0;
             $reference = (string)Str::uuid();
 
-            DB::beginTransaction();
             $payment = Payment::create([
                 'reference' => $reference,
                 'amount' => $amount,
@@ -60,7 +59,6 @@ class CreditsController extends Controller
                 'user_id' => auth()->id(),
             ]);
 
-            DB::commit();
             $paystack = (new Paystack())->initialize([
                 'amount' => $amount * 100, //in kobo
                 'email' => auth()->user()->email, 
@@ -82,7 +80,6 @@ class CreditsController extends Controller
                 'info' => 'Payment initialization failed. Try again.',
             ]);
         } catch (Exception $error) {
-            DB::rollback();
             return response()->json([
                 'status' => 0, 
                 'info' => 'An error occured. Refresh the page and try again.'

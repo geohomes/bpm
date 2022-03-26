@@ -169,8 +169,8 @@
 		</div>
 	</section>
 	<section class="py-4 bg-main-dark border-top-dark-500">
-		<div class="container">
-			<small class="text-white m-0">&copy Copyright Geohomes Services Limited {{ date('Y') }}</small>
+		<div class="container-fluid">
+			<small class="text-white m-0">&copy Copyright World Best Property Limited {{ date('Y') }}</small>
 		</div>
 	</section>
 </footer>

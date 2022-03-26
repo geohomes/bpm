@@ -40,6 +40,13 @@
                                 </small>
                                 <small class="text-main-dark">Agents</small>
                             </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('dealers') }}">
+                                <small class="text-theme-color mr-1">
+                                    <i class="icofont-users"></i>
+                                </small>
+                                <small class="text-main-dark">Dealers</small>
+                            </a>
                         </div>
                     </li>
                     <li class="dropdown mr-3">

@@ -1,4 +1,4 @@
-<div class="card border-0 rounded-0">
+<div class="card border bg-transparent">
 	<div class="card-body">
 		<div class="d-flex justify-content-between">
 			<div class="d-flex mb-2">
@@ -8,21 +8,18 @@
 					</div>
 				@endfor
 			</div>
-			<small class="text-success">
-				<small>{{ '' }}</small>
-			</small>
 		</div>
 		<div class="">
 			<div class="text-main-dark">
-				{{ \Str::limit(ucfirst($review->review), 24) }}
+				{{ ucfirst($review->review) }}
 			</div>
 		</div>
 	</div>
-	<div class="card-footer bg-theme-color d-flex justify-content-between">
-		<small class="text-white">
-			<em>By</em> {{ ucwords($review->user->name ?? 'Nill') }}
+	<div class="card-footer bg-transparent d-flex justify-content-between">
+		<small class="text-main-dark">
+			<em>By</em> {{ \Str::limit(ucwords($review->user->name ?? 'Nill'), 12) }}
 		</small>
-		<small class="text-white">
+		<small class="text-main-dark">
 			{{ $review->created_at->diffForHumans() }}
 		</small>
 	</div>

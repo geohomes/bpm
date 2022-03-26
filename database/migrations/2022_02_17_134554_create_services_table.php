@@ -19,6 +19,7 @@ class CreateServicesTable extends Migration
             $table->foreignId('user_id');
             $table->text('description');
             $table->bigInteger('price')->nullable();
+            $table->foreignId('currency_id');
             $table->string('image')->nullable();
             $table->string('status')->default('active');
             $table->bigInteger('clicks')->default(0);

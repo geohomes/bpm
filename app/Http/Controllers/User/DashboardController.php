@@ -17,8 +17,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $reference = request()->get('reference');
         $id = auth()->id();
+        $reference = request()->get('reference');
         $properties = Property::latest('created_at')->where(['user_id' => $id])->paginate(4);
         return view('user.dashboard.index')->with(['properties' => $properties, 'subscription' => Subscription::where(['user_id' => $id])->first(), 'units' => Unit::all(), 'reference' => $reference, 'verify' => $this->verify($reference), 'credits' => Credit::where(['user_id' => $id])->get()]);
     }
@@ -50,7 +50,7 @@ class DashboardController extends Controller
             ];
         }
 
-        // try {
+        try {
             $verify = (new Paystack())->verify($reference);
             if (empty($verify) || $verify === false) {
                 return [
@@ -64,17 +64,18 @@ class DashboardController extends Controller
 
                 $payment->status = 'paid';
                 $payment->update();
+                $now = Carbon::now();
 
                 $paymentid = $payment->id ?? 0;
                 $subscription = Subscription::where(['reference' => $reference])->first();
                 $planid = $payment->product_id ?? 0;
                 $plan = Membership::find($planid);
-                $duration = Membership::$durations[$plan->duration] ?? 0;
+                $duration = $plan->duration ?? 0;
                 
                 if (empty($subscription)) { // ie it's a new subscription
                     Subscription::create([
-                        'started' => Carbon::today(),
-                        'expiry' => Carbon::today()->addDays($duration),
+                        'started' => $now->format('Y-m-d H:i:s'),
+                        'expiry' => $now->addDays($duration)->format('Y-m-d H:i:s'),
                         'user_id' => auth()->id(),
                         'reference' => $reference,
                         'membership_id' => $planid,
@@ -84,10 +85,10 @@ class DashboardController extends Controller
                     ]);
                 }else {
                     // Check previous remaining days and add to the renewal if any
-                    $remainingdays = Carbon::parse($subscription->expiry)->diffInDays(Carbon::today());
+                    $remainingdays = Carbon::parse($subscription->expiry)->diffInDays($now)->format('Y-m-d H:i:s');
                     $totaldays = $duration + ($remainingdays <= 0 ? 0 : $remainingdays);
 
-                    $subscription->expiry = Carbon::today()->addDays($totaldays);
+                    $subscription->expiry = $now->addDays($totaldays)->format('Y-m-d H:i:s');
                     $subscription->duration = $totaldays;
                     $subscription->renewals = $subscription->renewals + 1;
                     $subscription->membership_id = $planid;
@@ -110,13 +111,13 @@ class DashboardController extends Controller
                 'status' => 0,
                 'info' => 'Payment verification failed. Refresh you page.'
             ];
-        // } catch (Exception $error) {
+        } catch (Exception $error) {
             DB::rollback();
-        //     return [
-        //         'status' => 0,
-        //         'info' => 'Unknown error. Try again.'
-        //     ];
-        // }    
+            return [
+                'status' => 0,
+                'info' => 'Unknown error. Try again.'
+            ];
+        }    
             
     }
 }

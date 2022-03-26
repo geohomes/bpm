@@ -18,7 +18,7 @@ class AdvertsController extends Controller
         $data = request()->all();
         $validator = Validator::make($data, [
             'credit' => ['required', 'integer'],
-            'description' => ['required', 'string'],
+            'description' => ['nullable', 'string'],
             'link' => ['required', 'string'],
             'size' => ['required', 'string'],
         ]);
@@ -275,7 +275,7 @@ class AdvertsController extends Controller
     }
 
     /**
-     * Remove advert (Must not have started)
+     * Remove advert (Must not have started or muest be expired)
      */
     public function remove($id = 0)
     {
@@ -295,9 +295,16 @@ class AdvertsController extends Controller
             ]);
         }
 
-        $credit->inuse = false;
-        $credit->status = 'available';
-        $credit->update();
+        if ($advert->status === 'expired') {
+            $credit->inuse = true;
+            $credit->status = 'expired';
+            $credit->update();
+        }else {
+            $credit->inuse = false;
+            $credit->status = 'available';
+            $credit->update();
+        }
+            
 
         if(!empty($advert->banner)) {
             $prevfile = explode('/', $advert->banner);
@@ -317,7 +324,8 @@ class AdvertsController extends Controller
     }
 
     /**
-     * Remove advert (Must not have started)
+     * Cancel advert (Advert have started)
+     * It will delete advert and reverse credits remaining
      */
     public function cancel($id = 0)
     {
@@ -345,6 +353,15 @@ class AdvertsController extends Controller
         $credit->duration = ($credit->duration - $daysused);
         $credit->status = 'available';
         $credit->update();
+
+        if(!empty($advert->banner)) {
+            $prevfile = explode('/', $advert->banner);
+            $previmage = end($prevfile);
+            $file = "images/adverts/{$previmage}";
+            if (file_exists($file)) {
+                unlink($file);
+            }
+        }
 
         $advert->delete();
         return response()->json([

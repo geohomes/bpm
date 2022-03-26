@@ -4,14 +4,14 @@
             <div class="alert alert-danger m-0">Subscribe to list more properties. <a href="javascript:;" data-target="#membership-subscription" data-toggle="modal">Click here</a> to get started.</div>
             @include('user.subscriptions.partials.subscribe')
         @else
-            @set('timing', \App\Helpers\Timing::calculate($subscription->duration, $subscription->paused_at, $subscription->started))
+            @set('timing', \App\Helpers\Timing::calculate($subscription->duration, $subscription->expiry, $subscription->started))
             @set('status', strtolower($subscription->status ?? ''))
             <div class="d-flex position-relative" style="top: -32px;">
                 <small class="text-white bg-info px-2 rounded mr-3">
                     {{ ucfirst($subscription->status) }}
                 </small>
-                <small class="text-white bg-{{ $timing->progress() <= 90 ? 'success' : 'danger' }} px-2 rounded mr-3">
-                    {{ $timing->progress() <= 0 ? 1 : $timing->progress() }}%
+                <small class="text-white bg-success px-2 rounded mr-3">
+                    {{ $timing->progress() }}%
                 </small>
             </div>
             <div class="">

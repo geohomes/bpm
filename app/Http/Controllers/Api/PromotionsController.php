@@ -109,7 +109,8 @@ class PromotionsController extends Controller
 
         try {
             DB::beginTransaction();
-            $credit->status = 'running';
+            $credit->status = 'active';
+            $credit->inuse = true;
             $credit->update();
 
             $days = $credit->duration ?? 0;

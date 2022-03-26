@@ -5,7 +5,7 @@
 				{{ empty($service->price) ? 'Nill' : 'NGN'.number_format($service->price) }}
 			</small>
 			<small class="text-main-dark">
-				{{ ucwords(\Str::limit($service->service->name, 14)) }}
+				{{ ucwords(\Str::limit($service->skill->name, 14)) }}
 			</small>
 		</div>
 		<div class="d-flex justify-content-between align-items-center">

@@ -23,7 +23,7 @@ class ServicesController extends Controller
     {
         $data = request()->all();
         $validator = Validator::make($data, [
-            'description' => ['required', 'string', 'max:400'],
+            'description' => ['required', 'string', 'max:200'],
             'skill' => ['required', 'integer',],
             'price' => ['required', 'numeric'],
         ]);
@@ -69,7 +69,7 @@ class ServicesController extends Controller
     {
         $data = request()->all();
         $validator = Validator::make($data, [
-            'description' => ['required', 'string', 'max:400'],
+            'description' => ['required', 'string', 'max:200'],
             'skill' => ['required', 'integer',],
             'price' => ['nullable', 'numeric'],
         ]);
