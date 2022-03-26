@@ -7,29 +7,31 @@
      /*-webkit-clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);*/
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0);
 }
-.dealer-position{
-     top: 40px;
+.dealer-position {
+    top: 40px;
     left: 25%;
 }
 
 @media only screen and (max-width: 575px) {
-div .dealer-col{ 
-max-width: 81%;
-margin-right: auto;
-margin-left: auto;
- }
-.dealer-position{
-    left: 33.5%;
-}
+    div .dealer-col{ 
+        max-width: 81%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .dealer-position{
+        left: 33.5%;
+    }
 }
 
 @media only screen and (max-width: 576px) {
-div .dealer-col{ 
-max-width: 81%;
-margin-right: auto;
-margin-left: auto;
- }
-.dealer-position{
-    left: 33.5%;
-}
+    div .dealer-col{ 
+        max-width: 81%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .dealer-position{
+        left: 33.5%;
+    }
 }

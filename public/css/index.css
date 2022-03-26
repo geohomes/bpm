@@ -745,21 +745,22 @@ a:hover, button:hover {
     }
 }
 
-/*Small devices (less than 768px)*/
+/*Small devices (less than 375px)*/
 @media (max-width: 375px) {
     .home-banner h1 {
         font-size: 52px;
     }
 
     .membership-banner:before {
-        height: 420px !important;
+        height: 400px !important;
     }
 }
 
-/*Small devices (less than 768px)*/
-@media (max-width: 375px) {
+/*Small devices (less than 375px)*/
+@media (max-width: 320px) {
+
     .membership-banner:before {
-        height: 500px !important;
+        height: 480px !important;
     }
 }
 

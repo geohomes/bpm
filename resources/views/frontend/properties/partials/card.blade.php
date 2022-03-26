@@ -36,7 +36,7 @@
                                 @set('categories', \App\Models\Property::$categories)
                                 @set('last', array_values($socials))
                                 @foreach($socials as $social)
-                                    <div class="p-2 {{ end($last) == $social ? '' : 'mr-2' }} border-theme-color text-decoration-none  text-theme-color" data-sharer="{{ $social }}" data-title="Checkout this {{ $categories[$property->category]['name'] }}" data-hashtags="bestpropertymarket, realestate, globalproperties, lands, buildings" data-url="{{ route('property.category.id.slug', ['category' => $property->category, 'id' => $property->id ?? 0, 'slug' => \Str::slug($title)]) }}">
+                                    <div class="p-2 {{ end($last) == $social ? '' : 'mr-2' }} border-theme-color text-decoration-none  text-theme-color" data-sharer="{{ $social }}" data-title="Checkout this {{ $categories[$property->category]['name'] }}" data-hashtags="bestpropertymarket,realestate,globalproperties,lands,buildings" data-url="{{ route('property.category.id.slug', ['category' => $property->category, 'id' => $property->id ?? 0, 'slug' => \Str::slug($title)]) }}">
                                         <div class="tiny-font">
                                             <i class="icofont-{{ $social }}"></i>
                                         </div>
@@ -44,14 +44,8 @@
                                 @endforeach
                             @endif 
                         </div>
-                        
                     </div>
-                </div>
-                {{-- <a href="javascript:;" class="d-block text-decoration-none like-property" data-url="{{ route('property.like', ['id' => $property->id]) }}">
-                    <small class="bg-white border text-theme-color rounded cursor-pointer px-2 py-1">
-                        <i class="icofont-love"></i>
-                    </small>
-                </a> --}} 
+                </div> 
             </div>
         </div>   
     </div>

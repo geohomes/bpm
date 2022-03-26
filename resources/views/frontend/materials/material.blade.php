@@ -21,10 +21,31 @@
 								                        <small class="text-white">Promoted</small>
 								                    </small>
 								                @endif
-								                <small class="bg-white text-theme-color cursor-pointer px-3 py-1 rounded">
-								                    <i class="icofont-share"></i>
-								                </small>
-								            </div>
+								                <div class="dropdown">
+								                    <a href="javascript:;" class="d-block text-decoration-none mb-2" id="share-dropdown" data-toggle="dropdown" aria-expanded="false">
+								                        <small class="bg-white border text-theme-color rounded cursor-pointer px-2 py-1">
+								                            <i class="icofont-share"></i>
+								                        </small>
+								                    </a>
+								                    <div class="dropdown-menu border-0 p-0 m-0 shadow-sm dropdown-menu-left" aria-labelledby="share-dropdown">
+								                        @set('socials', ['twitter', 'facebook', 'linkedin', 'whatsapp', 'telegram'])
+								                        <div class="d-flex align-items-center justify-content-between p-3 text-center">
+								                            @if(empty($socials))
+								                                <div class="alert alert-danger m-0">No social handles</div>
+								                            @else
+								                                @set('last', array_values($socials))
+								                                @foreach($socials as $social)
+								                                    <div class="p-2 {{ end($last) == $social ? '' : 'mr-2' }} border-theme-color text-decoration-none  text-theme-color" data-sharer="{{ $social }}" data-title="Checkout this {{ $material->name }}" data-hashtags="bestpropertymarket,buildingmaterials" data-url="{{ route('material.id.slug', ['id' => $material->id ?? 0, 'slug' => \Str::slug($material->name)]) }}">
+								                                        <div class="tiny-font">
+								                                            <i class="icofont-{{ $social }}"></i>
+								                                        </div>
+								                                    </div>
+								                                @endforeach
+								                            @endif 
+								                        </div>
+								                    </div>
+									            </div>
+									        </div>
 								        </div>
 								        <a href="{{ $material->image ?: '/images/banners/placeholder.png' }}" style="height: 340px;" class="mb-4 d-block">
 											<img src="{{ $material->image ?: '/images/banners/placeholder.png' }}" class="img-fluid w-100 h-100 border object-cover">

@@ -261,7 +261,7 @@
                         </a>
                     </div>
                     <div class="card card-body">
-                        <a href="{{ route('agents') }}" class="d-flex justify-content-between">
+                        <a href="{{ route('dealers') }}" class="d-flex justify-content-between">
                             <small class="text-main-dark">Dealers</small>
                             <small class="bg-danger rounded-pill px-3">
                                 <small class="text-white mb-2 tiny-font position-relative" style="top: -1px;">

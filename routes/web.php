@@ -74,7 +74,6 @@ Route::middleware(['web'])->domain(env('APP_URL'))->group(function() {
         Route::get('/{id}/{slug}', [\App\Http\Controllers\BlogController::class, 'read'])->name('blog.read');
     });
 
-    Route::get('/services', [\App\Http\Controllers\ServicesController::class, 'index'])->name('services');
     Route::get('/dealers', [\App\Http\Controllers\DealersController::class, 'index'])->name('dealers');
 
     Route::prefix('profiles')->group(function () {
