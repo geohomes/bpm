@@ -299,6 +299,11 @@ Route::middleware(['web', 'auth', 'user', 'revalidate', 'profile.setup'])->domai
     });
 });
 
+Route::middleware(['web', 'auth'])->get('/dashboard', function () {
+    $role = auth()->user()->role;
+    return redirect()->route("{$role}.dashboard");
+})->name('dashboard');
+
 Route::fallback(function () {
     Route::middleware(['web'])->domain('https://www.bestpropertymarket.com')->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -306,6 +311,7 @@ Route::fallback(function () {
 
     return redirect()->route('home');
 });
+
 
 
     

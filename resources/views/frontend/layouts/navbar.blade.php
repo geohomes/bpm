@@ -148,7 +148,7 @@
                                 </small>
                             </div>
                             <div class="dropdown-menu border-0 shadow dropdown-menu-right" aria-labelledby="website-user-icon">
-                                <a class="dropdown-item" href="{{ auth()->user()->role == 'user' ? route('user.dashboard') : route('admin.dashboard') }}">
+                                <a class="dropdown-item" href="{{ route('dashboard') }}">
                                     <small class="text-theme-color mr-1">
                                       <i class="icofont-login"></i>
                                     </small>
@@ -182,20 +182,45 @@
 <div class="navbar-menu no-gutters bg-white position-fixed vh-100">
     <div class="menu-content vh-100 pb-4">
         @if(auth()->check())
-            <div class="bg-main-dark d-flex align-items-center px-3 py-4">
-                <div class="bg-theme-color rounded-circle text-center mr-2" style="width: 45px; height: 45px; line-height: 45px;">
-                    <small class="text-white">
-                        {{ ucfirst(substr(auth()->user()->name, 0, 1)) }}
-                    </small>  
-                </div>
-                <div>
-                    <div class="text-white">
-                        {{ ucwords(auth()->user()->name) }}
+            <div class="bg-main-dark d-flex align-items-center justify-content-between px-3 py-4">
+                <div class="d-flex align-items-center">
+                    <div class="rounded-circle text-center mr-2 lg-circle">
+                        @if(empty(auth()->user()->profile))
+                            <a href="{{ route('dashboard') }}" class="text-white d-block rounded-circle w-100 h-100 bg-theme-color">
+                                <small class="">
+                                    {{ ucfirst(substr(auth()->user()->name, 0, 1)) }}
+                                </small>
+                            </a>
+                        @else
+                            <div class="rounded-circle w-100 h-100">
+                                @if(empty(auth()->user()->profile->image))
+                                    <div class="text-white rounded-circle w-100 h-100 bg-theme-color">
+                                        <small class="">
+                                            {{ ucfirst(substr(auth()->user()->name, 0, 1)) }}
+                                        </small>
+                                    </div>
+                                @else
+                                    <img src="{{ auth()->user()->profile->image }}" class="img-fluid object-cover rounded-circle w-100 h-100 border">
+                                @endif
+                            </div>
+                        @endif 
                     </div>
-                    <small class="text-muted">
-                        {{ auth()->user()->created_at->diffForHumans() }}
-                    </small>
+                    <div class="">
+                        <div class="text-white">
+                            <a href="{{ route('dashboard') }}" class="text-white text-decoration-none">
+                                {{ \Str::limit(ucwords(auth()->user()->name), 14) }}
+                            </a>
+                        </div>
+                        <small class="text-muted">
+                            {{ auth()->user()->created_at->diffForHumans() }}
+                        </small>
+                    </div>
                 </div>
+                <div class="">
+                    <a href="{{ route('dashboard') }}" class="text-white">
+                        <i class="icofont-long-arrow-right"></i>
+                    </a>
+                </div> 
             </div>
         @endif
         <div class="px-3 py-4">
