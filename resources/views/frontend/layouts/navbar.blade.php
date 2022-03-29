@@ -187,18 +187,18 @@
                     <div class="rounded-circle text-center mr-2 lg-circle">
                         @if(empty(auth()->user()->profile))
                             <a href="{{ route('dashboard') }}" class="text-white d-block rounded-circle w-100 h-100 bg-theme-color">
-                                <small class="">
+                                <div class="position-relative" style="top: 5px;">
                                     {{ ucfirst(substr(auth()->user()->name, 0, 1)) }}
-                                </small>
+                                </div>
                             </a>
                         @else
                             <div class="rounded-circle w-100 h-100">
                                 @if(empty(auth()->user()->profile->image))
-                                    <div class="text-white rounded-circle w-100 h-100 bg-theme-color">
-                                        <small class="">
+                                    <a href="{{ route('dashboard') }}" class="text-white d-block rounded-circle w-100 h-100 bg-theme-color">
+                                        <div class="position-relative" style="top: 5px;">
                                             {{ ucfirst(substr(auth()->user()->name, 0, 1)) }}
-                                        </small>
-                                    </div>
+                                        </div>
+                                    </a>
                                 @else
                                     <img src="{{ auth()->user()->profile->image }}" class="img-fluid object-cover rounded-circle w-100 h-100 border">
                                 @endif
