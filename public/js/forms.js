@@ -2,6 +2,11 @@
 
 	'use strict';
 
+    $('.add-staff-form').submit(function(event){
+        event.preventDefault();
+        handleForm({form: $(this), button: 'add-staff-button', spinner: 'add-staff-spinner', message: 'add-staff-message'});
+    });
+
     $('.promotion-form').submit(function(event){
         event.preventDefault();
         handleForm({form: $(this), button: 'promotion-button', spinner: 'promotion-spinner', message: 'promotion-message'});

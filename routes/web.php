@@ -74,19 +74,14 @@ Route::middleware(['web'])->domain(env('APP_URL'))->group(function() {
         Route::get('/{id}/{slug}', [\App\Http\Controllers\BlogController::class, 'read'])->name('blog.read');
     });
 
-    Route::get('/dealers', [\App\Http\Controllers\DealersController::class, 'index'])->name('dealers');
 
     Route::prefix('profiles')->group(function () {
         Route::get('/profile/{id}/{name}', [\App\Http\Controllers\ProfilesController::class, 'profile'])->name('account.profile');
     });
 
-    Route::prefix('artisans')->group(function () {
-        Route::get('/', [\App\Http\Controllers\ArtisansController::class, 'index'])->name('artisans');
-    });
-
-    Route::prefix('agents')->group(function () {
-        Route::get('/', [\App\Http\Controllers\AgentsController::class, 'index'])->name('agents');
-    });
+    Route::get('/dealers', [\App\Http\Controllers\DealersController::class, 'index'])->name('dealers');
+    Route::get('/artisans', [\App\Http\Controllers\ArtisansController::class, 'index'])->name('artisans');
+    Route::get('/realtors', [\App\Http\Controllers\RealtorsController::class, 'index'])->name('realtors');
 
     Route::group(['prefix' => 'password', 'middleware' => 'guest'], function () {
         Route::get('/', [\App\Http\Controllers\PasswordController::class, 'index'])->name('forgot.password');
@@ -113,6 +108,15 @@ Route::middleware(['web', 'auth', 'admin', 'revalidate'])->domain(env('ADMIN_URL
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/countries', [\App\Http\Controllers\Admin\CountriesController::class, 'index'])->name('admin.countries');
 
+    Route::prefix('staff')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Admin\StaffController::class, 'index'])->name('admin.staff');
+
+        Route::post('/edit/{id}', [\App\Http\Controllers\Api\StaffController::class, 'edit'])->name('admin.staff.edit');
+        Route::post('/delete/{id}', [\App\Http\Controllers\Api\StaffController::class, 'delete'])->name('admin.staff.delete');
+        Route::post('/add', [\App\Http\Controllers\Api\StaffController::class, 'add'])->name('admin.staff.add');
+        Route::post('/status/update', [\App\Http\Controllers\Api\StaffController::class, 'status'])->name('admin.staff.status.update');
+    });
+
     Route::prefix('subscriptions')->group(function () {
         Route::get('/{status?}', [\App\Http\Controllers\Admin\SubscriptionsController::class, 'index'])->name('admin.subscriptions');
     });
@@ -123,14 +127,13 @@ Route::middleware(['web', 'auth', 'admin', 'revalidate'])->domain(env('ADMIN_URL
 
     Route::prefix('adverts')->group(function () {
         Route::get('/{status?}', [\App\Http\Controllers\Admin\AdvertsController::class, 'index'])->name('admin.adverts');
-
-        Route::post('/edit/{id}', [\App\Http\Controllers\Api\UnitsController::class, 'edit'])->name('admin.unit.edit');
-        Route::post('/delete/{id}', [\App\Http\Controllers\Api\UnitsController::class, 'delete'])->name('admin.unit.delete');
-        Route::post('/add', [\App\Http\Controllers\Api\UnitsController::class, 'add'])->name('admin.unit.add');
     });
 
     Route::prefix('units')->group(function () {
         Route::get('/', [\App\Http\Controllers\Admin\UnitsController::class, 'index'])->name('admin.units');
+        Route::post('/edit/{id}', [\App\Http\Controllers\Api\UnitsController::class, 'edit'])->name('admin.unit.edit');
+        Route::post('/delete/{id}', [\App\Http\Controllers\Api\UnitsController::class, 'delete'])->name('admin.unit.delete');
+        Route::post('/add', [\App\Http\Controllers\Api\UnitsController::class, 'add'])->name('admin.unit.add');
     });
 
     Route::prefix('plans')->group(function () {

@@ -20,4 +20,11 @@ class Role extends Model
         'code',
         'status',
     ];
+
+    public static $roles = [
+        'admin' => '',
+        'manager' => '',
+        'blogger' => '',
+        'acountant' => '',
+    ];
 }

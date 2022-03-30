@@ -6,7 +6,7 @@
 				<h1 class="text-theme-color mb-4">Send a <span class="text-white">Message</span></h1>
 				<div class="row">
 					<div class="col-12 col-lg-8 mb-4">
-						<form class="contact-form p-4 rounded border" action="javascript:;" method="post">
+						<form class="contact-form p-4 mb-4 rounded border" action="javascript:;" method="post">
 							<div class="form-row">
 						        <div class="form-group col-md-6">
 						            <label class="text-white">Fullname</label>
@@ -46,6 +46,13 @@
 						    </button>
 						    <div class="alert px-3 contact-form-message d-none mb-3"></div>
 						</form>
+						<div class="row">
+							<div class="col-12 mb-4">
+								<div class="w-100 h-100" id="contactmap">
+									<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.6468249831787!2d7.492911815325601!3d6.439381725920649!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1044a3d8f51f6071%3A0x6b07f5ee68d7e660!2s26%20Moorehouse%20St%2C%20Ogui%20400001%2C%20Enugu!5e0!3m2!1sen!2sng!4v1637755718285!5m2!1sen!2sng" allowfullscreen="" loading="lazy" class="w-100 h-100 rounded"></iframe>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="col-12 col-lg-4">
 						<h3 class="text-white">Office Addresses</h3>

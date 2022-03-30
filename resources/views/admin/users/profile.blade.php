@@ -8,7 +8,6 @@
             @else
                 <div class="row">
                     @set('role', strtolower($user->profile->role ?? ''))
-                    @set('status', strtolower($user->status ?? ''))
                     <div class="col-12 col-md-4 col-lg-3">
                         <div class="mb-4 icon-raduis bg-white shadow-sm text-center">
                             <div class="w-auto position-relative">
@@ -124,7 +123,7 @@
                                                 {{ number_format($user->reviews->count()) }}
                                             </h5>
                                         </div>
-                                        <a href="javascript:;" class="text-white text-decoration-none">Reviews</a>
+                                        <a href="{{ route('account.profile', ['id' => $user->profile->id, 'name' => \Str::slug($user->name)]) }}" class="text-white text-decoration-none">Reviews</a>
                                     </div>
                                     <div class="md-circle text-center bg-info rounded-circle position-relative">
                                         <small class="text-white h-100  position-relative tiny-font" style="top: 0px;">
@@ -133,7 +132,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @if($role === 'agent')
+                            @if($role === 'realtor')
                                 <div class="col-12 col-md-6 mb-4">
                                     <div class="icon-raduis py-4 alert d-flex align-items-center justify-content-between bg-info position-relative m-0">
                                         <div class="">
@@ -142,7 +141,7 @@
                                                     {{ number_format($user->properties->count()) }}
                                                 </h5>
                                             </div>
-                                            <a href="javascript:;javascript:;" class="text-white">Properties</a>
+                                            <a href="{{ route('account.profile', ['id' => $user->profile->id, 'name' => \Str::slug($user->name)]) }}" class="text-white" target="_blank">Properties</a>
                                         </div>
                                         <div class="md-circle text-center bg-pink rounded-circle position-relative">
                                             <small class="text-white h-100  position-relative tiny-font" style="top: 0px;">
@@ -161,7 +160,7 @@
                                                     {{ number_format($user->materials->count()) }}
                                                 </h5>
                                             </div>
-                                            <a href="javascript:;javascript:;" class="text-white">Materials</a>
+                                            <a href="{{ route('account.profile', ['id' => $user->profile->id, 'name' => \Str::slug($user->name)]) }}" class="text-white" target="_blank">Materials</a>
                                         </div>
                                         <div class="md-circle text-center bg-pink rounded-circle position-relative">
                                             <small class="text-white h-100  position-relative tiny-font" style="top: 0px;">
@@ -180,7 +179,7 @@
                                                     {{ $user->services()->exists() ? number_format($user->services->count()) : 0 }}
                                                 </h5>
                                             </div>
-                                            <a href="javascript:;" class="text-white text-decoration-none">Services</a>
+                                            <a href="{{ route('account.profile', ['id' => $user->profile->id, 'name' => \Str::slug($user->name)]) }}" class="text-white text-decoration-none" target="_blank">Services</a>
                                         </div>
                                         <div class="md-circle text-center bg-pink rounded-circle position-relative">
                                             <small class="text-white h-100  position-relative tiny-font" style="top: 0px;">

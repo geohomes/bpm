@@ -12,6 +12,6 @@
 
 <h3>Or click on the link below.</h3>
 <h1>{{ $url }}</h1>
-<p>If you did not perform this action with your email, please ignore.</p>
+<p>If you did not perform this action with your email, please ignore. Regards {{ env('COMPANY_NAME') }}</p>
 
 @endcomponent

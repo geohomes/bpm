@@ -34,7 +34,7 @@ class ProfileFactory extends Factory
             'role' => $faker->randomElement(array_keys(Profile::$roles)),
             'certified' => $faker->boolean($chanceOfGettingTrue = 18),
             'reference' => \Str::random(64),
-            'code' => $faker->randomElement(['red', 'bmd', 'rea', 'ats']),
+            'code' => $faker->randomElement(['red', 'bmd', 'rea', 'ats', 'rel']),
             'description' => $faker->text(),
             'city' => $faker->city(),
             'phone' => $faker->phoneNumber(),

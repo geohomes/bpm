@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Models\Membership;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class MembershipsController extends Controller
@@ -12,9 +11,7 @@ class MembershipsController extends Controller
      */
     public function index()
     {
-        $memberships = Membership::paginate(24);
-
-        return view('admin.memberships.index')->with(['memberships' => $memberships]);
+        return view('admin.memberships.index')->with(['memberships' => Membership::paginate(24)]);
     }
 
 }

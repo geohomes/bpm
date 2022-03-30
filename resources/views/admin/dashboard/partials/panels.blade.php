@@ -123,7 +123,7 @@
         <div class="card-body">
             <div class="d-flex align-items-center justify-content-between mb-3">
                 <small class="px-3 tiny-font py-1 bg-danger rounded-pill">
-                    <small class="text-white">-04%</small>
+                    <small class="text-white">0%</small>
                 </small>
             </div>
             <div class="">
@@ -170,9 +170,6 @@
                     <span>
                         {{ number_format(\App\Models\Unit::count()) }}
                     </span>
-                    <small class="text-danger">
-                        <i class="icofont-long-arrow-down"></i>
-                    </small>
                 </div>
                 <a href="{{ route('admin.units') }}" class="d-flex justify-content-between align-items-center text-main-dark text-decoration-none">Units</a>
             </div>
@@ -184,7 +181,7 @@
         <div class="card-body">
             <div class="d-flex align-items-center justify-content-between mb-3">
                 <small class="px-3 tiny-font py-1 bg-success rounded-pill">
-                    <small class="text-white">+10.5% views</small> 
+                    <small class="text-white">0 views</small> 
                 </small>
             </div>
             <div class="">
@@ -192,11 +189,28 @@
                     <span>
                         {{ number_format(\App\Models\News::count()) }}
                     </span>
-                    <small class="text-success">
-                        <i class="icofont-long-arrow-up"></i>
-                    </small>
                 </div>
                 <a href="javascipt:;" class="d-flex justify-content-between align-items-center text-main-dark text-decoration-none">News</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12 col-md-6 col-lg-3 mb-4">
+    <div class="card card-raduis border-0 shadow-sm" >
+        <div class="card-body">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <small class="px-3 tiny-font py-1 bg-success rounded-pill">
+                    <small class="text-white">0 active</small> 
+                </small>
+            </div>
+            <div class="">
+                <div class="text-main-dark">
+                    <span>
+                        04
+                        {{-- {{ number_format(\App\Models\Staff::count()) }} --}}
+                    </span>
+                </div>
+                <a href="{{ route('admin.staff') }}" class="d-flex justify-content-between align-items-center text-main-dark text-decoration-none">Staff</a>
             </div>
         </div>
     </div>

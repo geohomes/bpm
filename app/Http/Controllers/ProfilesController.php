@@ -7,13 +7,6 @@ use Illuminate\Support\Str;
 
 class ProfilesController extends Controller
 {
-    /**
-     * Profile page view
-     */
-    public function index()
-    {
-        return view('frontend.agents.index')->with(['agents' => Profile::where(['role' => 'agent'])->paginate(24)]);
-    }
 
     /**
      * Profile page

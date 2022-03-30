@@ -33,9 +33,9 @@
         <div class="position-relative" style="top: -150px;">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12 col-md-9">
+                    <div class="col-12 col-md-9 mb-4">
                         <div class="alert alert-info mb-4">Global Properties ({{ \App\Models\Property::count() }})</div>
-                        <div class="">
+                        <div class="mb-4">
                             @if(empty($properties->count()))
                                 <div class="alert-info alert">No Properties Yet</div>
                             @else
@@ -49,9 +49,17 @@
                                 {{ $properties->appends(request()->query())->links('vendor.pagination.default') }}
                             @endif
                         </div>
+                        <div class="">
+                            @include('frontend.adverts.partials.fullwidth')
+                        </div>
                     </div>
-                    <div class="col-12 col-md-3">
-                        @include('frontend.properties.partials.categories')
+                    <div class="col-12 col-md-3 mb-4">
+                        <div class="mb-4">
+                            @include('frontend.properties.partials.categories')
+                        </div>
+                        <div class="">
+                            @include('frontend.adverts.partials.sidebar')
+                        </div>
                     </div>  
                 </div>
             </div>

@@ -80,9 +80,10 @@ class Profile extends Model
      * @var []
      */
     public static $roles = [
-        'agent' => [
+        'realtor' => [
             ['name' => 'Real Estate Developer', 'code' => 'red'],
-            ['name' => 'Real Estate Agent', 'code' => 'rea'],
+            ['name' => 'Realtor', 'code' => 'rel'],
+            ['name' => 'Real Estate Dealer', 'code' => 'rea'],
         ],
         'artisan' => [
             ['name' => 'Artisan', 'code' => 'ats'],

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class PasswordReset extends Mailable
+class OtpLink extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -35,6 +35,6 @@ class PasswordReset extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.resetlink')->subject('Password Reset Link');
+        return $this->markdown('emails.otplink')->subject('Phone Verification Link');
     }
 }

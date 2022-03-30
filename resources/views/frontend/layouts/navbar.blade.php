@@ -34,11 +34,11 @@
                                 <small class="text-main-dark">Artisans</small>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ route('agents') }}">
+                            <a class="dropdown-item" href="{{ route('realtors') }}">
                                 <small class="text-theme-color mr-1">
                                     <i class="icofont-users"></i>
                                 </small>
-                                <small class="text-main-dark">Agents</small>
+                                <small class="text-main-dark">Realtors</small>
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('dealers') }}">
@@ -276,11 +276,11 @@
                         </a>
                     </div>
                     <div class="card card-body">
-                        <a href="{{ route('agents') }}" class="d-flex justify-content-between">
-                            <small class="text-main-dark">Agents</small>
+                        <a href="{{ route('realtors') }}" class="d-flex justify-content-between">
+                            <small class="text-main-dark">Realtors</small>
                             <small class="bg-danger rounded-pill px-3">
                                 <small class="text-white mb-2 tiny-font position-relative" style="top: -1px;">
-                                    +{{ \App\Models\Profile::where(['role' => 'agent'])->count() }}
+                                    +{{ \App\Models\Profile::where(['role' => 'realtor'])->count() }}
                                 </small>
                             </small>
                         </a>

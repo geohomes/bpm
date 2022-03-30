@@ -105,6 +105,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="">
+                    @include('frontend.adverts.partials.fullwidth')
+                </div>
             </div>
         </div>
         <div class="bg-white" style="padding: 160px 0;">
@@ -114,7 +117,7 @@
                         <div class="mb-4">
                             <h2 class="text-main-dark">Why Choose Our Properties</h2>
                         </div>
-                        <div>
+                        <div class="">
                             <div class="d-flex align-items-center mb-4">
                                 <div class="text-center">
                                     <div class="lg-circle rounded-circle bg-theme-color text-white mr-3">
@@ -168,17 +171,17 @@
         <div class="home-agents">
             <div class="container-fluid">
                 <div class="mb-3">
-                    <h5 class="text-theme-color">The Best Agents</h5>
-                    <h2 class="text-main-dark">Meet Our Agents</h2>
+                    <h5 class="text-theme-color">Global Realtors</h5>
+                    <h2 class="text-main-dark">Meet Our Realtors</h2>
                 </div>
-                @set('agents', \App\Models\Profile::where(['role' => 'agent'])->take(4)->inRandomOrder()->get())
-                @if(empty($agents))
-                    <div class="alert alert-danger">No Agents Yet</div>
+                @set('realtors', \App\Models\Profile::where(['role' => 'realtor'])->take(4)->inRandomOrder()->get())
+                @if(empty($realtors))
+                    <div class="alert alert-danger">No Realtors Yet</div>
                 @else
                     <div class="row">
-                        @foreach($agents as $agent)
+                        @foreach($realtors as $realtor)
                             <div class="col-12 col-md-4 col-lg-3 mb-4">
-                                @include('frontend.agents.partials.card')
+                                @include('frontend.realtors.partials.card')
                             </div>
                         @endforeach
                     </div>  
@@ -192,7 +195,7 @@
                         <h1 class="mb-3 text-white counter">
                             {{ '190' }}
                         </h1>
-                        <div class="text-white">Total Agents</div>
+                        <div class="text-white">Total Realtors</div>
                         
                     </div>
                     <div class="col-12 col-md-4 col-lg-3 mb-4">

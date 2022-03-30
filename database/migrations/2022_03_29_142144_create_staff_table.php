@@ -15,11 +15,12 @@ class CreateStaffTable extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->text('role_id');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->string('type')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->string('role');
+            $table->text('description')->nullable();
             $table->string('code')->nullable();
-            $table->string('name');
             $table->boolean('verified')->default(false);
             $table->string('status');
             $table->timestamps();

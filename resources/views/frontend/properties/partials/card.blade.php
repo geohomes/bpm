@@ -115,9 +115,16 @@
                 </small>
             </div>      
         </div>
-        <div class="">
-            <a href="{{ $property->user ? 'tel:'.$property->user->phone : 'javascript:;' }}" class="text-theme-color text-decoration-none">
-                <i class="icofont-phone"></i>
+        <div class="d-flex align-items-center">
+            <a href="{{ empty($property->user->email) ? 'javascript:;' : 'mailto:'.$property->user->email }}" class="text-theme-color text-decoration-none d-block sm-circle rounded-circle border-theme-color text-center mr-2">
+                <small class="tiny-font mt-1">
+                    <i class="icofont-email"></i>
+                </small>
+            </a>
+            <a href="{{ $property->user ? 'tel:'.$property->user->phone : 'javascript:;' }}" class="text-theme-color text-decoration-none d-block sm-circle rounded-circle border-theme-color text-center">
+                <small class="tiny-font mt-1">
+                    <i class="icofont-phone"></i>
+                </small>
             </a>
         </div>
     </div>

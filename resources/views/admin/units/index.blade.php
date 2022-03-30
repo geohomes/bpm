@@ -14,7 +14,7 @@
                     @include('admin.units.partials.add')
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="alert alert-info d-flex align-items-center">
+                    <div class="alert alert-info d-flex align-items-center mb-4">
                         <a class="text-underline" href="javascript:;" data-target="#filter-units" data-toggle="modal">
                             <i class="icofont-listing-box"></i>
                         </a>

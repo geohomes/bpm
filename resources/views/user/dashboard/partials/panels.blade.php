@@ -11,7 +11,7 @@
         </div>
     </div>
 </div>
-@if($role === 'agent')
+@if($role === 'realtor')
     <div class="col-6 mb-4">
         <div class="icon-raduis alert bg-info m-0">
             <div class="py-2">
@@ -53,7 +53,6 @@
         </div>
     </div>
 @endif
-{{-- {{ dd(auth()->user()->profile) }} --}}
 <div class="col-12 mb-4">
     <div class="icon-raduis bg-white shadow-sm p-4 border-0" >
         <div class="pb-0 position-relative">
@@ -72,7 +71,6 @@
                     @include('user.credits.partials.buy')
                     <a href="{{ route('user.credits') }}" class="btn bg-theme-color btn-block text-white">View all</a>
                 </div>
-                
             </div>
         </div>
     </div>

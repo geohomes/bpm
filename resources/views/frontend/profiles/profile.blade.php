@@ -106,7 +106,7 @@
 								@else
 									<div class="alert alert-danger">No Services Available</div>
 								@endif
-							@elseif($profile->role == 'agent')
+							@elseif($profile->role == 'realtor')
 								@if($profile->user->properties()->exists())
 									@set('properties', $profile->user->properties)
 									<div class="alert alert-info mb-4">

@@ -162,4 +162,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Verify::class, 'phone');
     }
+
+    /**
+     * A user belongs to a staff
+     */
+    public function staff()
+    {
+        return $this->belongsTo(Staff::class);
+    }
 }

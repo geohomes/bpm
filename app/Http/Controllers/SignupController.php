@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
-use App\Mail\EmailVerification;
-use Illuminate\Support\Facades\{Http, DB};
+use App\Mail\{EmailVerification, OtpLink};
+use Illuminate\Support\Facades\DB;
 use App\Models\{User, Verify};
-use App\Helpers\{Sms};
+use App\Helpers\Sms;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Validator;
@@ -75,12 +74,14 @@ class SignupController extends Controller
                 $verify->tokenexpiry = Carbon::now()->addMinutes(60);
                 $verify->email = $data['email'];
                 $verify->update();
-                $mail = new EmailVerification([
+
+                $verifymail = new EmailVerification([
                     'email' => $data['email'], 
                     'token' => $token,
                 ]);
 
-                Mail::to($data['email'])->send($mail);
+                Mail::to($data['email'])->send($verifymail);
+                Mail::to($data['email'])->send(new OtpLink(['reference' => $reference]));
             }
 
             Sms::otp([
@@ -97,10 +98,9 @@ class SignupController extends Controller
 
         } catch (Exception $error) {
             DB::rollBack();
-            $error = json_decode($error->getMessage());
             return response()->json([
                 'status' => 0,
-                'info' => $error->Message ?? 'Unknown error. Try again later',
+                'info' => 'Unknown error. Try again later',
             ]);
         }
     }
