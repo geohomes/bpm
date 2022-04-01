@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\{Image, Material, Property};
+use App\Models\Image;
 use Faker\Factory as Faker;
 
 class ImageFactory extends Factory
@@ -18,11 +18,10 @@ class ImageFactory extends Factory
         $faker = Faker::create();
         $faker->addProvider(new \Smknstd\FakerPicsumImages\FakerPicsumImagesProvider($faker));
         return [
-            'type' => $faker->randomElement(['property', 'materials']),
+            'type' => $faker->randomElement(Image::$types),
             'link' => $faker->imageUrl($width = 1260, $height = 960),
-            'property_id' => rand(1, Property::count()),
-            'material_id' => rand(1, Material::count()),
-            'reference' => \Str::uuid(),
+            'model_id' => rand(1, 4560),
+            'role' => $faker->randomElement(['main', 'others']),
         ];
     }
 }

@@ -15,7 +15,7 @@ class CreateStaffTable extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('user_id');
             $table->string('type')->nullable();
             $table->bigInteger('created_by')->nullable();
             $table->string('role');

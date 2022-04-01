@@ -111,11 +111,10 @@ class StaffController extends Controller
     {
         $data = request()->all();
         $validator = Validator::make($data, [
-            'details' => ['required', 'string'],
-            'name' => ['required', 'string'],
-            'price' => ['required', 'integer'],
-            'listing' => ['required', 'integer'],
-            'duration' => ['required', 'string'],
+            'email' => ['required', 'email', 'unique:users'], 
+            'phone' => ['required', 'unique:users'],
+            'role' => ['required', 'string'],
+            'fullname' => ['required', 'string'],
         ]);
 
         if (!$validator->passes()) {
@@ -125,13 +124,25 @@ class StaffController extends Controller
             ]);
         }
 
-        $plan = Staff::find($id);
-        $plan->details = $data['details'];
-        $plan->name = $data['name'];
-        $plan->price = $data['price'];
-        $plan->listing = $data['listing'];
-        $plan->duration = $data['duration'];
-        $plan->update();
+        $whitelisted = ['superadmin', 'manager'];
+        if (in_array($data['role'], $whitelisted)) {
+            $role = ucfirst($data['role']);
+            return response()->json([
+                'status' => 0,
+                'info' => "{$role} role not allowed",
+            ]);
+        }
+
+        $staff = Staff::find($id);
+        $staff->description = $data['description'];
+        $staff->role = $data['role'];
+        $staff->update();
+
+        $staff = User::find($staff->user->id);
+        $staff->email = $data['email'];
+        $staff->phone = $data['phone'];
+        $staff->name = $data['fullname'];
+        $staff->update();
 
         return response()->json([
             'status' => 1,
@@ -149,10 +160,10 @@ class StaffController extends Controller
         ]);
     }
 
-    public function status($id)
+    public function status($id, $status = '')
     {
         $staff = Staff::find($id);
-        $staff->status = $data['status'];
+        $staff->status = $status;
         $staff->update();
         return response()->json([
             'status' => 1,

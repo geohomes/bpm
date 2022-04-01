@@ -15,26 +15,39 @@ class Image extends Model
      * @var string[]
      */
     protected $fillable = [
-        'material_id',
-        'property_id',
+        'model_id',
         'link',
         'type',
-        'reference'
+        'public_id',
+        'role'
     ];
 
     /**
-     * An image belongs to a property
+     * Images Types
+     *
+     * @var string[]
      */
-    public function property()
-    {
-        return $this->belongsTo(Property::class)->take(4);
-    }
+    public static $types = [
+        'property', 
+        'blog', 
+        'material', 
+        'profile', 
+        'advert', 
+        'service',
+    ];
 
     /**
-     * An image belongs to a material
+     * Images dimentions
+     *
+     * @var string[]
      */
-    public function material()
-    {
-        return $this->belongsTo(Material::class)->take(2);
-    }
+    public static $dimentions = [
+        'material' => ['width' => 250, 'height' => 456], 
+        'profile' => ['width' => 250, 'height' => 456], 
+        'advert' => ['width' => 250, 'height' => 456], 
+        'property' => ['width' => 960, 'height' => 1024], 
+        'service' => ['width' => 250, 'height' => 456],
+        'blog' => ['width' => 250, 'height' => 456],
+    ];
+
 }

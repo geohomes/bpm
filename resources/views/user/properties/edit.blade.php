@@ -15,27 +15,29 @@
                             <small>Manage property images</small>
                         </div>
                         <div class="">
+                            @set('image', empty($property->images) ? '' : ($property->images('main')->get()[0] ?? ''))
                             <div class="position-relative card mb-4">
-                                <div class="card-header bg-white d-flex justify-content-between">
-                                    <small class="text-main-dark">Main view</small>
-                                    <small class="mt-2 add-main-property-image-{{ $property->id }} cursor-pointer text-main-dark" data-id="{{ $property->id }}">
+                                <div class="card-header border-0 bg-theme-color d-flex justify-content-between">
+                                    <small class="text-white">Main view</small>
+                                    <small class="mt-2 add-main-property-image-{{ $property->id }} cursor-pointer text-white" data-id="{{ $property->id }}">
                                         <i class="icofont-camera"></i>
                                     </small>
                                 </div> 
                                 <form action="javascript:;">
-                                    <input type="file" name="image" accept="image/*" class="main-property-image-input-{{ $property->id }}" data-url="{{ route('api.property.image.upload', ['id' => $property->id, 'role' => 'main' ]) }}" style="display: none;">
+                                    <input type="file" name="image" accept="image/*" class="main-property-image-input-{{ $property->id }}" data-url="{{ route('api.images.upload', ['id' => $property->id, 'type' => 'property', 'folder' => 'properties', 'role' => 'main', 'public_id' => $image->public_id ?? '']) }}" style="display: none;">
                                 </form>
                                 <div class="main-property-image-loader-{{ $property->id }} upload-image-loader  position-absolute d-none rounded-circle text-center border" data-id="{{ $property->id}}">
                                     <img src="/images/spinner.svg">
                                 </div>
-                                <?php $imagelink = empty($property->image) ? '/images/banners/holder.png' : $property->image; ?>
+                            {{-- {{ dd($property->images()->exists()) }} --}}
+                                @set('link', $image->link ?? '/images/banners/placeholder.png')
                                 <div class="bg-dark" style="height: 260px;">
-                                    <a href="{{ $imagelink }}" class="text-main-dark">
-                                        <img src="{{ $imagelink }}" class="img-fluid main-property-image-preview-{{ $property->id }} h-100 w-100 object-cover">
+                                    <a href="{{ $link }}" class="text-main-dark">
+                                        <img src="{{ $link }}" class="img-fluid main-property-image-preview-{{ $property->id }} h-100 w-100 object-cover">
                                     </a>
                                 </div>
                             </div>
-                            <div class="row">
+                            {{-- <div class="row">
                                 @for($key = 0; $key <= 3; $key++)
                                     <?php $imageid = $property->images[$key]->id ?? 'create-'.$key; ?>
                                     <div class="col-6 mb-4">
@@ -55,7 +57,7 @@
                                                 <img src="/images/spinner.svg">
                                             </div>
                                             <div class="bg-dark" style="height: 140px;">
-                                                <?php $imagelink = isset($property->images[$key]->link) ? $property->images[$key]->link  : '/images/banners/holder.png'; ?>
+                                                <?php $imagelink = isset($property->images[$key]->link) ? $property->images[$key]->link  : '/images/banners/placeholder.png'; ?>
                                                 <a href="{{ $imagelink }}" class="text-main-dark">
                                                     <img src="{{ $imagelink }}" class="img-fluid other-property-image-preview-{{ $imageid }} h-100 w-100 border-bottom object-cover">
                                                 </a>
@@ -63,7 +65,7 @@
                                         </div>
                                     </div>
                                 @endfor
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="col-12 col-md-7 mb-4">

@@ -174,9 +174,25 @@ class Property extends Model
     /**
      * A property may have many images
      */
-    public function images()
+    public function images($role = null)
     {
-        return $this->hasMany(Image::class)->take(4);
+        $images = $this->hasMany(Image::class, 'model_id')->where([
+            'type' => 'property', 
+            'role' => $role,
+        ]);
+
+        return $images = $role == 'main' ? $images->take(1) : $images->take(4);
+    }
+
+    /**
+     * Get all comments for this post.
+     */
+    public function comments($published = false)
+    {
+        $comments = $this->hasMany('App\Comment');
+        if($published) $comments->where('published', 1);
+
+        return $comments;
     }
 
     /**

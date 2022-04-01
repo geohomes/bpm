@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Models\Advert;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class AdvertsController extends Controller

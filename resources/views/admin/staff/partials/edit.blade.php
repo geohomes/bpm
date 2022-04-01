@@ -12,31 +12,31 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="text-main-dark">Email</label>
-                            <input type="email" class="form-control email" name="email" placeholder="e.g., email@email.com">
+                            <input type="email" class="form-control email" name="email" placeholder="e.g., email@email.com" value="{{ $staff->user->email }}">
                             <small class="invalid-feedback email-error"></small>
                         </div>
                         <div class="form-group col-md-6">
                             <label class="text-main-dark">Fullname</label>
-                            <input type="text" class="form-control fullname" name="fullname" placeholder="e.g., John Rel">
+                            <input type="text" class="form-control fullname" name="fullname" placeholder="e.g., John Rel" value="{{ $staff->user->name }}">
                             <small class="invalid-feedback fullname-error"></small>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="text-main-dark">Phone</label>
-                            <input type="text" class="form-control phone" name="phone" placeholder="e.g., 08138982100">
+                            <input type="text" class="form-control phone" name="phone" placeholder="e.g., 08138982100" value="{{ $staff->user->phone }}">
                             <small class="invalid-feedback phone-error"></small>
                         </div>
                         <div class="form-group col-md-6">
                             <label class="text-main-dark">Role</label>
-                            <input type="text" class="form-control role" name="role" placeholder="e.g., admin">
+                            <input type="text" class="form-control role" name="role" placeholder="e.g., admin" value="{{ $staff->role }}">
                             <small class="invalid-feedback role-error"></small>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-12">
                             <label class="text-main-dark">Description</label>
-                            <textarea class="form-control description" name="description" placeholder="Enter a description of this role" rows="4"></textarea>
+                            <textarea class="form-control description" name="description" placeholder="Enter a description of this role" rows="4">{{ $staff->description }}</textarea>
                             <small class="invalid-feedback description-error"></small>
                         </div>
                     </div>

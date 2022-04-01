@@ -12,6 +12,6 @@
 
 <h3>Or click on the link below.</h3>
 <h1>{{ $url }}</h1>
-<p>Regards {{ env('COMPANY_NAME') }}</p>
+<p>Regards {{ env('APP_NAME') }}</p>
 
 @endcomponent

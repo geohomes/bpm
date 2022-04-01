@@ -2,6 +2,24 @@
 
 	'use strict';
 
+    $('.toggle-staff-status').on('change', function() {
+        $.ajax({
+            method: 'post',
+            url: $(this).attr('data-url'),
+            dataType: 'json',
+
+            success: function(response) {
+                if(response.status === 1) {
+                    console.log(response.info);
+                }
+            },
+
+            error: function() {
+                alert('Network error. Try again.');
+            },
+        });    
+    });
+
     $('.delete-social').on('click', function() {
         handleAjax({that: $(this), button: 'delete-social-button', spinner: 'delete-social-spinner'});    
     });

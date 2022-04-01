@@ -15,11 +15,11 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('link')->nullable();
-            $table->foreignId('property_id')->nullable();
+            $table->string('link');
+            $table->foreignId('model_id');
             $table->string('type');
-            $table->foreignId('material_id')->nullable();
-            $table->string('reference');
+            $table->string('public_id');
+            $table->string('role')->nullable();
             $table->timestamps();
         });
     }

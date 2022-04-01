@@ -179,6 +179,8 @@ return [
         \Torann\GeoIP\GeoIPServiceProvider::class,
         \Torann\Currency\CurrencyServiceProvider::class,
 
+        JD\Cloudder\CloudderServiceProvider::class,
+
     ],
 
     /*
@@ -235,6 +237,8 @@ return [
 
         'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
         'Currency' => \Torann\Currency\Facades\Currency::class,
+        
+        'Cloudder' => JD\Cloudder\Facades\Cloudder::class,
 
     ],
 

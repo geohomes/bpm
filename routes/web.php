@@ -114,7 +114,7 @@ Route::middleware(['web', 'auth', 'admin', 'revalidate'])->domain(env('ADMIN_URL
         Route::post('/edit/{id}', [\App\Http\Controllers\Api\StaffController::class, 'edit'])->name('admin.staff.edit');
         Route::post('/delete/{id}', [\App\Http\Controllers\Api\StaffController::class, 'delete'])->name('admin.staff.delete');
         Route::post('/add', [\App\Http\Controllers\Api\StaffController::class, 'add'])->name('admin.staff.add');
-        Route::post('/status/update', [\App\Http\Controllers\Api\StaffController::class, 'status'])->name('admin.staff.status.update');
+        Route::post('/toggle/status/{id}/{status}', [\App\Http\Controllers\Api\StaffController::class, 'status'])->name('admin.staff.toggle.status');
     });
 
     Route::prefix('subscriptions')->group(function () {

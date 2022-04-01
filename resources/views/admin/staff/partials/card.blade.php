@@ -36,10 +36,10 @@
         <small class="text-main-dark">
             {{ $staff->created_at->diffForHumans() }}
         </small>
-        <form class="d-inline">
+        <form class="d-inline" action="javascript:;" method="post">
             <div class="form-group">
                 <div class="custom-control custom-switch m-0">
-                    <input type="checkbox" value="{{ $staff->status }}" name="status" class="custom-control-input status" id="status" {{ $staff->status == 'active' ? 'checked' : '' }}>
+                    <input type="checkbox" value="{{ $staff->status }}" name="status" class="custom-control-input status toggle-staff-status" id="status" {{ $staff->status == 'active' ? 'checked' : '' }} data-url="{{ route('admin.staff.toggle.status', ['id' => $staff->id, 'status' => $staff->status == 'active' ? 'inactive' : 'active']) }}">
                     <label class="custom-control-label text-main-dark cursor-pointer" for="status"></label>
                 </div>
             </div>

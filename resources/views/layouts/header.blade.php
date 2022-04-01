@@ -13,7 +13,7 @@
         <meta name="keywords" content="Buy, Sell, Shop, Explore products and services, properties, Advertize, Lands, Houses, Rent, Lease" />
         <meta name="image" content="/images/logos/logo.png" />
 
-        <meta name="og:site_name" content="{{ env('COMPANY_NAME') }}" />
+        <meta name="og:site_name" content="{{ env('APP_NAME') }}" />
         <meta name="og:locale" content="en_US" />
         <meta name="article:section" content="Buy, Sell, Shop, Explore products and services, properties, Advertize, Lands, Houses, Rent, Lease" />
         <meta name="description" content="Buy, Sell, Shop, Explore products and services, properties, Advertize, Lands, Houses, Rent, Lease" />
@@ -38,10 +38,10 @@
         <!--Twitter Share-->
         <meta name="twitter:image:src" content="/images/logos/logo.png" />
         <meta property="twitter:image" content="/images/logos/logo.png" />
-        <meta property="twitter:title" content="{{ env('COMPANY_NAME') }}" />
+        <meta property="twitter:title" content="{{ env('APP_NAME') }}" />
         <meta property="twitter:card" content="summary_large_card" />
         <meta property="twitter:site" content="https://www.bestpropertymarket.com/" />
-        <meta property="twitter:site_name" content="{{ env('COMPANY_NAME') }}"/>
+        <meta property="twitter:site_name" content="{{ env('APP_NAME') }}"/>
         <meta property="twitter:description" content="Buy, Sell, Shop, Explore products and services, properties, Advertize, Lands, Houses, Rent, Lease" />
 
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
@@ -49,13 +49,17 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
         <link rel="manifest" href="/favicon/site.webmanifest">
         <!-- SITE TITLE -->
-        <title>{{ $title ?? env('COMPANY_NAME') }}</title>
+        <title>{{ $title ?? env('APP_NAME') }}</title>
         {{-- Google fonts --}}
         @if(env('APP_ENV') == 'production')
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
         @endif
+        {{-- File Pond CSS --}}
+        {{-- <link href="/filepond/filepond.min.css" rel="stylesheet" /> --}}
+        <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css" rel="stylesheet" />
+        <link href="https://unpkg.com/filepond/dist/filepond.min.css" rel="stylesheet" />
         <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" type="text/css" href="/bootstrap/bootstrap.min.css">
         <!-- utility CSS -->

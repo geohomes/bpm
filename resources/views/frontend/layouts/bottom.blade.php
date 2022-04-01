@@ -163,7 +163,7 @@
 	</section>
 	<section class="py-4 bg-main-dark border-top-dark-500">
 		<div class="container-fluid">
-			<small class="text-white m-0">&copy Copyright World Best Property Limited {{ date('Y') }}</small>
+			<small class="text-white m-0">&copy Copyright {{ env('APP_NAME') }} {{ date('Y') }}</small>
 		</div>
 	</section>
 </footer>

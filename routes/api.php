@@ -19,7 +19,6 @@ Route::post('/signup', [\App\Http\Controllers\SignupController::class, 'signup']
 Route::group(['middleware' => [], 'prefix' => ''], function () {
 
     Route::post('/login', [\App\Http\Controllers\LoginController::class, 'authenticate'])->name('api.login');
-    //Route::post('/buy', [\App\Http\Controllers\Api\CreditController::class, 'buy'])->name('api.credit.buy');
     Route::post('/password', [\App\Http\Controllers\Api\PasswordController::class, 'update'])->name('api.password.update');
 
     Route::prefix('property')->group(function () {
@@ -32,6 +31,8 @@ Route::group(['middleware' => [], 'prefix' => ''], function () {
         Route::post('/image/upload/{id}/{role}', [\App\Http\Controllers\Api\PropertiesController::class, 'image'])->name('api.property.image.upload');
     });
 
+    Route::post('/images/upload', [\App\Http\Controllers\Api\ImagesController::class, 'upload'])->name('api.images.upload');
+
     Route::prefix('material')->group(function () {
         Route::post('/add', [\App\Http\Controllers\Api\MaterialsController::class, 'add'])->name('api.material.add');
 
@@ -39,11 +40,5 @@ Route::group(['middleware' => [], 'prefix' => ''], function () {
 
         Route::post('/image/upload/{id}/{role}', [\App\Http\Controllers\Api\MaterialsController::class, 'image'])->name('api.material.image.upload');
     });
-
-    //Route::post('/password/email', [PasswordController::class, 'email'])->name('password.email')->name('api.');
-    //Route::post('/password/reset', [PasswordController::class, 'reset'])->name('password.reset')->name('api.');
-    //Route::post('/password/update', [PasswordController::class, 'update'])->name('password.update')->name('api.');
-
-    //Route::post('/logout', [ApiController::class, 'logout'])->name('api.logout');
 
 });

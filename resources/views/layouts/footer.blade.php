@@ -22,17 +22,39 @@
         <script src="{{ env('APP_URL') }}/js/charts.js"></script>
         <!-- Summernote -->
         <script src="{{ env('APP_URL') }}/summernote/summernote-lite.min.js" type="text/javascript"></script>
-        {{-- <script src="{{ env('APP_URL') }}/jquery/waypoints.min.js"></script> --}}
-        {{-- <script src="{{ env('APP_URL') }}/jquery/jquery.counterup.min.js"></script> --}}
+
+        {{-- File Pond Scripts --}}
+        <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.min.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.min.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.min.js"></script>
+        <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
 
         <script type="text/javascript">
+            @if(!empty($property) || !empty($material))
+                /*
+                We want to preview images, so we need to register the Image Preview plugin
+                */
+                FilePond.registerPlugin(
+                    // encodes the file as base64 data
+                    FilePondPluginFileEncode,
+                    // validates the size of the file
+                    FilePondPluginFileValidateSize,
+                    // corrects mobile image orientation
+                    FilePondPluginImageExifOrientation,
+                    // previews dropped images
+                    FilePondPluginImagePreview
+                );
 
-            // jQuery(document).ready(function($) {
-            //     $('.counter').counterUp({
-            //         delay: 10,
-            //         time: 1000
-            //     });
-            // });
+                const imageUpload = document.querySelector('.image-upload');
+                if (imageUpload) {
+                    FilePond.create(imageUpload);
+                    FilePond.setOptions({
+                        server: imageUpload.getAttribute('data-url'),
+                    });
+                }
+                    
+            @endif
 
             <?php if(!empty(auth()->user()->profile)): ?>
                 var button = $('.upload-profile-image');

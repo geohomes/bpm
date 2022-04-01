@@ -15,7 +15,7 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
+        // User::truncate();
         $faker = Faker::create();
         $users = [
             ['name' => $faker->name(), 'phone' => $faker->phoneNumber(), 'email' => 'admin@admin.io', 'role' => 'admin', 'password' => Hash::make('1234'), 'status' => 'active'],
