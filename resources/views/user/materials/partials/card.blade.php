@@ -1,6 +1,6 @@
 <div class="card border-0 position-relative">
 	<div class="position-relative">
-		@set('promoted', $material->promoted == true && ($material->promotion->status ?? '') == 'active')
+		@set('promoted', !empty($material->promotion) && ($material->promotion->status ?? '') == 'active')
 		<div class="position-absolute d-flex w-100" style="z-index: 2; top: 20px; left: 20px;">
 			<div class="dropdown">
 	            <a href="javascript:;" class="align-items-center d-flex text-decoration-none
@@ -16,8 +16,8 @@
 	            		<div class="px-3 py-1 w-100">
 	            			<div class="d-flex">
 	            				<div class="mr-2">
-						            <small class="text-{{ $timing->progress() <= 90 ? 'success' : 'danger' }}">
-						                ({{ $timing->progress() <= 0 ? 1 : $timing->progress() }}%)
+						            <small class="text-success">
+						                ({{ $timing->progress() }}%)
 						            </small>
 						        </div>
 		            	 		<div class="">
@@ -28,9 +28,14 @@
 	            			</div>
 	            		</div>
 	            	@else
-	            		@set('reference', $material->id)
-	            		@set('type', 'material')
-		            	@include('user.promotions.partials.form')
+	            		<div class="p-4 bg-white">
+		            		@if($material->images()->exists())
+			            		@set('params', ['model_id' => $material->id, 'type' => 'material'])
+				            	@include('user.promotions.partials.promote')
+				            @else
+				            	<div class="alert alert-danger mb-0">Please upload image before promoting</div>
+			            	@endif
+			            </div>
 					@endif
 	            </div>
 	        </div>
@@ -39,11 +44,20 @@
 	        </div>
 		</div>
 		<div style="height: 160px; line-height: 160px;">
-			<a href="{{ route('user.material.edit', ['id' => $material->id]) }}" class="text-decoration-none">
-				<img src="{{ empty($material->image) ? '/images/banners/holder.png' : $material->image }}" class="img-fluid border-0 w-100 h-100 object-cover">
-			</a>
+			@if($material->images()->exists())
+				@foreach($material->images as $image)
+					@if($image->role == 'main')
+						<a href="{{ route('user.material.edit', ['id' => $material->id]) }}" class="text-decoration-none">
+							<img src="{{ $image->link }}" class="img-fluid border-0 w-100 h-100 object-cover">
+						</a>
+					@endif
+				@endforeach
+			@else
+				<a href="javascript:;" class="text-decoration-none">
+					<img src="/images/banners/placeholder.png" class="img-fluid border-0 w-100 h-100 object-cover">
+				</a>
+			@endif
 		</div>
-			
 		<div class="position-absolute w-100 px-3 border-top d-flex align-items-center justify-content-between" style="height: 45px; line-height: 45px; bottom: 0; background-color: rgba(0, 0, 0, 0.8);">
 			<small class="text-white">
 				{{ \Str::limit(ucwords($material->city), 8) }}

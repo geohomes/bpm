@@ -33,25 +33,38 @@ class Timing
 	public $duration = 0;
 
 	/**
+	 * paused status
+	 * 
+	 * @type bool
 	 */
-	public function __construct(int $duration = 0, int $progress = 0, bool $expired = false, int $daysleft = 0)
+	public $paused = false;
+
+
+	/**
+	 */
+	public function __construct(int $duration = 0, int $progress = 0, bool $expired = false, int $daysleft = 0, bool $paused = false)
 	{
 		$this->duration = $duration;
 		$this->progress = $progress;
 		$this->expired = $expired;
 		$this->daysleft = $daysleft;
+		$this->paused = $paused;
 	}
 
 	/**
 	 * Calculate durations
 	 */
-	public static function calculate(int $duration = 0, ?string $expiry = '', ?string $started = '') : self
+	public static function calculate(int $duration = 0, ?string $expiry = '', ?string $started = '', $paused = '') : self
 	{
-		$daysleft = Carbon::parse($expiry)->diffInDays($started);
-		// $daysleft = !empty($paused) ? ($daysleft + $paused) : $daysleft;
+		$daysleft = ($duration - Carbon::parse($started)->diffInDays(Carbon::now()));
+		$daysleft = (empty($daysleft) || $daysleft <= 0) ? 0 : $daysleft;
+
+
+		$daysleft = empty($paused) ? $daysleft : ($duration - Carbon::parse($started)->diffInDays($paused));
+
 		$fraction = $duration >= $daysleft ? ($daysleft/($duration ?: 1)) : 0;
 		$progress = round(100 - ($fraction * 100));
-		return new Timing($duration, $progress, ($fraction === 0), $daysleft);
+		return new Timing($duration, $progress, ($fraction <= 0), $daysleft, !empty($paused));
 	}
 
 	/**
@@ -80,5 +93,13 @@ class Timing
 	public function progress() : int
 	{
 		return $this->progress;
+	}
+
+	/**
+	 * Paused status
+	 */
+	public function paused() : bool
+	{
+		return $this->paused;
 	}
 }

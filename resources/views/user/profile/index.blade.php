@@ -16,60 +16,121 @@
                             @set('profile', $user->profile)
                             <div class="row">
                                 <div class="col-12 col-md-6 mb-4">
-                                    <div class="position-relative bg-white shadow-sm mb-4 px-4" style="border-bottom-right-radius: 25px; border-bottom-left-radius: 25px;">
-                                        <div class="d-flex">
-                                            <div class="position-relative rounded-circle mr-3" style="width: 70px; height: 70px; top: -20px;">
-                                                <a href="{{ empty($profile->image) ? 'javascript:;' : $profile->image }}">
-                                                    <img src="{{ empty($profile->image) ? '/images/profiles/avatar.jpg' : $profile->image }}" class="img-fluid w-100 h-100 object-cover border border-info rounded-circle profile-image-preview border">
-                                                </a>
-                                                <div class="upload-profile-image-loader d-none position-absolute" data-id="{{ auth()->id() }}" style="top: 30%; right: 35%;">
-                                                    <img src="/images/spinner.svg" class="position-relative">
+                                    <div class="position-relative bg-white shadow-sm mb-4 px-4">
+                                        @if(empty($profile->image->link))
+                                            <div class="d-flex">
+                                                <div class="position-relative rounded-circle mr-3" style="width: 70px; height: 70px; top: -20px;">
+                                                    <a href="javascript:;">
+                                                        <img src="/images/avatar.jpg" class="img-fluid w-100 h-100 object-cover border border-info rounded-circle image-preview border">
+                                                    </a>
+                                                    <div class="image-loader d-none position-absolute" data-id="{{ auth()->id() }}" style="top: 30%; right: 35%;">
+                                                        <img src="/images/spinner.svg" class="position-relative">
+                                                    </div>
                                                 </div>
+                                                <div class="text-center d-flex align-items-center position-relative   cursor-pointer" style="top: -35px;">
+                                                    <div class="upload-image text-white mr-3 rounded-circle sm-circle bg-success border" data-message="Are you sure to upload profile image?">
+                                                        <div class="tiny-font position-relative" style="top: 2px;">
+                                                            <i class="icofont-camera"></i>
+                                                        </div>
+                                                    </div>
+                                                </div> 
                                             </div>
-                                            <div class="text-center d-flex align-items-center position-relative   cursor-pointer" style="top: -35px;">
-                                                <small class="upload-profile-image text-white mr-3 tiny-font rounded-circle bg-success border" style="width: 25px; height: 25px; line-height: 25px;">
-                                                    <i class="icofont-camera"></i>
-                                                </small>
-                                                @if(!empty($profile->image))
-                                                    <small class="btn btn-sm btn-danger tiny-font px-4 py-1 rounded-pill delete-profile-image" data-url="{{ route('user.profile.image.remove', ['id' => $profile->id]) }}" data-message="Are you sure to remove your profile image?">
-                                                        Remove
-                                                    </small>
-                                                @endif
-                                            </div> 
-                                        </div>
-                                        <div class="">
-                                            <form action="javascript:;">
-                                                <input type="file" name="image" accept="image/*" class="profile-image-input d-none" data-url="{{ route('user.profile.image.upload', ['id' => $profile->id ]) }}">
-                                            </form>
-                                        </div>
+                                            <div class="">
+                                                <form action="javascript:;">
+                                                    <input type="file" name="image" accept="image/*" class="image-input d-none" data-url="{{ route('user.image.upload', ['model_id' => $profile->id, 'type' => 'profile', 'folder' => 'profiles', 'role' => 'main', 'public_id' => '']) }}">
+                                                </form>
+                                            </div>
+                                        @else
+                                            @set('image', $profile->image)
+                                            <div class="d-flex">
+                                                <div class="position-relative rounded-circle mr-3" style="width: 70px; height: 70px; top: -20px;">
+                                                    <a href="{{ $image->link }}">
+                                                        <img src="{{ $image->link }}" class="img-fluid w-100 h-100 object-cover border border-info rounded-circle image-preview border">
+                                                    </a>
+                                                    <div class="image-loader d-none position-absolute" data-id="{{ auth()->id() }}" style="top: 30%; right: 35%;">
+                                                        <img src="/images/spinner.svg" class="position-relative">
+                                                    </div>
+                                                </div>
+                                                <div class="text-center d-flex align-items-center position-relative   cursor-pointer" style="top: -35px;">
+                                                    <div class="upload-image text-white mr-2 rounded-circle sm-circle bg-success border" data-message="Are you sure to upload profile image?">
+                                                        <div class="tiny-font position-relative" style="top: 2px;">
+                                                            <i class="icofont-camera"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="delete-image text-white mr-2 rounded-circle sm-circle bg-danger border" data-url="{{ route('user.image.delete', ['model_id' => $image->model_id, 'role' => $image->role, 'type' => $image->type, 'public_id' => $image->public_id]) }}" data-message="Are you sure to remove your profile image?">
+                                                        <div class="tiny-font position-relative" style="top: 2px;">
+                                                            <i class="icofont-trash"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="{{ $user->status == 'active' ? 'bg-success' : 'bg-secondary' }} text-center border sm-circle rounded-circle">
+                                                        <small class="text-white position-relative tiny-font">
+                                                            <i class="icofont-tick-mark"></i>
+                                                        </small>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                            <div class="">
+                                                <form action="javascript:;">
+                                                    <input type="file" name="image" accept="image/*" class="image-input d-none" data-url="{{ route('user.image.upload', ['model_id' => $image->model_id, 'type' => $image->type, 'folder' => 'profiles', 'role' => $image->role, 'public_id' => $image->public_id]) }}">
+                                                </form>
+                                            </div>
+                                        @endif
                                         <div class="pb-5">
                                             <h5 class="text-main-dark mb-3">
                                                 {{ ucwords($user->name) }}
                                             </h5>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <div class="d-flex align-items-center">
-                                                    <small class="text-main-dark mr-3 rounded-pill tiny-font px-3 py-1 border">
-                                                        {{ ucwords($user->created_at->diffForHumans()) }}
-                                                    </small>
-                                                    <small class="text-main-dark rounded-pill tiny-font px-3 py-1 border">
-                                                        {{ ucwords($profile->designation) }}
-                                                    </small>
+                                            @set('promoted', !empty($profile->promotion) && ($profile->promotion->status ?? '') == 'active')
+                                            <div class="d-flex align-items-center">
+                                                <small class="text-white mr-3 tiny-font px-3 py-1 bg-main-dark">
+                                                    {{ ucwords($user->created_at->diffForHumans()) }}
+                                                </small>
+                                                <div class="dropdown">
+                                                    <a href="javascript:;" class="align-items-center d-flex text-decoration-none
+                                                    " id="promote-{{ $profile->id }}" data-toggle="dropdown">
+                                                        <small class="{{ $promoted ? 'bg-success' : 'bg-main-dark' }} tiny-font px-3 py-1 text-white">
+                                                            {{ $promoted ? 'Promoted' : 'Promote' }}
+                                                            <i class="icofont icofont-caret-down"></i>
+                                                        </small>
+                                                    </a>
+                                                    <div class="dropdown-menu border-0 shadow-sm dropdown-menu-left" aria-labelledby="promote-{{ $profile->id }}" style="width: 210px !important;">
+                                                        @if($promoted)
+                                                            @set('timing', \App\Helpers\Timing::calculate($profile->promotion->duration, $profile->promotion->expiry, $profile->promotion->started))
+                                                            <div class="px-3 py-1 w-100">
+                                                                <div class="d-flex">
+                                                                    <div class="mr-2">
+                                                                        <small class="text-success">
+                                                                            ({{ $timing->progress() }}%)
+                                                                        </small>
+                                                                    </div>
+                                                                    <div class="">
+                                                                        <small class="">
+                                                                            {{ $timing->daysleft() }} Day(s) Left
+                                                                        </small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        @else
+                                                            <div class="p-4 bg-white">
+                                                                @if(empty($profile->image))
+                                                                    <div class="alert alert-danger mb-0">Please upload your profile image before promoting</div>
+                                                                @else
+                                                                    @set('params', ['model_id' => $profile->id, 'type' => 'profile'])
+                                                                    @include('user.promotions.partials.promote')
+                                                                @endif
+                                                            </div>
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                                <div class="{{ $user->status == 'active' ? 'bg-success' : 'bg-secondary' }} text-center border sm-circle rounded-circle">
-                                                    <small class="text-white position-relative tiny-font">
-                                                        <i class="icofont-tick-mark"></i>
-                                                    </small>
-                                                </div>
-                                            </div>        
+                                            </div>       
                                         </div>   
                                     </div>
                                     @if($profile->role == 'artisan')
                                         @if($user->services()->exists())
                                             <div class="d-flex flex-wrap alert alert-info pt-4 icon-raduis mb-4">
                                                 @foreach($user->services as $service)
-                                                    <div class="mr-3 mb-4 position-relative">
+                                                    <div class="mr-3 mb-3 position-relative">
                                                         <small class="px-3 py-1 text-main-dark rounded-pill border border-info">
-                                                            {{ ucfirst($service->service->name) }}
+                                                            {{ ucfirst($service->skill->name) }}
                                                         </small>
                                                     </div>
                                                 @endforeach
@@ -136,7 +197,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="alert mb-3 update-company-details-message d-none"></div>
-                                                <button type="submit" class="btn btn-lg px-4 icon-raduis btn-info text-white update-company-details-button mb-4">
+                                                <button type="submit" class="btn btn-lg px-4 icon-raduis bg-theme-color text-white update-company-details-button mb-4">
                                                     <img src="/images/spinner.svg" class="mr-2 d-none update-company-details-spinner mb-1">
                                                     Save
                                                 </button>
@@ -153,25 +214,9 @@
                                         @include('user.socials.partials.add')
                                         @if($user->socials()->exists())
                                             <div class="row d-flex align-items-center">
-                                                @foreach($user->socials->take(5) as $social)
+                                                @foreach($user->socials as $social)
                                                     <div class="col-4 col-md-3 mb-4">
-                                                        <div class="card border-0 bg-white position-relative icon-raduis shadow-sm">
-                                                            <div class="card-body">
-                                                               <a href="{{ ($social->company == 'whatsapp' || $social->company == 'telegram') ? "tel:{$social->phone}" : $social->link }}" class="text-center bg-theme-color rounded-circle d-block md-circle text-decoration-none">
-                                                                    <small class="text-white tiny-font">
-                                                                        <i class="icofont-{{ $social->company }}"></i>
-                                                                    </small>
-                                                                </a> 
-                                                            </div>
-                                                            <div class="card-footer d-flex align-items-center">
-                                                                <small class="text-warning mr-2 cursor-pointer" data-toggle="modal" data-target="#edit-social-{{ $social->id }}">
-                                                                    <i class="icofont-edit"></i>
-                                                                </small>
-                                                                <small class="text-danger cursor-pointer delete-social" data-url="{{ route('user.social.delete', ['id' => $social->id]) }}" data-message="Delete social media handle?">
-                                                                    <i class="icofont-trash"></i>
-                                                                </small>
-                                                            </div>  
-                                                        </div>  
+                                                        @include('user.socials.partials.card')
                                                     </div>
                                                     @include('user.socials.partials.edit')
                                                 @endforeach
@@ -189,47 +234,19 @@
                                             </a>
                                         </h6>
                                         @if($user->certifications()->exists())
-                                            <?php $certifications = $certifications; ?>
-                                            <div class="row">
-                                                @foreach($certifications as $certificate)
-                                                    <div class="col-12 col-lg-6 mb-4">
-                                                        <div class="card border-0 shadow">
-                                                            <div class="card-body">
-                                                                <div class="d-flex justify-content-between align-items-center">
-                                                                    <a href="javascript:;" data-target="#edit-certification-{{ $certificate->id }}" data-toggle="modal">
-                                                                        <small class="text-main-dark text-underline">
-                                                                            {{ \Str::limit($qualifications[$certificate->qualification], 14) }}
-                                                                        </small>
-                                                                    </a>
-                                                                    <a href="javascript:;" data-target="#edit-certification-{{ $certificate->id }}" data-toggle="modal">
-                                                                        <small class="text-main-dark text-underline">
-                                                                            {{ $certificate->year }}
-                                                                        </small>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
+                                            @set('certifications', $user->certifications)
+                                            @if(!empty($certifications->count()))
+                                                <div class="row">
+                                                    @foreach($certifications as $certificate)
+                                                        <div class="col-12 col-lg-6 mb-4">
+                                                            @include('user.certifications.partials.card')
                                                         </div>
-                                                        <div class="card-footer bg-main-dark d-flex align-items-center justify-content-between">
-                                                            <small class="text-white">
-                                                                {{ $certificate->created_at->diffForHumans() }}
-                                                            </small>
-                                                            <div class="d-flex align-items-center">
-                                                                <a href="javascript:;" data-target="#edit-certification-{{ $certificate->id }}" data-toggle="modal">
-                                                                    <small class="mr-1 text-warning">
-                                                                        <i class="icofont-edit"></i>
-                                                                    </small>
-                                                                </a>
-                                                                <a href="javascript:;" data-url="{{ '' }}">
-                                                                    <small class="mr-1 text-danger">
-                                                                        <i class="icofont-trash"></i>
-                                                                    </small>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    @include('user.certifications.partials.edit')
-                                                @endforeach
-                                            </div>   
+                                                        @include('user.certifications.partials.edit')
+                                                    @endforeach
+                                                </div>
+                                            @else
+                                                <div class="alert alert-danger">You have no certifications.</div>
+                                            @endif   
                                         @else
                                             <div class="alert alert-danger">You have no certifications.</div>
                                         @endif

@@ -19,7 +19,6 @@ class Advert extends Model
         'active',
         'paused',
         'initialized',
-        'cancelled',
     ];
 
     /**
@@ -30,7 +29,6 @@ class Advert extends Model
     protected $fillable = [
         'user_id', 
         'started', 
-        'banner',
         'credit_id',
         'description',
         'link',
@@ -66,6 +64,17 @@ class Advert extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * An advert may have one image
+     */
+    public function image()
+    {
+        return $this->hasOne(Image::class, 'model_id')->where([
+            'type' => 'advert', 
+            'user_id' => auth()->id()
+        ]);
     }
 
 }

@@ -76,4 +76,14 @@ class CertificationsController extends Controller
         ]);        
     }
 
+    public function delete($id)
+    {
+        Certification::find($id)->delete();
+        return response()->json([
+            'status' => 1,
+            'info' => 'Operation successful',
+            'redirect' => '',
+        ]);
+    }
+
 }

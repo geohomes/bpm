@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Models\{Advert, Credit, Unit};
+use App\Models\{Advert, Credit, Image};
 use App\Http\Controllers\Controller;
+use App\Helpers\{Timing, Cloudinary};
 use Illuminate\Support\Str;
 use \Carbon\Carbon;
 use \Exception;
@@ -88,6 +89,7 @@ class AdvertsController extends Controller
             'id' => $id, 
             'user_id' => auth()->id()
         ])->first();
+
         if (empty($advert)) {
             return response()->json([
                 'status' => 0, 
@@ -96,13 +98,11 @@ class AdvertsController extends Controller
         }
 
         try {
-            $advert->description = $data['description'];
             $advert->link = $data['link'];
-            $advert->credit_id = $data['credit'];
+            $advert->description = $data['description'];
+            $advert->size = $data['size'];
+            $advert->update();
 
-            $credit = Credit::find($data['credit']);
-            $credit->inuse = true;
-            $credit->update();
             return response()->json([
                 'status' => 1, 
                 'info' => 'Operation successful.',
@@ -114,46 +114,6 @@ class AdvertsController extends Controller
                 'info' => 'Operation failed. Try again.'
             ]);
         } 
-    }
-
-    /**
-     * Advert api for image upload
-     */
-    public function banner($id = 0)
-    {
-        $image = request()->file('image');
-        $validator = Validator::make(['image' => $image], [
-            'image' => ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg|max:10240']
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 0, 
-                'error' => $validator->errors()
-            ]);
-        }
-
-        $extension = $image->getClientOriginalExtension();
-        $filename = Str::uuid().'.'.$extension;
-        $path = 'images/adverts';
-
-        $advert = Advert::find($id);
-        if (!empty($advert->banner)) {
-            $prevfile = explode('/', $advert->banner);
-            $previmage = end($prevfile);
-            $file = "{$path}/{$previmage}";
-            if (file_exists($file)) {
-                unlink($file);
-            }
-        }
-            
-        $advert->banner = env('APP_URL')."/images/adverts/{$filename}";
-        $image->move($path, $filename);
-        $advert->update();
-        return response()->json([
-            'status' => 1, 
-            'info' => 'Advert image updated successfully'
-        ]);    
     }
 
     /**
@@ -169,13 +129,20 @@ class AdvertsController extends Controller
             ]);
         }
 
-        if(empty($advert->banner)) {
+        $public_id = request()->get('public_id');
+        $image = Image::where([
+            'type' => 'advert', 
+            'public_id' => $public_id, 
+            'model_id' => $id
+        ])->first();
+        
+        if(empty($image->link ?? '') || empty($public_id)) {
             return response()->json([
                 'status' => 0, 
                 'info' => 'Please upload advert image first by clicking the camera icon.'
             ]);
         }
-
+            
         $credit = Credit::find($advert['credit_id']);
         if (empty($credit)) {
             return response()->json([
@@ -248,17 +215,17 @@ class AdvertsController extends Controller
         }
 
         $credit = Credit::find($advert['credit_id']);
-        if (empty($credit)) {
+        if (empty($credit) || $advert->status !== 'paused') {
             return response()->json([
                 'status' => 0, 
                 'info' => 'Invalid operation'
             ]);
         }
 
-        $days = Carbon::parse($advert->paused_at)->diffInDays($advert->started);
+        $days = Carbon::parse($advert->paused_at)->diffInDays(Carbon::now());
         $expiry = Carbon::parse($advert->expiry)->addDays($days);
 
-        //$advert->paused_at = null;
+        $advert->paused_at = null;
         $advert->expiry = $expiry;
         $advert->status = 'active';
         $advert->update();
@@ -275,9 +242,10 @@ class AdvertsController extends Controller
     }
 
     /**
-     * Remove advert (Must not have started or muest be expired)
+     * It will delete advert and reverse remaining credits if any
+     * The advert image would be deleted from cloudinary
      */
-    public function remove($id = 0)
+    public function delete($id = 0)
     {
         $advert = Advert::find($id);
         if (empty($advert)) {
@@ -295,72 +263,19 @@ class AdvertsController extends Controller
             ]);
         }
 
-        if ($advert->status === 'expired') {
-            $credit->inuse = true;
-            $credit->status = 'expired';
-            $credit->update();
-        }else {
+        $duration = $credit->duration ?? 1;
+        $timing = Timing::calculate($duration, $advert->expiry, $advert->started, $advert->paused_at);
+        if ($timing->expired()) {
+            $credit->delete();
+        }elseif($advert->status !== 'initialized' || $advert->status !== 'expired') {
             $credit->inuse = false;
+            $credit->duration = $timing->daysleft();
             $credit->status = 'available';
             $credit->update();
         }
-            
 
-        if(!empty($advert->banner)) {
-            $prevfile = explode('/', $advert->banner);
-            $previmage = end($prevfile);
-            $file = "images/adverts/{$previmage}";
-            if (file_exists($file)) {
-                unlink($file);
-            }
-        }
-
-        $advert->delete();
-        return response()->json([
-            'status' => 1, 
-            'info' => 'Operation successfull',
-            'redirect' => ''
-        ]);
-    }
-
-    /**
-     * Cancel advert (Advert have started)
-     * It will delete advert and reverse credits remaining
-     */
-    public function cancel($id = 0)
-    {
-        $advert = Advert::find($id);
-        if (empty($advert)) {
-            return response()->json([
-                'status' => 0, 
-                'info' => 'Invalid operation'
-            ]);
-        }
-
-        $credit = Credit::find($advert['credit_id']);
-        if (empty($credit)) {
-            return response()->json([
-                'status' => 0, 
-                'info' => 'Invalid operation'
-            ]);
-        }
-
-        $daysused = Carbon::parse($advert->started)->diffInDays(Carbon::now());
-        $newunits = $daysused > 0 ? round(($daysused * $credit->units)/$credit->duration) : $credit->units;
-
-        $credit->inuse = false;
-        $credit->units = $newunits;
-        $credit->duration = ($credit->duration - $daysused);
-        $credit->status = 'available';
-        $credit->update();
-
-        if(!empty($advert->banner)) {
-            $prevfile = explode('/', $advert->banner);
-            $previmage = end($prevfile);
-            $file = "images/adverts/{$previmage}";
-            if (file_exists($file)) {
-                unlink($file);
-            }
+        if (!empty($advert->image)) {
+            Cloudinary::delete([$advert->image->public_id]);
         }
 
         $advert->delete();

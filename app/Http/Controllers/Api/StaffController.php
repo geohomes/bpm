@@ -167,7 +167,8 @@ class StaffController extends Controller
         $staff->update();
         return response()->json([
             'status' => 1,
-            'info' => 'Operation successful'
+            'info' => 'Operation successful',
+            'redirect' => '',
         ]);
     }
 

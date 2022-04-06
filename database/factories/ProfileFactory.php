@@ -16,8 +16,6 @@ class ProfileFactory extends Factory
     public function definition()
     {
         $faker = Faker::create();
-        $faker->addProvider(new \Smknstd\FakerPicsumImages\FakerPicsumImagesProvider($faker));
-
         return [
             'designation' => $faker->randomElement(Profile::$designations),
             'user_id' => $faker->numberBetween(1, User::count()),
@@ -30,7 +28,6 @@ class ProfileFactory extends Factory
             'email' => $faker->safeEmail(),
             'idnumber' => $faker->numberBetween(11, 15),
             'rcnumber' => $faker->numberBetween(5, 6),
-            'image' => $faker->imageUrl($width = 180, $height = 174),
             'role' => $faker->randomElement(array_keys(Profile::$roles)),
             'certified' => $faker->boolean($chanceOfGettingTrue = 18),
             'reference' => \Str::random(64),

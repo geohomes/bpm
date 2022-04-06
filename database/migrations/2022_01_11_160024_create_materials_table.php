@@ -22,7 +22,6 @@ class CreateMaterialsTable extends Migration
             $table->bigInteger('price')->nullable();
             $table->foreignId('user_id');
             $table->string('state');
-            $table->string('image')->nullable();
             $table->string('address');
             $table->string('city');
             $table->text('additional')->nullable();

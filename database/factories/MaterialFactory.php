@@ -16,7 +16,6 @@ class MaterialFactory extends Factory
     public function definition()
     {
         $faker = Faker::create();
-        $faker->addProvider(new \Smknstd\FakerPicsumImages\FakerPicsumImagesProvider($faker));
         return [
             'user_id' => rand(1, User::count()),
             'address' => $faker->address(),
@@ -25,7 +24,6 @@ class MaterialFactory extends Factory
             'country_id' => rand(1, Country::count()),
             'status' => $faker->randomElement(Material::$status),
             'state' => $faker->state(),
-            'image' => $faker->imageUrl($width = 960, $height = 1024),
             'currency_id' => rand(1, Currency::count()),
             'quantity' => $faker->numberBetween(25, 89),
             'reference' => \Str::uuid(),

@@ -29,7 +29,7 @@
                     </div>
                     <div class="alert mb-3 buy-credit-message d-none"></div>
                     <div class="d-flex justify-content-right mb-3 mt-1">
-                        <button type="submit" class="btn icon-raduis btn-block btn-info btn-lg text-white buy-credit-button px-4">
+                        <button type="submit" class="btn btn-block bg-theme-color btn-lg text-white buy-credit-button px-4">
                             <img src="/images/spinner.svg" class="mr-2 d-none buy-credit-spinner mb-1">
                             Pay
                         </button>

@@ -3,117 +3,157 @@
 namespace App\Http\Controllers\Api;
 use App\Models\Image;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use App\Helpers\Cloudinary;
 use Exception;
 use Validator;
 
 /**
- * Hnadles the uploading all images
+ * Handles the uploading all images
  */
 class ImagesController extends Controller
 {
 
     /**
-     * Upload properties images
+     * Upload Api for main images
      */
-    public function upload(Request $request)
+    public function upload()
     {
-        $image = $request->file('image');
-        $validator = Validator::make(['image' => $image], [
-            'image' => ['required', 'image']
+        $data = request()->all();
+        $validator = Validator::make($data, [
+            'image' => ['required', 'image'],
+            'model_id' => ['required'],
+            'type' => ['required'],
+            'folder' => ['required'],
+            'role' => ['required'],
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'status' => 0, 
-                'error' => $validator->errors()
-            ]);
-        }
-
-        /**
-         * model_id could be auto increment id from property, material, profile model etc
-         */
-        $model_id = $request->id ?? '';
-        if (empty($model_id) || empty($request->type) || empty($request->folder)) {
             return response()->json([
                 'status' => 0, 
                 'info' => 'Invalid Operation.'
             ]);
         }
 
-        // try {
-            $dimention = Image::$dimentions[$request->type];
-            $extension = $image->getClientOriginalExtension();
-            //dd($extension);
-            $filename = $image->getRealPath();
-            if (empty($request->public_id)) {
-                $public_id = Str::uuid();
-                \Cloudder::upload($filename, $public_id, [
-                    'folder' => $request->folder,
-                    'overwrite' => false,
-                    'resource_type' => 'image', 
-                    'responsive' => true, 
-                    'transformation' => [
-                        'quality' => 100, 
-                        'width' => $dimention['width'], 
-                        'height' => $dimention['height'], 
-                        'crop' => 'scale'
-                    ]
-                ]);
+        $dinary = Cloudinary::save($data, request()->file('image'));
+        return response()->json([
+            'status' => $dinary['status'], 
+            'info' => $dinary['info']
+        ]);
+            
+            
+    }
 
-                Image::create([
-                    'type' => $request->type,
-                    'public_id' => $public_id,
-                    'model_id' => $model_id,
-                    'link' => \Cloudder::show($public_id).'.'.$extension,
-                    'role' => $request->role,
-                ]);
+    public function delete()
+    {
+        $data = request()->all();
+        $validator = Validator::make($data, [
+            'model_id' => ['required'],
+            'type' => ['required'],
+            'role' => ['required'],
+            'public_id' => ['required'],
+        ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 0, 
+                'info' => 'Invalid Operation.'
+            ]);
+        }
+
+        if ($data['role'] == 'main') {
+            $others = Image::where([
+                'type' => $data['type'], 
+                'model_id' => $data['model_id'],
+                'role' => 'others'
+            ])->get();
+
+            if ($others->count() > 0) {
                 return response()->json([
-                    'status' => 1, 
-                    'info' => 'Operation successful.'
+                    'status' => 0, 
+                    'info' => 'Not allowed. You must delete other images first.',
+                ]);
+            }   
+        }
+
+        try {
+            $image = Image::where([
+                'public_id' => $data['public_id'],
+                'type' => $data['type'], 
+                'model_id' => $data['model_id'], 
+                'role' => $data['role'], 
+            ])->get()->first();
+
+            if (empty($image)) {
+                return response()->json([
+                    'status' => 0, 
+                    'info' => 'Invalid operation'
                 ]);
             }
 
-            $image = Image::where([
-                'public_id' => $request->public_id,
-                'type' => $request->type, 
-                'model_id' => $model_id, 
-                'role' => $request->role,
-            ])->first();
-
-            \Cloudder::delete($image->public_id);
-            \Cloudder::upload($filename, Str::uuid(), [
-                'folder' => $request->folder,
-                'overwrite' => false,
-                'resource_type' => 'image', 
-                'responsive' => true, 
-                'transformation' => [
-                    'quality' => 100, 
-                    'width' => $dimention['width'], 
-                    'height' => $dimention['height'], 
-                    'crop' => 'scale'
-                ]
-            ]);
-
-            $public_id = \Cloudder::getPublicId();
-            $link = \Cloudder::show($public_id).'.'.$extension;
-            $image->link = $link;
-            $image->update();
-
+            Cloudinary::delete([$image->public_id]);
+            $image->delete();
 
             return response()->json([
                 'status' => 1, 
-                'info' => 'Operation successful.'
+                'info' => 'Operation successful',
+                'redirect' => '',
             ]);
-        // } catch (Exception $error) {
-        //     return response()->json([
-        //         'status' => 0, 
-        //         'error' => 'Unknown error. Try again.'
-        //     ]);
-        // }
+
+        } catch (Exception $error) {
+            return response()->json([
+                'status' => 0, 
+                'info' => 'Unknown error. Try again.'
+            ]);
+        }     
+    }
+
+    /**
+     * Upload multiple images with filepond
+     */
+    public function multiple()
+    {
+        $data = request()->all();
+        $validator = Validator::make($data, [
+            'model_id' => ['required'],
+            'type' => ['required'],
+            'folder' => ['required'],
+            'role' => ['required'],
+        ]);
+
+        $maxfiles = ['property' => 4, 'material' => 3];
+        $files = request()->file('images');
+        $count = Image::where([
+            'model_id' => $data['model_id'], 
+            'role' => $data['role'], 
+            'type' => $data['type']
+        ])->get()->count();
+
+        if (isset($maxfiles['profile'])) {
+            if (($count + count($files)) > $maxfiles[$data['type']]) {
+                return response()->json([
+                    'status' => 0, 
+                    'info' => 'Invalid Operation.'
+                ], 400);
+            }
+        } 
             
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 0, 
+                'info' => 'Invalid Operation.'
+            ], 400);
+        }
+
+        if($files = $files){
+            foreach($files as $file){
+                $dinary = Cloudinary::save($data, $file);
+                $status = $dinary['status'];
+                return response()->json([
+                    'status' => $status, 
+                    'info' => $dinary['info']
+                ], $status == 0 ? 400 : 200);
+            }
+        }
     }
 
 }

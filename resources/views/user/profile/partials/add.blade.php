@@ -106,7 +106,7 @@
         <small class="invalid-feedback description-error"></small>
     </div>
     <div class="alert mb-3 add-profile-message d-none"></div>
-    <button type="submit" class="btn btn-lg px-4 icon-raduis btn-info text-white add-profile-button mb-4">
+    <button type="submit" class="btn btn-lg px-4 icon-raduis bg-theme-color text-white add-profile-button mb-4">
         <img src="/images/spinner.svg" class="mr-2 d-none add-profile-spinner mb-1">
         Save
     </button>

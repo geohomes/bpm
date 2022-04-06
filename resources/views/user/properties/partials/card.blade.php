@@ -1,5 +1,5 @@
 <div class="card border-0 position-relative">
-	@set('promoted', $property->promoted == true && ($property->promotion->status ?? '') == 'active')
+	@set('promoted', !empty($property->promotion) && ($property->promotion->status ?? '') == 'active')
 	<div class="position-absolute d-flex w-100" style="z-index: 2; top: 20px; left: 20px;">
 		<div class="dropdown">
             <a href="javascript:;" class="align-items-center d-flex text-decoration-none
@@ -27,9 +27,14 @@
             			</div>
             		</div>
             	@else
-            		@set('reference', $property->id)
-            		@set('type', 'property')
-	            	@include('user.promotions.partials.form')
+            		<div class="p-4 bg-white">
+	            		@if($property->images()->exists() && $property->status == 'active')
+		            		@set('params', ['model_id' => $property->id, 'type' => 'property'])
+			            	@include('user.promotions.partials.promote')
+			            @else
+			            	<div class="alert alert-danger mb-0">Please activate before promoting</div>
+		            	@endif
+		            </div>
 				@endif
             </div>
         </div>
@@ -38,9 +43,19 @@
         </div>
 	</div>
 	<div class="position-relative" style="height: 160px; line-height: 160px;">
-		<a href="{{ route('user.property.edit', ['category' => $property->category, 'id' => $property->id]) }}" class="text-decoration-none border-0">
-			<img src="{{ empty($property->image) ? '/images/banners/holder.png' : $property->image }}" class="img-fluid border-0 w-100 h-100 object-cover">
-		</a>
+		@if($property->images()->exists())
+			@foreach($property->images as $image)
+				@if($image->role == 'main')
+					<a href="{{ route('user.property.edit', ['category' => $property->category, 'id' => $property->id]) }}" class="text-decoration-none">
+						<img src="{{ $image->link }}" class="img-fluid border-0 w-100 h-100 object-cover">
+					</a>
+				@endif
+			@endforeach
+		@else
+			<a href="{{ route('user.property.edit', ['category' => $property->category, 'id' => $property->id]) }}" class="text-decoration-none">
+				<img src="/images/banners/placeholder.png" class="img-fluid border-0 w-100 h-100 object-cover">
+			</a>
+		@endif
 	</div>
 	<div class="card-body">
 		<div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">
@@ -58,7 +73,7 @@
 		<div class="d-flex justify-content-between align-items-center">
 			<a href="{{ route('user.property.edit', ['category' => $property->category, 'id' => $property->id]) }}" class="text-underline text-main-dark">
 				<small class="">
-					{{ \Str::limit($property->address, 18) }}
+					{{ \Str::limit($property->address, 12) }}
 				</small>
 			</a>
 			<?php $action = strtolower($property->action ?? 'nill'); $actions = \App\Models\Property::$actions; ?>

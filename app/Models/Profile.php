@@ -22,7 +22,6 @@ class Profile extends Model
      * @var string[]
      */
     protected $fillable = [
-        'image',
         'description',
         'companyname',
         'document',
@@ -134,6 +133,22 @@ class Profile extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    /**
+     * A profile may have one image
+     */
+    public function image()
+    {
+        return $this->hasOne(Image::class, 'model_id')->where(['type' => 'profile']);
+    }
+
+    /**
+     * A profile may have been promoted
+     */ 
+    public function promotion()
+    {
+        return $this->hasOne(Promotion::class, 'model_id')->where(['type' => 'profile']);
     }
 
 }

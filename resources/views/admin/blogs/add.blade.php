@@ -67,11 +67,12 @@
                     <div class="col-12 col-lg-3">
                         <div class="alert alert-info d-flex align-items-center justify-content-between mb-4">Recent Blogs</div>
                         <div class="rows">
-                            @if(empty($blogs->count()))
+                            @set('recents', \App\Models\Blog::latest('created_at')->take(3)->get())
+                            @if(empty($recents->count()))
                                 <div class="alert alert-danger mb-4">No Recent Blogs</div>
                             @else
                                 <div class="row">
-                                    @foreach($blogs as $blog)
+                                    @foreach($recents as $blog)
                                         <div class="col-12 col-md-4 col-lg-12 mb-4">
                                             @include('admin.blogs.partials.card')
                                         </div>

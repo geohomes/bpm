@@ -22,7 +22,8 @@ class Promotion extends Model
         'status',
         'user_id',
         'type',
-        'reference' // either property, material or profile id (primary key)
+        'reference',
+        'model_id',
     ];
 
     /**
@@ -35,6 +36,13 @@ class Promotion extends Model
         'profile',
         'material',
     ];
+
+    /**
+     * Promotion status
+     *
+     * @var string[]
+     */
+    public static $status = ['active', 'inactive'];
 
     /**
      * A promotion may belong to a user

@@ -167,14 +167,19 @@ Route::middleware(['web', 'auth', 'admin', 'revalidate'])->domain(env('ADMIN_URL
 
         Route::get('/add', [\App\Http\Controllers\Admin\PropertiesController::class, 'add'])->name('admin.property.add');
         Route::get('/edit/{id}', [\App\Http\Controllers\Admin\PropertiesController::class, 'edit'])->name('admin.property.edit');
-
-        Route::post('/add', [\App\Http\Controllers\Api\PropertiesController::class, 'add'])->name('admin.property.add');
-        Route::post('/update/{id}', [\App\Http\Controllers\Api\PropertiesController::class, 'update'])->name('admin.property.update');
-
         Route::get('/category/{categoryname}', [\App\Http\Controllers\Admin\PropertiesController::class, 'category'])->name('admin.properties.category');
 
+
+        Route::post('/add', [\App\Http\Controllers\Api\PropertiesController::class, 'add'])->name('admin.property.add');
+
+        Route::post('/action/change/{id}', [\App\Http\Controllers\Api\PropertiesController::class, 'action'])->name('admin.property.action.change');
+
+        Route::post('/update/{id}', [\App\Http\Controllers\Api\PropertiesController::class, 'update'])->name('admin.property.update');
+
+        Route::post('/specifics/{id}', [\App\Http\Controllers\Api\PropertiesController::class, 'specifics'])->name('admin.property.specifics.update');
+
+
         Route::get('/action/{action}', [\App\Http\Controllers\Admin\PropertiesController::class, 'action'])->name('admin.properties.action');
-        Route::post('/action/{id}', [\App\Http\Controllers\Api\PropertiesController::class, 'action'])->name('admin.property.action.change');
 
         Route::post('/specifics/{id}', [\App\Http\Controllers\Api\PropertiesController::class, 'specifics'])->name('admin.property.specifics.update');
     });
@@ -222,8 +227,14 @@ Route::middleware(['web', 'auth', 'user', 'revalidate', 'profile.setup'])->domai
 
     Route::prefix('services')->group(function () {
         Route::get('/', [\App\Http\Controllers\User\ServicesController::class, 'index'])->name('user.services');
-        Route::post('/create', [\App\Http\Controllers\User\ServicesController::class, 'create'])->name('user.service.create');
-        Route::post('/edit/{id}', [\App\Http\Controllers\User\ServicesController::class, 'edit'])->name('user.service.edit');
+        Route::post('/create', [\App\Http\Controllers\Api\ServicesController::class, 'create'])->name('user.service.create');
+        Route::post('/edit/{id}', [\App\Http\Controllers\Api\ServicesController::class, 'edit'])->name('user.service.edit');
+    });
+
+    Route::prefix('image')->group(function () {
+        Route::post('/upload', [\App\Http\Controllers\Api\ImagesController::class, 'upload'])->name('user.image.upload');
+        Route::post('/multiple', [\App\Http\Controllers\Api\ImagesController::class, 'multiple'])->name('user.multiple.images.upload');
+        Route::match(['delete', 'post'], '/delete', [\App\Http\Controllers\Api\ImagesController::class, 'delete'])->name('user.image.delete');
     });
 
     Route::prefix('socials')->group(function () {
@@ -235,6 +246,8 @@ Route::middleware(['web', 'auth', 'user', 'revalidate', 'profile.setup'])->domai
     Route::prefix('certifications')->group(function () {
         Route::post('/add', [\App\Http\Controllers\Api\CertificationsController::class, 'add'])->name('user.certification.add');
         Route::post('/edit/{id}', [\App\Http\Controllers\Api\CertificationsController::class, 'edit'])->name('user.certification.edit');
+
+        Route::post('/delete/{id}', [\App\Http\Controllers\Api\CertificationsController::class, 'delete'])->name('user.certification.delete');
     });
 
     Route::prefix('adverts')->group(function () {
@@ -243,13 +256,10 @@ Route::middleware(['web', 'auth', 'user', 'revalidate', 'profile.setup'])->domai
         Route::post('/pause/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'pause'])->name('user.advert.pause');
         
         Route::post('/resume/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'resume'])->name('user.advert.resume');
-        Route::post('/banner/upload/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'banner'])->name('advert.banner.upload');
 
         Route::post('/activate/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'activate'])->name('user.advert.activate');
-        Route::post('/remove/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'remove'])->name('user.advert.remove');
-        
-        Route::post('/cancel/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'cancel'])->name('user.advert.cancel');
-        Route::post('/renew/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'renew'])->name('user.advert.renew');
+        Route::post('/delete/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'delete'])->name('user.advert.delete');
+
     });
 
     

@@ -16,7 +16,6 @@ class CreateAdvertsTable extends Migration
         Schema::create('adverts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->string('banner')->nullable();
             $table->string('description')->nullable();
             $table->dateTime('started')->nullable();
             $table->text('link')->nullable();

@@ -19,7 +19,9 @@ class Image extends Model
         'link',
         'type',
         'public_id',
-        'role'
+        'role',
+        'format',
+        'user_id',
     ];
 
     /**

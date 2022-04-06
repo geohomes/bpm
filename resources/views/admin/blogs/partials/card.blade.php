@@ -17,9 +17,9 @@
         <div class="add-blog-image-loader-{{ $blog->id }} upload-image-loader d-none position-absolute rounded-circle text-center border" data-id="{{ $blog->id }}">
             <img src="/images/spinner.svg">
         </div>
-        <div style="height: 160px;">
-            <img src="{{ empty($blog->image) ? '/images/banners/holder.png' : $blog->image }}" class="img-fluid blog-image-preview-{{ $blog->id }} h-100 w-100 object-cover">
-        </div>
+        <a href="{{ route('admin.blogs.category', ['categoryid' => $blog->category->id]) }}" style="height: 160px;">
+            <img src="{{ empty($blog->image) ? '/images/banners/placeholder.png' : $blog->image->link }}" class="img-fluid blog-image-preview-{{ $blog->id }} h-100 w-100 object-cover">
+        </a>
     </div>
     <div class="card-body">
         <div class="pb-3 mb-3 border-bottom d-flex justify-content-between align-items-center">
@@ -28,7 +28,7 @@
             </a>
             <div class="dropdown">
                 <a href="javascript:;" class="rounded-circle d-block sm-circle bg-{{ $blog->published ? 'success' : 'danger' }} text-center" id="status-{{ $blog->id }}" data-toggle="dropdown">
-                    <small class="text-white tiny-font">
+                    <small class="text-white tiny-font position-relative" style="top: 2px;">
                         <i class="icofont-{{ $blog->published ? 'tick-mark' : 'close' }}"></i>
                     </small>
                 </a>

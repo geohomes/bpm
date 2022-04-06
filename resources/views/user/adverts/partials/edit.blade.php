@@ -11,25 +11,20 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-12 col-md-6">
-                            <label class="text-smoky">Your Credits</label>
-                            <select class="form-control custom-select rounded-0 credit" name="credit">
+                            <label class="text-smoky">Used Credit (Cannot be changed)</label>
+                            <select class="form-control custom-select rounded-0 credit" readonly name="credit">
                                 <option value="">-- Select credit --</option>
-                                @if(!auth()->user()->credits()->exists())
-                                    <option value="">-- You have no available credits --</option>
-                                @else
-                                    <?php $credits = auth()->user()->credits; $count = 0; ?>
+                                @if(auth()->user()->credits()->exists())
+                                    <?php $credits = auth()->user()->credits; ?>
                                     @foreach ($credits as $credit)
-                                        <?php $count++; ?>
-                                        @if(($credit->status == 'available' && $credit->status == false) || $credit->id == $advert->credit_id))
-                                            <option value="{{ $credit->id }}" {{ $credit->id == $advert->credit_id ? 'selected' : '' }}>
+                                        @if($credit->id == $advert->credit_id)
+                                            <option value="{{ $credit->id }}" selected>
                                                 {{ $credit->units.'units '.$credit->unit->duration.' days' }}
                                             </option>
-                                        @else
-                                            @if($count == 1)
-                                                <option value="">-- You have no available credits --</option>
-                                            @endif
                                         @endif
                                     @endforeach
+                                @else
+                                    <option value="">-- You have no available credits --</option>
                                 @endif
                             </select>
                             <small class="invalid-feedback credit-error"></small>
@@ -66,7 +61,7 @@
                     </div>
                     <div class="alert mb-3 edit-advert-message d-none"></div>
                     <div class="d-flex justify-content-right mb-3 mt-1">
-                        <button type="submit" class="btn icon-raduis btn-info btn-lg text-white edit-advert-button px-4">
+                        <button type="submit" class="btn bg-theme-color btn-lg text-white edit-advert-button px-4">
                             <img src="/images/spinner.svg" class="mr-2 d-none edit-advert-spinner mb-1">
                             Save
                         </button>

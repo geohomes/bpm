@@ -24,7 +24,6 @@ class CreatePropertiesTable extends Migration
             $table->foreignId('user_id');
             $table->string('state');
             $table->string('condition')->nullable();
-            $table->string('image')->nullable();
             $table->string('address');
             $table->string('listed')->default('no');
             $table->bigInteger('bathrooms')->nullable();

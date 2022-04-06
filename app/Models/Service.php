@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,8 +18,18 @@ class Service extends Model
         'user_id',
         'description',
         'price',
-        'image',
         'status',
+        'currency_id'
+    ];
+
+    /**
+     * Activate status
+     *
+     * @var string[]
+     */
+    public static $status = [
+        'active' => 'yes',
+        'inactive' => 'no',
     ];
 
     /**

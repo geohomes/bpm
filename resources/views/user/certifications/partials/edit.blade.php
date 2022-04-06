@@ -40,7 +40,7 @@
                         <small class="invalid-feedback institution-error"></small>
                     </div>
                     <div class="alert mb-3 edit-certification-message d-none"></div>
-                    <button type="submit" class="btn btn-lg px-4 icon-raduis btn-info text-white edit-certification-button mb-4">
+                    <button type="submit" class="btn btn-lg px-4 icon-raduis bg-theme-color text-white edit-certification-button mb-4">
                         <img src="/images/spinner.svg" class="mr-2 d-none edit-certification-spinner mb-1">
                         Save
                     </button>

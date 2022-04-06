@@ -37,4 +37,12 @@ class Blog extends Model
      * Blog published status
      */
     public static $publish = ['yes' => 1, 'no' => 0];
+
+    /**
+     * A blog may have an image
+     */
+    public function image()
+    {
+        return $this->hasMany(Image::class, 'model_id')->where(['type' => 'blog']);
+    }
 }

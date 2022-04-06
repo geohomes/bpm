@@ -140,3 +140,53 @@ function handleAjax(info = {}) {
     }
 }
 
+function uploader(data = {}) {
+    var target = data.target;
+    var id = target.attr('data-id');
+    var input = $('.'+data.input);
+    var loader = $('.'+data.loader);
+
+    input.trigger('click');
+    input.change(function(event) {
+        loader.removeClass('d-none').fadeIn();
+        var files = event.target.files
+        var formData = new FormData();
+        formData.append('image', files[0]);
+
+        var request = $.ajax({
+            method: 'post',
+            headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
+            url: input.attr('data-url'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json'
+        });
+
+        request.done(function(response){
+            if (response.status === 1) {
+                var preview = $('.'+data.preview);
+                preview.file = files[0];    
+                var reader = new FileReader();
+                reader.onload = (function(picture) { 
+                    return (function(event) { 
+                        picture.attr('src', event.target.result);
+                        loader.addClass('d-none').fadeOut(); 
+                    });
+                })(preview);
+                reader.readAsDataURL(files[0]);
+                window.location.reload();
+            }else {
+                alert(response.info);
+                loader.addClass('d-none').fadeOut();
+            }
+        });
+
+        request.fail(function(response) {
+            loader.addClass('d-none').fadeOut();
+            alert(response.info);
+            // window.location.reload()
+        });
+    });
+}
+

@@ -29,6 +29,40 @@
                             <small class="invalid-feedback skill-error"></small>
                         </div>
                     </div>
+                    <div class="form-row">
+                        @set('location', geoip()->getLocation())
+                        <div class="form-group col-md-6">
+                            <label class="text-muted">Currency</label>
+                            <select class="form-control custom-select currency" name="currency">
+                                <option value="">-- Select currency --</option>
+                                @set('currencies', \App\Models\Currency::all())
+                                @if(empty($currencies->count()))
+                                    <option>No currencies listed</option>
+                                @else: ?>
+                                    @foreach ($currencies as $currency)
+                                        <?php $code = $currency->code ?? ''; ?>
+                                        <option value="{{ $currency->id }}" {{ $service->currency_id == $currency->id ? 'selected' : '' }}>
+                                            {{ ucwords($currency->name) }}({{ strtoupper($code) }})
+                                        </option>
+                                    @endforeach
+                                @endif
+                            </select>
+                            <small class="invalid-feedback currency-error"></small>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="text-main-dark">Activate Now?</label>
+                            <select class="form-control custom-select status" name="status">
+                                <option value="">-- Select answer --</option>
+                                @set('status', \App\Models\Service::$status)
+                                @foreach ($status as $answer => $value)
+                                    <option value="{{ $answer }}" {{ $service->status == $answer ? 'selected' : '' }}>
+                                        {{ ucfirst($value) }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <small class="invalid-feedback status-error"></small>  
+                        </div>
+                    </div>
                     <div class="form-group mb-4">
                         <label class="text-main-dark">Description (400 characters maximum)</label>
                         <textarea class="form-control description" name="description" rows="8" placeholder="Enter description of your service">{{ $service->description }}</textarea>
@@ -36,7 +70,7 @@
                     </div>
                     <div class="alert mb-3 edit-service-message d-none"></div>
                     <div class="d-flex justify-content-right mb-3 mt-1">
-                        <button type="submit" class="btn btn-info icon-raduis btn-lg px-4 edit-service-button px-4">
+                        <button type="submit" class="btn bg-theme-color text-white icon-raduis btn-lg px-4 edit-service-button px-4">
                             <img src="/images/spinner.svg" class="mr-2 d-none edit-service-spinner mb-1">
                             Save
                         </button>

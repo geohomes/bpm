@@ -19,7 +19,7 @@ class ExpiryCron extends Command
      *
      * @var string
      */
-    protected $description = 'To mark expired subscriptions and credit status as expired';
+    protected $description = 'To mark expired subscriptions, adverts and credit status as expired';
 
     /**
      * Create a new command instance.

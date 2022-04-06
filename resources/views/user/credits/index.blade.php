@@ -10,7 +10,7 @@
                 </div>
                 <div class="">
                     <div class="d-flex align-items-center">
-                        <a href="javascript:;" class="btn-info btn mb-4 px-4 icon-raduis" data-toggle="modal" data-target="#buy-credit">
+                        <a href="javascript:;" class="bg-theme-color text-white btn mb-4 px-4" data-toggle="modal" data-target="#buy-credit">
                             <small class="mr-1">
                                 <i class="icofont-plus"></i>
                             </small>

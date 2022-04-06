@@ -99,9 +99,7 @@ class SocialsController extends Controller
      */
     public function delete($id = 0)
     {
-        $social = Social::find($id);
-        $social->delete();
-            
+        Social::find($id)->delete();
         return response()->json([
             'status' => 1, 
             'info' => 'Operation successful.',

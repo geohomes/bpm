@@ -59,7 +59,7 @@
                     </div>
                     <div class="alert mb-3 post-advert-message d-none"></div>
                     <div class="d-flex justify-content-right mb-3 mt-1">
-                        <button type="submit" class="btn icon-raduis btn-info btn-lg text-white post-advert-button px-4">
+                        <button type="submit" class="btn bg-theme-color btn-lg text-white post-advert-button px-4">
                             <img src="/images/spinner.svg" class="mr-2 d-none post-advert-spinner mb-1">
                             Post
                         </button>

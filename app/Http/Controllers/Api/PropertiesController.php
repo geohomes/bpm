@@ -112,103 +112,6 @@ class PropertiesController extends Controller
     }
 
     /**
-     * Property api for image upload
-     */
-    public function image($id = 0, $role = 'main')
-    {
-        $image = request()->file('image');
-        $validator = Validator::make(['image' => $image], [
-            'image' => ['required', 'image']
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 0, 
-                'error' => $validator->errors()
-            ]);
-        }
-
-        $extension = $image->getClientOriginalExtension();
-        $filename = Str::uuid().'.'.$extension;
-        $path = 'images/properties';
-        $link = env('APP_URL')."/images/properties/{$filename}";
-
-        /**
-         * Delete previous image file if any
-         */
-        $delete = function($imageurl = '') use($path) {
-            $prevfile = explode('/', $imageurl);
-            $previmage = end($prevfile);
-            $file = "{$path}/{$previmage}";
-            if (file_exists($file)) {
-                unlink($file);
-            }
-        };
-
-        $reference = Str::uuid();
-        $property = Property::find($id);
-        if (is_string($role) && $role === 'main') {
-            $imageurl = $property->image ?? '';
-            if (!empty($imageurl)) {
-                $delete($imageurl);
-            }
-
-            $property->image = $link;
-            $property->reference = $reference;
-            $image->move($path, $filename);
-            $property->update();
-            return response()->json([
-                'status' => 1, 
-                'info' => 'Operation successful'
-            ]);
-        }else {
-            $imageid = $role;
-            $picture = Image::where([
-                'property_id' => $id, 
-                'id' => $imageid,
-            ])->first();
-            
-            if (empty($picture)) {
-                $lastid = Image::create([
-                    'property_id' => $id,
-                    'reference' => $reference,
-                    'link' => $link,
-                    'type' => 'property',
-                ])->id;
-
-                if($lastid) {
-                    $image->move($path, $filename);
-                    return response()->json([
-                        'status' => 1, 
-                        'info' => 'Operation successful'
-                    ]);
-                }else {
-                    return response()->json([
-                        'status' => 1, 
-                        'info' => 'Operation failed'
-                    ]);
-                }
-            }
-
-            $imageurl = $picture->link ?? '';
-            if (!empty($imageurl)) {
-                $delete($imageurl);
-            }
-
-            $picture->link = $link;
-            $picture->reference = $reference;
-            $picture->update();
-
-            $image->move($path, $filename);
-            return response()->json([
-                'status' => 1, 
-                'info' => 'Operation successful'
-            ]);
-                
-        }     
-    }
-
-    /**
      * Api update property action
      */
     public function action($id = 0)
@@ -260,10 +163,10 @@ class PropertiesController extends Controller
 
         $property = Property::find($id);
         $listed = $data['listed'] ?? '';
-        if (empty($property->image) && $listed == 'yes') {
+        if (empty($property->images->count()) && $listed == 'yes') {
             return response()->json([
                 'status' => 0, 
-                'info' => 'You have to upload property images before listing.',
+                'info' => 'You have to upload property images before activating.',
                 'redirect' => '',
             ]);
         }

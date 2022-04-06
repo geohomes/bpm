@@ -23,7 +23,6 @@ class CreateProfilesTable extends Migration
             $table->string('type')->default('normal');
             $table->string('role');
             $table->string('document')->nullable();
-            $table->string('image')->nullable();
             $table->string('website')->nullable();
             $table->text('description');
             $table->string('city');

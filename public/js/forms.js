@@ -2,6 +2,16 @@
 
 	'use strict';
 
+    $('.create-service-form').submit(function(event){
+        event.preventDefault();
+        handleForm({form: $(this), button: 'create-service-button', spinner: 'create-service-spinner', message: 'create-service-message'});
+    });
+
+    $('.edit-service-form').submit(function(event){
+        event.preventDefault();
+        handleForm({form: $(this), button: 'edit-service-button', spinner: 'edit-service-spinner', message: 'edit-service-message'});
+    });
+
     $('.add-staff-form').submit(function(event){
         event.preventDefault();
         handleForm({form: $(this), button: 'add-staff-button', spinner: 'add-staff-spinner', message: 'add-staff-message'});
@@ -67,11 +77,6 @@
         handleForm({form: $(this), button: 'post-advert-button', spinner: 'post-advert-spinner', message: 'post-advert-message'});
     });
 
-    $('.cancel-advert-form').submit(function(event){
-        event.preventDefault();
-        handleForm({form: $(this), button: 'cancel-advert-button', spinner: 'cancel-advert-spinner', message: 'cancel-advert-message'});
-    });
-
     $('.resume-advert-form').submit(function(event){
         event.preventDefault();
         handleForm({form: $(this), button: 'resume-advert-button', spinner: 'resume-advert-spinner', message: 'resume-advert-message'});
@@ -87,9 +92,9 @@
         handleForm({form: $(this), button: 'pause-advert-button', spinner: 'pause-advert-spinner', message: 'pause-advert-message'});
     });
 
-    $('.remove-advert-form').submit(function(event){
+    $('.delete-advert-form').submit(function(event){
         event.preventDefault();
-        handleForm({form: $(this), button: 'remove-advert-button', spinner: 'remove-advert-spinner', message: 'remove-advert-message'});
+        handleForm({form: $(this), button: 'delete-advert-button', spinner: 'delete-advert-spinner', message: 'delete-advert-message'});
     });
 
     $('.edit-advert-form').submit(function(event){
@@ -110,16 +115,6 @@
     $('.add-profile-form').submit(function(event){
         event.preventDefault();
         handleForm({form: $(this), button: 'add-profile-button', spinner: 'add-profile-spinner', message: 'add-profile-message'});
-    });
-
-    $('.create-gig-form').submit(function(event){
-        event.preventDefault();
-        handleForm({form: $(this), button: 'create-gig-button', spinner: 'create-gig-spinner', message: 'create-gig-message'});
-    });
-
-    $('.edit-gig-form').submit(function(event){
-        event.preventDefault();
-        handleForm({form: $(this), button: 'edit-gig-button', spinner: 'edit-gig-spinner', message: 'edit-gig-message'});
     });
 
     $('.profile-edit-form').submit(function(event){

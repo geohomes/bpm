@@ -8,26 +8,43 @@
 						{{ ucfirst($status) }}
 					</small>
 				</div>
-				<form action="javascript:;">
-		            <input type="file" name="image" accept="image/*" class="advert-image-input-{{ $advert->id }} d-none" data-url="{{ route('advert.banner.upload', ['id' => $advert->id ]) }}">
-		        </form>
-		        <a href="{{ empty($advert->banner) ? 'javascript:;' : $advert->banner }}" class="position-relative d-block" style="height: 170px !important;">
-					<img src="{{ empty($advert->banner) ? '/images/banners/placeholder.png' : $advert->banner }}" class="img-fluid h-100 object-cover w-100 advert-image-preview-{{ $advert->id }}">
-				</a>
-		        <div class="add-advert-image-loader-{{ $advert->id }} upload-image-loader d-none position-absolute rounded-circle text-center border" data-id="{{ $advert->id }}">
+                @if(empty($advert->image->link))
+                	<form action="javascript:;">
+	                    <input type="file" name="image" accept="image/*" class="image-input-{{ $advert->id }}" data-url="{{ route('user.image.upload', ['model_id' => $advert->id, 'type' => 'advert', 'folder' => 'adverts', 'role' => 'main']) }}" style="display: none;">
+	                </form>
+	                <a href="javascript:;" class="position-relative d-block" style="height: 170px !important;">
+						<img src="/images/banners/placeholder.png" class="img-fluid h-100 object-cover w-100">
+					</a>
+				@else
+					@set('image', $advert->image)
+					<form action="javascript:;">
+	                    <input type="file" name="image" accept="image/*" class="image-input-{{ $image->model_id }}" data-url="{{ route('user.image.upload', ['model_id' => $image->model_id, 'type' => 'advert', 'folder' => 'adverts', 'role' => 'main', 'public_id' => $image->public_id]) }}" style="display: none;">
+	                </form>
+					<a href="{{ $image->link }}" class="position-relative d-block" style="height: 170px !important;">
+						<img src="{{ $image->link }}" class="img-fluid h-100 object-cover w-100 image-preview-{{ $advert->id }}">
+					</a>
+				@endif
+		        <div class="image-loader-{{ $advert->id }} upload-image-loader d-none position-absolute rounded-circle text-center border" data-id="{{ $advert->id }}">
 		            <img src="/images/spinner.svg">
 		        </div>
 				<div class="position-absolute bg-theme-color d-flex justify-content-between p-3 w-100" style="bottom: 0; z-index: 2;">
-					<small class="text-muted">
-						<i class="icofont-camera cursor-pointer text-white add-advert-image-{{ $advert->id }}" data-id="{{ $advert->id }}"></i>
-					</small>
 					<small class="text-white">
 						{{ $advert->created_at->diffForHumans() }}
 					</small>
+					<div class="d-flex align-items-center">
+						<a href="javascript:;" class="text-decoration-none mr-2" data-toggle="modal" data-target="#edit-advert-{{ $advert->id }}">
+							<small class="text-warning">
+								<i class="icofont-edit"></i>
+							</small>
+						</a>
+						<small class="text-main-dark cursor-pointer text-white upload-image-{{ $advert->id }}">
+							<i class="icofont-camera" data-id="{{ $advert->id }}"></i>
+						</small>
+					</div>
 				</div>
 			</div>
 		</div>
-		<?php $duration = $advert->credit->duration ?? 1; ?>
+		@set('duration', $advert->credit->duration ?? 1)
 		<div class="col-12 col-md-7 p-4">
 			@if($status == 'initialized')
 				<div class="row">
@@ -40,7 +57,7 @@
 		                		<small>Activate</small>
 				            </a>
 				            <div class="dropdown-menu border-0 shadow dropdown-menu-right" aria-labelledby="toggle-advert-status-{{ $advert->id }}" style="width: 260px !important;">
-				            	<form method="post" class="activate-advert-form p-4" action="javascript:;" data-action="{{ route('user.advert.activate', ['id' => $advert->id]) }}">
+				            	<form method="post" class="activate-advert-form p-4" action="javascript:;" data-action="{{ route('user.advert.activate', ['id' => $advert->id, 'public_id' => $advert->image->public_id ?? '']) }}">
 				            		<div class="alert alert-info mb-4">This advert will start immediately after activation.</div>
 				            		<input type="hidden" name="status" value="active">
 				            		<div class="alert mb-3 activate-advert-message d-none"></div>
@@ -52,7 +69,7 @@
 				        </div>
             		</div>
 					<div class="col-6 mb-4">
-			            @include('user.adverts.partials.remove')
+			            @include('user.adverts.partials.delete')
 					</div>
 				</div>
 				<div class="">
@@ -89,28 +106,11 @@
 				        </div>
 					</div>
             		<div class="col-6 mb-4">
-            			<div class="dropdown">
-				            <a href="javascript:;" class="btn btn-block btn-sm btn-outline-danger" id="toggle-advert-status-{{ $advert->id }}" data-toggle="dropdown">
-				                <small class="mr-1">
-		                			<i class="icofont-rewind"></i>
-		                		</small>
-		                		<small>Cancel</small>
-				            </a>
-				            <div class="dropdown-menu border-0 shadow dropdown-menu-right" aria-labelledby="toggle-advert-status-{{ $advert->id }}" style="width: 260px !important;">
-				            	<form method="post" class="cancel-advert-form p-4" action="javascript:;" data-action="{{ route('user.advert.cancel', ['id' => $advert->id]) }}">
-				            		<div class="alert alert-danger mb-4">This action is destructive and is irreversible.</div>
-				            		<input type="hidden" name="status" value="active">
-				            		<div class="alert mb-3 cancel-advert-message d-none"></div>
-				            		<button type="submit" class="btn bg-theme-color text-white btn-block cancel-advert-button">
-				            			<img src="/images/spinner.svg" class="mr-2 d-none cancel-advert-spinner mb-1">Cancel
-				            		</button>
-				            	</form>
-				            </div>
-				        </div>
+            			@include('user.adverts.partials.delete')
 					</div>
             	</div>
             	<div class="">
-            		<?php $timing = \App\Helpers\Timing::calculate($duration, $advert->paused_at, $advert->started); ?>
+            		<?php $timing = \App\Helpers\Timing::calculate($duration, $advert->expiry, $advert->started, $advert->paused_at); ?>
 	            	<div class="progress progress-bar-height mb-3">
 	                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-dark" role="progressbar" aria-valuenow="{{ $timing->progress() }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $timing->progress() }}%"></div>
 	                </div>
@@ -120,11 +120,11 @@
 						</a>
 						<div class="dropdown">
 				            <a href="javascript:;" class="text-underline text-main-dark" id="advert-credit-{{ $advert->id }}" data-toggle="dropdown">
-				            	({{ $timing->daysleft() }})days spent
+				            	({{ $timing->daysleft() }})days left
 				            </a>
 				            <div class="dropdown-menu border-0 shadow dropdown-menu-right" aria-labelledby="advert-credit-{{ $advert->id }}" style="width: 240px !important;">
 				            	<div class="px-4 py-3">
-				            		Total {{ $duration }}days ({{ $advert->credit->units }}units)
+				            		Total {{ $duration }}days ({{ $advert->credit->units ?? 'No ' }}units)
 				            	</div>
 				            </div>
 				        </div>
@@ -153,27 +153,10 @@
 				        </div>
             		</div>
 					<div class="col-6 mb-4">
-						<div class="dropdown">
-				            <a href="javascript:;" class="btn btn-block btn-sm btn-outline-danger" id="toggle-advert-status-{{ $advert->id }}" data-toggle="dropdown">
-				                <small class="mr-1">
-		                			<i class="icofont-rewind"></i>
-		                		</small>
-		                		<small>Cancel</small>
-				            </a>
-				            <div class="dropdown-menu border-0 shadow dropdown-menu-right" aria-labelledby="toggle-advert-status-{{ $advert->id }}" style="width: 260px !important;">
-				            	<form method="post" class="cancel-advert-form p-4" action="javascript:;" data-action="{{ route('user.advert.cancel', ['id' => $advert->id]) }}">
-				            		<div class="alert alert-danger mb-4">This action is destructive and is irreversible.</div>
-				            		<input type="hidden" name="status" value="active">
-				            		<div class="alert mb-3 cancel-advert-message d-none"></div>
-				            		<button type="submit" class="btn bg-theme-color text-white btn-block cancel-advert-button">
-				            			<img src="/images/spinner.svg" class="mr-2 d-none cancel-advert-spinner mb-1">Cancel
-				            		</button>
-				            	</form>
-				            </div>
-				        </div>
+						@include('user.adverts.partials.delete')
 					</div>
 				</div>
-				<div class="row">
+				<div class="">
 	            	<?php  $timing = \App\Helpers\Timing::calculate($duration, $advert->expiry, $advert->started); ?>
 	            	<div class="progress progress-bar-height mb-3">
 	                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-dark" role="progressbar" aria-valuenow="{{ $timing->progress() }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $timing->progress() }}%"></div>
@@ -217,7 +200,7 @@
 				        </div>
             		</div>
 					<div class="col-6 mb-4">
-						@include('user.adverts.partials.remove')
+						@include('user.adverts.partials.delete')
 					</div>
 				</div>
 				<div class="row">

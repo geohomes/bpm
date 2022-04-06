@@ -12,15 +12,15 @@ use DB;
 class PromotionsController extends Controller
 {
     /**
-     * Api promote a property
+     * Api promote any product
      */
     public function promote()
     {
-        $data = request()->only(['credit', 'reference', 'type']);
+        $data = request()->all();
         $validator = Validator::make($data, [
-            'credit' => ['required', 'integer'],
-            'reference' => ['required'],
-            'type' => ['required', 'string'],
+            'credit' => ['required'],
+            'model_id' => ['required'],
+            'type' => ['required'],
         ]);
 
         if ($validator->fails()) {
@@ -30,16 +30,14 @@ class PromotionsController extends Controller
             ]);
         }
 
-        $type = $data['type'] ?? '';
-        if (!in_array($type, Promotion::$types)) {
+        if (!in_array($data['type'], Promotion::$types)) {
             return response()->json([
                 'status' => 0, 
-                'info' => 'Invalid promotion type.',
+                'info' => 'Invalid operation.',
             ]);
         }
 
-        $creditid = $data['credit'];
-        $credit = Credit::find($creditid);
+        $credit = Credit::find($data['credit']);
         if (empty($credit)) {
             return response()->json([
                 'status' => 0, 
@@ -47,64 +45,11 @@ class PromotionsController extends Controller
             ]);
         }
 
-        $reference = $data['reference'] ?? 0;
-        switch ($type) {
-            case 'property':
-                $product = Property::find($reference);
-                if (empty($product)) {
-                    return response()->json([
-                        'status' => 0, 
-                        'info' => 'Invalid promotion.',
-                    ]);
-                }
-
-                if ($product->status !== 'active' || empty($product->image)) {
-                    return response()->json([
-                        'status' => 0, 
-                        'info' => 'You can only promote activated properties with image',
-                    ]);
-                }
-                break;
-
-            case 'material':
-                $product = Material::find($reference);
-                if (empty($product)) {
-                    return response()->json([
-                        'status' => 0, 
-                        'info' => 'Invalid promotion.',
-                    ]);
-                }
-
-                if ($product->status !== 'active' || empty($product->image)) {
-                    return response()->json([
-                        'status' => 0, 
-                        'info' => 'You can only promote activated materials with image',
-                    ]);
-                }
-                break;
-            case 'profile':
-                $product = Profile::find($reference);
-                if (empty($product)) {
-                    return response()->json([
-                        'status' => 0, 
-                        'info' => 'Invalid promotion.',
-                    ]);
-                }
-
-                if (empty($product->image)) {
-                    return response()->json([
-                        'status' => 0, 
-                        'info' => 'You can only promote activated materials with image',
-                    ]);
-                }
-                break;
-            
-            default:
-                return response()->json([
-                    'status' => 0, 
-                    'info' => 'Invalid promotion',
-                ]);
-                break;
+        if ($credit->status == 'active' || $credit->inuse === true) {
+            return response()->json([
+                'status' => 0, 
+                'info' => 'Credit already in use.',
+            ]);
         }
 
         try {
@@ -117,16 +62,14 @@ class PromotionsController extends Controller
             Promotion::create([
                 'credit_id' => $credit->id,
                 'duration' => $days,
-                'started' => Carbon::today(),
-                'type' => $type,
-                'expiry' => Carbon::today()->addDays($days),
+                'started' => Carbon::now(),
+                'type' => $data['type'],
+                'expiry' => Carbon::now()->addDays($days),
                 'status' => 'active',
                 'user_id' => auth()->id(),
-                'reference' => $reference,
+                'reference' => Str::random(64),
+                'model_id' => $data['model_id']
             ]);
-
-            $product->promoted = true;
-            $product->update();
 
             DB::commit();
             return response()->json([
