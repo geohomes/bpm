@@ -20,12 +20,13 @@
                                         <label class="form-label text-muted">Category</label>
                                         <select class="custom-select form-control category" name="category">
                                             <option value="">Select Category</option>
-                                            @empty($categories->count())
+                                            @set('categories', \App\Models\Blog::$categories)
+                                            @if(empty($categories))
                                                 <option value="">No Categories</option>
                                             @else
                                                 @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}">
-                                                        {{ ucwords($category->name) }}
+                                                    <option value="{{ $category }}">
+                                                        {{ ucwords($category) }}
                                                     </option>
                                                 @endforeach
                                             @endempty
@@ -51,13 +52,13 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="text-muted">Description</label>
-                                    <div class="bg-white">
-                                        <textarea class="form-control description" name="description" rows="4" placeholder="Add book description" id="description"></textarea>
+                                    <div class="">
+                                        <textarea class="form-control description" name="description" rows="4" placeholder="Add blog description" id="description"></textarea>
                                     </div>
                                     <small class="invalid-feedback description-error"></small>
                                 </div>
                                 <div class="alert mb-3 add-blog-message d-none"></div>
-                                <button type="submit" class="btn btn-lg btn-info text-white add-blog-button mt-3 px-4">
+                                <button type="submit" class="btn btn-lg bg-theme-color text-white add-blog-button mt-3 px-4">
                                     <img src="/images/spinner.svg" class="mr-2 d-none add-blog-spinner mb-1">
                                     Post
                                 </button>
@@ -65,14 +66,14 @@
                         </div>
                     </div>
                     <div class="col-12 col-lg-3">
-                        <div class="alert alert-info d-flex align-items-center justify-content-between mb-4">Recent Blogs</div>
+                        <div class="alert alert-info mb-4">Recent Blogs</div>
                         <div class="rows">
-                            @set('recents', \App\Models\Blog::latest('created_at')->take(3)->get())
-                            @if(empty($recents->count()))
+                            @set('blogs', \App\Models\Blog::latest('created_at')->take(3)->get())
+                            @if(empty($blogs->count()))
                                 <div class="alert alert-danger mb-4">No Recent Blogs</div>
                             @else
                                 <div class="row">
-                                    @foreach($recents as $blog)
+                                    @foreach($blogs as $blog)
                                         <div class="col-12 col-md-4 col-lg-12 mb-4">
                                             @include('admin.blogs.partials.card')
                                         </div>

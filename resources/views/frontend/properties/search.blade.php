@@ -58,7 +58,12 @@
                         @endif
                     </div>
                     <div class="col-12 col-md-3">
-                        @include('frontend.properties.partials.categories')
+                        <div class="mb-4">
+                            @include('frontend.properties.partials.categories')
+                        </div>
+                        <div class="">
+                            @include('frontend.adverts.partials.sidebar')
+                        </div>
                     </div>
                 </div>
             </div>

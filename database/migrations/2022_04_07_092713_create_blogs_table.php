@@ -19,7 +19,7 @@ class CreateBlogsTable extends Migration
             $table->text('description');
             $table->bigInteger('views')->nullable();
             $table->boolean('published')->default(true);
-            $table->foreignId('category_id');
+            $table->string('category');
             $table->string('reference');
             $table->foreignId('user_id');
             $table->timestamps();

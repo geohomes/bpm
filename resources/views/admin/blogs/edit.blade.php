@@ -24,12 +24,13 @@
                                             <label class="form-label text-muted">Category</label>
                                             <select class="custom-select form-control category" name="category">
                                                 <option value="">Select Category</option>
-                                                @empty($categories->count())
+                                                @set('categories', \App\Models\Blog::$categories)
+                                                @if(empty($categories))
                                                     <option value="">No Categories</option>
                                                 @else
                                                     @foreach ($categories as $category)
-                                                        <option value="{{ $category->id }}" {{ $category->id == $blog->category_id ? 'selected' : 'nill' }}>
-                                                            {{ ucwords($category->name) }}
+                                                        <option value="{{ $category }}" {{ $category == $blog->category ? 'selected' : '' }}>
+                                                            {{ ucwords($category) }}
                                                         </option>
                                                     @endforeach
                                                 @endempty
@@ -59,7 +60,7 @@
                                         <small class="invalid-feedback description-error"></small>
                                     </div>
                                     <div class="alert mb-3 edit-blog-message d-none"></div>
-                                    <button type="submit" class="btn btn-info text-white edit-blog-button mt-1 px-4 btn-lg">
+                                    <button type="submit" class="btn bg-theme-color text-white edit-blog-button mt-1 px-4 btn-lg">
                                         <img src="/images/spinner.svg" class="mr-2 d-none edit-blog-spinner mb-1">
                                         Save
                                     </button>

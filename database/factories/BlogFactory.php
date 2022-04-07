@@ -21,7 +21,7 @@ class BlogFactory extends Factory
             'user_id' => rand(1, User::count()),
             'views' => $faker->numberBetween(103, 765),
             'published' => $faker->boolean(40), //40% chance of get true
-            'category_id' => rand(1, Category::count()),
+            'category' => $faker->randomElement(Blog::$categories),
             'description' => $faker->paragraph(25),
             'reference' => \Str::uuid(32),
         ];

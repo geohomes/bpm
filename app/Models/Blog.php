@@ -10,12 +10,16 @@ class Blog extends Model
     use HasFactory;
 
     /**
-     * A blog post belongs to a category
+     * Blog category description
+     *
+     * @var string
      */
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
+    public static $categories = [
+        'Business',
+        'Real Estate',
+        'Construction',
+        'Surveying',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -25,9 +29,8 @@ class Blog extends Model
     protected $fillable = [
         'title', 
         'user_id', 
-        'published', 
-        'image', 
-        'category_id', 
+        'published',  
+        'category', 
         'description', 
         'views',
         'reference',
@@ -43,6 +46,6 @@ class Blog extends Model
      */
     public function image()
     {
-        return $this->hasMany(Image::class, 'model_id')->where(['type' => 'blog']);
+        return $this->hasOne(Image::class, 'model_id')->where(['type' => 'blog']);
     }
 }

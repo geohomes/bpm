@@ -26,7 +26,7 @@
 							@include('frontend.properties.partials.categories')
 						</div>
 						<div class="mb-4">
-							@include('frontend.properties.partials.sold')
+							@include('frontend.adverts.partials.sidebar')
 						</div>
 					</div>
 				</div>

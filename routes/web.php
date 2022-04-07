@@ -70,7 +70,7 @@ Route::middleware(['web'])->domain(env('APP_URL'))->group(function() {
     });
 
     Route::prefix('blog')->group(function () {
-        Route::get('/', [\App\Http\Controllers\BlogController::class, 'index'])->name('blog');
+        Route::get('/{category?}', [\App\Http\Controllers\BlogController::class, 'index'])->name('blog');
         Route::get('/{id}/{slug}', [\App\Http\Controllers\BlogController::class, 'read'])->name('blog.read');
     });
 
@@ -167,7 +167,7 @@ Route::middleware(['web', 'auth', 'admin', 'revalidate'])->domain(env('ADMIN_URL
 
         Route::get('/add', [\App\Http\Controllers\Admin\PropertiesController::class, 'add'])->name('admin.property.add');
         Route::get('/edit/{id}', [\App\Http\Controllers\Admin\PropertiesController::class, 'edit'])->name('admin.property.edit');
-        Route::get('/category/{categoryname}', [\App\Http\Controllers\Admin\PropertiesController::class, 'category'])->name('admin.properties.category');
+        Route::get('/category/{category}', [\App\Http\Controllers\Admin\PropertiesController::class, 'category'])->name('admin.properties.category');
 
 
         Route::post('/add', [\App\Http\Controllers\Api\PropertiesController::class, 'add'])->name('admin.property.add');
@@ -205,9 +205,7 @@ Route::middleware(['web', 'auth', 'admin', 'revalidate'])->domain(env('ADMIN_URL
     });
 
     Route::prefix('blogs')->group(function () {
-        Route::get('/', [\App\Http\Controllers\Admin\BlogsController::class, 'index'])->name('admin.blogs');
 
-        Route::post('/image/upload/{id}', [\App\Http\Controllers\Api\BlogsController::class, 'image'])->name('blog.image.upload');
         Route::post('/store', [\App\Http\Controllers\Api\BlogsController::class, 'store'])->name('blog.store');
         Route::post('/status/{id}', [\App\Http\Controllers\Api\BlogsController::class, 'status'])->name('blog.status.update');
         Route::post('/delete/{id}', [\App\Http\Controllers\Api\BlogsController::class, 'delete'])->name('blog.delete');
@@ -215,8 +213,14 @@ Route::middleware(['web', 'auth', 'admin', 'revalidate'])->domain(env('ADMIN_URL
 
         Route::get('/add', [\App\Http\Controllers\Admin\BlogsController::class, 'add'])->name('admin.blog.add');
         Route::get('/edit/{id}', [\App\Http\Controllers\Admin\BlogsController::class, 'edit'])->name('admin.blog.edit');
-        Route::get('/category/{categoryid}', [\App\Http\Controllers\Admin\BlogsController::class, 'category'])->name('admin.blogs.category');
         
+        Route::get('/{category?}', [\App\Http\Controllers\Admin\BlogsController::class, 'index'])->name('admin.blogs');
+    });
+
+    Route::prefix('image')->group(function () {
+        Route::post('/upload', [\App\Http\Controllers\Api\ImagesController::class, 'upload'])->name('admin.image.upload');
+        Route::post('/multiple', [\App\Http\Controllers\Api\ImagesController::class, 'multiple'])->name('admin.multiple.images.upload');
+        Route::match(['delete', 'post'], '/delete', [\App\Http\Controllers\Api\ImagesController::class, 'delete'])->name('admin.image.delete');
     });
 
 });

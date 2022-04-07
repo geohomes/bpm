@@ -1,25 +1,38 @@
 <div class="card border-0">
     <div class="card-img position-relative">
-        <div class="position-absolute border-top d-flex justify-content-between px-3 align-items-center" style="left: 0; bottom: 0; right: 0; z-index: 3; height: 50px; line-height: 50px; background-color: rgba(0, 0, 0, 0.4);">
+        <div class="position-absolute border-top d-flex justify-content-between px-3 align-items-center" style="left: 0; bottom: 0; right: 0; z-index: 3; height: 50px; line-height: 50px; background-color: rgba(0, 0, 0, 0.7);">
             <small class="text-white">
                 (1280 X 960)
             </small>
             <div class="d-flex position-relative">
-                <small>
-                    <i class="icofont-camera cursor-pointer text-white add-blog-image-{{ $blog->id }}" data-id="{{ $blog->id }}">
+                <small class="cursor-pointer text-white upload-image-{{ $blog->id }}" data-id="{{ $blog->id }}">
+                    <i class="icofont-camera">
                     </i>
                 </small>
             </div>
         </div>
-        <form action="javascript:;">
-            <input type="file" name="image" accept="image/*" class="blog-image-input-{{ $blog->id }} d-none" data-url="{{ route('blog.image.upload', ['id' => $blog->id ]) }}">
-        </form>
-        <div class="add-blog-image-loader-{{ $blog->id }} upload-image-loader d-none position-absolute rounded-circle text-center border" data-id="{{ $blog->id }}">
-            <img src="/images/spinner.svg">
+        <div class="image-loader-{{ $blog->id }} bg-main-dark lg-circle text-center d-none position-absolute rounded-circle border" data-id="{{ $blog->id }}">
+            <div class="position-relative" style="top: 4px;">
+                <img src="/images/spinner.svg">
+            </div>
+            
         </div>
-        <a href="{{ route('admin.blogs.category', ['categoryid' => $blog->category->id]) }}" style="height: 160px;">
-            <img src="{{ empty($blog->image) ? '/images/banners/placeholder.png' : $blog->image->link }}" class="img-fluid blog-image-preview-{{ $blog->id }} h-100 w-100 object-cover">
-        </a>
+        @if(empty($blog->image))
+            <form action="javascript:;">
+                <input type="file" name="image" accept="image/*" class="image-input-{{ $blog->id }}" data-url="{{ route('admin.image.upload', ['model_id' => $blog->id, 'type' => 'blog', 'folder' => 'blogs', 'role' => 'main', 'public_id' => '']) }}" style="display: none;">
+            </form>
+            <a href="{{ route('admin.blog.edit', ['id' => $blog->id]) }}" style="height: 180px;" class="d-block">
+                <img src="/images/banners/placeholder.png" class="img-fluid image-preview-{{ $blog->id }} h-100 w-100 object-cover">
+            </a>
+        @else
+            @set('image', $blog->image)
+            <form action="javascript:;">
+                <input type="file" name="image" accept="image/*" class="image-input-{{ $blog->id }}" data-url="{{ route('admin.image.upload', ['model_id' => $image->model_id, 'type' => $image->type, 'folder' => 'blogs', 'role' => $image->role, 'public_id' => $image->public_id]) }}" style="display: none;">
+            </form>
+            <a href="{{ route('admin.blog.edit', ['id' => $blog->id]) }}" style="height: 180px;" class="d-block">
+                <img src="{{ $blog->image->link }}" class="img-fluid image-preview-{{ $blog->id }} h-100 w-100 object-cover">
+            </a>
+        @endif
     </div>
     <div class="card-body">
         <div class="pb-3 mb-3 border-bottom d-flex justify-content-between align-items-center">
@@ -66,8 +79,8 @@
             <small class="text-main-dark">
                 {{ number_format($blog->views ?? 0) }} views
             </small>
-            <a href="{{ route('admin.blogs.category', ['categoryid' => $blog->category->id]) }}" class="text-main-dark text-underline">
-                {{ ucwords(\Str::limit($blog->category->name, 5) ?? 'Nill') }}
+            <a href="{{ route('admin.blogs', ['category' => strtolower(str_replace(' ', '', $blog->category))]) }}" class="text-main-dark text-underline">
+                {{ ucwords(\Str::limit($blog->category, 5) ?? 'Nill') }}
             </a>
         </div>
     </div>

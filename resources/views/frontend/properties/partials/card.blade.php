@@ -75,7 +75,7 @@
     <div class="card-body">
         <div class="font-weight-bolder mb-3">
             <a href="{{ route('property.category.id.slug', ['category' => $property->category, 'id' => $property->id ?? 0, 'slug' => \Str::slug($title)]) }}" class="text-main-dark text-underline">
-                {{ \Str::limit($title, 62) }}
+                {{ \Str::limit($title, 45) }}
             </a>
         </div>
         <h4 class="text-theme-color">
@@ -91,9 +91,9 @@
     </div>
     <div class="card-footer d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center">
-            <div class="rounded-circle lg-circle m-0">
+            <a href="{{ route('account.profile', ['id' => $property->user->profile->id ?? 0, 'name' => \Str::slug($property->user->name)]) }}" class="rounded-circle lg-circle m-0 d-block">
                 <div class="p-1 m-0 border border-{{ $property->status == 'active' ? 'success' : 'danger' }} rounded-circle w-100 h-100">
-                    @if(empty($property->user->profile->image))
+                    @if(empty($property->user->profile->image->link))
                         <div class="w-100 h-100 border rounded-circle text-center" style="background-color: {{ randomrgba() }};">
                             <small class="text-main-dark">
                                 {{ substr(strtoupper($property->user->name), 0, 1) }}
@@ -103,9 +103,9 @@
                         <img src="{{ $property->user->profile->image }}" class="img-fluid object-cover rounded-circle w-100 h-100 border">
                     @endif
                 </div>
-            </div>
+            </a>
             <div class="ml-2">
-                <a href="javascript:;" class="text-decoration-none d-block">
+                <a href="{{ route('account.profile', ['id' => $property->user->profile->id ?? 0, 'name' => \Str::slug($property->user->name)]) }}" class="text-decoration-none d-block">
                     <small class="text-main-dark">
                         {{ $property->user ? \Str::limit(ucwords($property->user->name), 12) : 'Our Agent' }}
                     </small>

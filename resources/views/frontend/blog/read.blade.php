@@ -1,6 +1,6 @@
 @include('layouts.header')
     @include('frontend.layouts.navbar')
-    <div class="bg-main-ash min-vh-100">
+    <div class="bg-main-ash">
     	<section class="" style="padding: 140px 0;">
 			<div class="container-fluid">
 				<div class="row">
@@ -14,7 +14,7 @@
 										{{ ucfirst($blog->title) }}
 									</h3>
 									<div class="mb-4" style="height: 380px;">
-										<img src="{{ $blog->image }}" class="img-fluid border h-100 w-100 object-cover">
+										<img src="{{ empty($blog->image) ? '/images/banners/placeholder.png' : $blog->image->link }}" class="img-fluid border h-100 w-100 object-cover">
 									</div>
 									<div class="mb-4">
 										<div class="text-main-dark">
@@ -29,22 +29,8 @@
 						</div>
 					</div>
 					<div class="col-12 col-md-4 col-lg-4">
-						<div class="mb-4">
-							<div class="p-3 mb-4 bg-white shadow-sm icon-raduis">
-								<h5 class="m-0">Blog Categories</h5>
-							</div>
-							<?php $categories = \App\Models\Category::where(['type' => 'blog'])->get(); ?>
-							@empty($categories->count())
-			                    <div class="alert alert-info">No Categories Yet</div>
-			                @else
-			                	<div class="row">
-			                        @foreach($categories as $category)
-				                        <div class="col-12">
-				                        	@include('frontend.blog.partials.categories')
-				                        </div>
-			                        @endforeach
-			                    </div>
-			                @endempty
+                        <div class="mb-4">
+                        	@include('frontend.blog.partials.categories')
 						</div>
 					</div>
 				</div>

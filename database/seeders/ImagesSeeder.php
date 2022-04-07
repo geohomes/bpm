@@ -13,7 +13,7 @@ class ImagesSeeder extends Seeder
      */
     public function run()
     {
-        Image::truncate();
-        Image::factory()->count(7000)->create();
+        // Image::truncate();
+        // Image::factory()->count(7000)->create();
     }
 }

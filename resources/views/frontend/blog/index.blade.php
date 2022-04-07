@@ -1,6 +1,6 @@
 @include('layouts.header')
     @include('frontend.layouts.navbar')
-    <div class="bg-main-ash min-vh-100">
+    <div class="bg-main-ash">
     	<section class="blog-banner">
 			<div class="container-fluid">
 				<div class="row mb-4">

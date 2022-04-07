@@ -23,7 +23,7 @@
                                             </div>   
                                         </div>
                                         <form action="javascript:;">
-                                            <input type="file" name="image" accept="image/*" class="image-input" data-url="{{ route('user.image.upload', ['model_id' => $mainimage->model_id, 'type' => $mainimage->type, 'folder' => 'properties', 'role' => '$mainimage->role', 'public_id' => $mainimage->public_id]) }}" style="display: none;">
+                                            <input type="file" name="image" accept="image/*" class="image-input" data-url="{{ route('admin.image.upload', ['model_id' => $mainimage->model_id, 'type' => $mainimage->type, 'folder' => 'properties', 'role' => '$mainimage->role', 'public_id' => $mainimage->public_id]) }}" style="display: none;">
                                         </form>
                                         <div class="image-loader upload-image-loader  position-absolute d-none rounded-circle text-center border" data-id="{{ $property->id}}">
                                             <img src="/images/spinner.svg">
@@ -40,7 +40,7 @@
                                                 </small>
                                             </div>
                                             <div class="d-flex align-items-center">
-                                                <small class="delete-image cursor-pointer text-theme-color" data-id="{{ $property->id }}" data-message="Are you sure to delete property main image?" data-url="{{ route('user.image.delete', ['model_id' => $mainimage->model_id, 'role' => $mainimage->role, 'type' => $mainimage->type, 'public_id' => $mainimage->public_id]) }}">
+                                                <small class="delete-image cursor-pointer text-theme-color" data-id="{{ $property->id }}" data-message="Are you sure to delete property main image?" data-url="{{ route('admin.image.delete', ['model_id' => $mainimage->model_id, 'role' => $mainimage->role, 'type' => $mainimage->type, 'public_id' => $mainimage->public_id]) }}">
                                                     <i class="icofont-trash"></i>
                                                 </small>
                                             </div>
@@ -56,7 +56,7 @@
                                                 </div>   
                                             </div> 
                                             <form action="javascript:;">
-                                                <input type="file" name="image" accept="image/*" class="image-input" data-url="{{ route('user.image.upload', ['model_id' => $property->id, 'type' => 'property', 'folder' => 'properties', 'role' => 'main']) }}" style="display: none;">
+                                                <input type="file" name="image" accept="image/*" class="image-input" data-url="{{ route('admin.image.upload', ['model_id' => $property->id, 'type' => 'property', 'folder' => 'properties', 'role' => 'main']) }}" style="display: none;">
                                             </form>
                                             <div class="image-loader upload-image-loader  position-absolute d-none rounded-circle text-center border" data-id="{{ $property->id}}">
                                                 <img src="/images/spinner.svg">
@@ -81,13 +81,13 @@
                                                 <i class="icofont-info-circle"></i>
                                                 <span>You can only upload maximum of ({{ $max }}) other image(s)</span>
                                             </div>
-                                            <input type="file" class="filepond" name="images[]" accept="image/png, image/jpeg, image/gif" multiple max="{{ $max }}" data-url="{{ route('api.multiple.images.upload', ['model_id' => $property->id, 'type' => 'property', 'folder' => 'properties', 'role' => 'others']) }}">
+                                            <input type="file" class="filepond" name="images[]" accept="image/png, image/jpeg, image/gif" multiple max="{{ $max }}" data-url="{{ route('admin.multiple.images.upload', ['model_id' => $property->id, 'type' => 'property', 'folder' => 'properties', 'role' => 'others']) }}">
                                         @endif
                                     </div>
                                     @if(!empty($others->count()))
                                         <div class="row">
                                             @foreach($others as $image)
-                                                @set('deleteuri', route('user.image.delete', ['model_id' => $image->model_id, 'role' => $image->role, 'type' => $image->type, 'public_id' => $image->public_id]))
+                                                @set('deleteuri', route('admin.image.delete', ['model_id' => $image->model_id, 'role' => $image->role, 'type' => $image->type, 'public_id' => $image->public_id]))
                                                 <div class="col-6 col-md-3 col-lg-6 mb-4">
                                                     <div class="card border-0">
                                                         <a href="{{ $image->link }}" class="border d-block" style="height: 140px;">
@@ -122,7 +122,7 @@
                                         </div>   
                                     </div> 
                                     <form action="javascript:;">
-                                        <input type="file" name="image" accept="image/*" class="image-input" data-url="{{ route('user.image.upload', ['model_id' => $property->id, 'type' => 'property', 'folder' => 'properties', 'role' => 'main']) }}" style="display: none;">
+                                        <input type="file" name="image" accept="image/*" class="image-input" data-url="{{ route('admin.image.upload', ['model_id' => $property->id, 'type' => 'property', 'folder' => 'properties', 'role' => 'main']) }}" style="display: none;">
                                     </form>
                                     <div class="image-loader upload-image-loader  position-absolute d-none rounded-circle text-center border" data-id="{{ $property->id}}">
                                         <img src="/images/spinner.svg">

@@ -9,8 +9,8 @@
 					<div class="row">
 						<div class="col-12 col-md-4 col-lg-3">
 							<div class="mb-4 p-sm-5 p-lg-5 p-md-4 rounded icon-raduis bg-white shadow-sm text-center">
-								<div class="" style="height: 160px;">
-									<img src="{{ empty($profile->image) ? '/images/avatar.png' : $profile->image }}" class="img-fluid w-100 h-100 rounded border object-cover">
+								<div class="bg-main-ash" style="height: 160px;">
+									<img src="{{ empty($profile->image) ? '/images/avatar.jpg' : $profile->image->link }}" class="img-fluid w-100 h-100 rounded border object-cover">
 								</div>
 							</div>
 							<div class="mb-4">

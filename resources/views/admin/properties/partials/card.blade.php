@@ -1,9 +1,19 @@
-<?php $categoryname = strtolower($property->category); ?>
+<?php $category = strtolower($property->category); ?>
 <div class="card border-0 position-relative">
 	<div class="position-relative" style="height: 160px; line-height: 160px;">
-		<a href="{{ route('admin.property.edit', ['id' => $property->id, 'category' => $categoryname]) }}" class="text-decoration-none">
-			<img src="{{ empty($property->image) ? '/images/banners/holder.png' : $property->image }}" class="img-fluid border-0 w-100 h-100 object-cover">
-		</a>
+		@if($property->images()->exists())
+			@foreach($property->images as $image)
+				@if($image->role == 'main')
+					<a href="{{ route('admin.property.edit', ['id' => $property->id, 'category' => $category]) }}" class="text-decoration-none">
+						<img src="{{ $image->link }}" class="img-fluid border-0 w-100 h-100 object-cover">
+					</a>
+				@endif
+			@endforeach
+		@else
+			<a href="{{ route('admin.property.edit', ['id' => $property->id, 'category' => $category]) }}" class="text-decoration-none">
+				<img src="/images/banners/placeholder.png" class="img-fluid border-0 w-100 h-100 object-cover">
+			</a>
+		@endif
 		<div class="position-absolute w-100 px-3 border-top d-flex align-items-center justify-content-between" style="height: 45px; line-height: 45px; bottom: 0; background-color: rgba(0, 0, 0, 0.75);">
 			<a href="{{ route('admin.user.profile', ['id' => $property->user->id ?? 0]) }}" class="text-underline text-white">
 				<small class="">
@@ -19,23 +29,23 @@
 	</div>
 	<div class="card-body">
 		<div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">
-			<a href="{{ route('admin.properties.category', ['categoryname' => $categoryname]) }}" class="text-underline text-dark">
+			<a href="{{ route('admin.properties.category', ['category' => $category]) }}" class="text-underline text-dark">
 				<small class="">
-					{{ ucfirst($categoryname) }}
+					{{ \Str::limit(ucfirst($category), 6) }}
 				</small>
 			</a>
 			@set('actions', \App\Models\Property::$actions)
 			@set('action', strtolower($property->action ?? 'nill'))
 			<small class="">
 				<a href="{{ route('admin.properties.action', ['action' => $action]) }}" class="text-underline text-{{ $action === 'sold' ? 'danger' : 'info' }}">
-					{{ ucfirst($action) }}
+					{{ ucwords($actions[$action]) }}
 				</a>
 			</small>
 		</div>
 		<div class="d-flex justify-content-between align-items-center">
-			<a href="{{ route('admin.property.edit', ['category' => $categoryname, 'id' => $property->id]) }}" class="text-underline text-main-dark">
+			<a href="{{ route('admin.property.edit', ['category' => $category, 'id' => $property->id]) }}" class="text-underline text-main-dark">
 				<small class="">
-					{{ \Str::limit($property->address, 14) }}
+					{{ \Str::limit($property->address, 10) }}
 				</small>
 			</a>
 			<div class="dropdown">
@@ -80,7 +90,7 @@
 		<small class="text-white">
 			{{ $property->created_at->diffForHumans() }}
 		</small>
-		<a href="{{ route('admin.property.edit', ['id' => $property->id, 'category' => $categoryname]) }}">
+		<a href="{{ route('admin.property.edit', ['id' => $property->id, 'category' => $category]) }}">
 			<small class="text-warning">
 				<i class="icofont-edit"></i>
 			</small>

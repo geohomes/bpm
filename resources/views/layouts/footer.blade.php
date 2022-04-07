@@ -31,6 +31,14 @@
         <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
 
         <script type="text/javascript">
+            var description = $('#description');
+            if (description) {
+                description.summernote({
+                    tabsize: 4,
+                    height: 500
+                });
+            }
+
             @if(!empty($property) || !empty($material) || !empty($posts) || !empty($services) || !empty($profile))
                 FilePond.registerPlugin(FilePondPluginFileEncode, FilePondPluginFileValidateSize, FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
@@ -67,7 +75,6 @@
                             },
                         },
                     });
-                        
                 }
 
                 $('.upload-image').click(function() {
@@ -79,6 +86,14 @@
                 @foreach($adverts as $advert)
                     $('.upload-image-{{ $advert->id }}').click(function() {
                         uploader({target: $(this), button: 'upload-image-{{ $advert->id }}', input: 'image-input-{{ $advert->id }}', loader: 'image-loader-{{ $advert->id }}', preview: 'image-preview-{{ $advert->id }}'});
+                    });
+                @endforeach     
+            @endif
+
+            @if(!empty($blogs))
+                @foreach($blogs as $blog)
+                    $('.upload-image-{{ $blog->id }}').click(function() {
+                        uploader({target: $(this), button: 'upload-image-{{ $blog->id }}', input: 'image-input-{{ $blog->id }}', loader: 'image-loader-{{ $blog->id }}', preview: 'image-preview-{{ $blog->id }}'});
                     });
                 @endforeach     
             @endif

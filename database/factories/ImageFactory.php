@@ -7,7 +7,6 @@ use Faker\Factory as Faker;
 
 class ImageFactory extends Factory
 {
-
     /**
      * Define the model's default state.
      *

@@ -27,43 +27,10 @@
 					</div>
 					<div class="col-12 col-md-5 col-lg-3">
 						<div class="mb-4">
-							<div class="p-3 mb-4 bg-white shadow-sm icon-raduis">
-								<h5 class="m-0">Property Categories</h5>
-							</div>
-							@empty($propertyCategories->count())
-			                    <div class="alert alert-info">No Categories Yet</div>
-			                @else
-		                        @foreach($propertyCategories as $category)
-			                        <div class="d-block">
-										<a href=" {{ route('properties.category', ['category' => strtolower($category->name)]) }}" class="pb-3 mb-3 d-flex justify-content-between border-bottom align-items-center w-100">
-											<div class="w-100 text-main-dark">
-												{{ ucwords($category->name) }}
-											</div>
-											<small class="text-main-green">
-												<i class="fa-solid fa-angle-right"></i>
-											</small>
-										</a>
-									</div>
-		                        @endforeach
-			                @endempty
+							@include('frontend.properties.partials.categories')
 						</div>
-						<div class="">
-							@empty($soldProperties)
-								<div class="alert alert-info">No recently sold property</div>
-							@else
-								<div class="p-3 mb-4 bg-white shadow-sm rounded">
-									<h5 class="m-0">Recently Sold</h5>
-								</div>
-								<?php $image = 1; ?>
-								<div class="row">
-									@foreach($soldProperties as $property)
-										<?php $image++; ?>
-										<div class="col-12 mb-4">
-											@include('frontend.properties.partials.sold')
-										</div>
-									@endforeach
-								</div>
-							@endempty
+						<div class="mb-4">
+							@include('frontend.adverts.partials.sidebar')
 						</div>
 					</div>
 				</div>
