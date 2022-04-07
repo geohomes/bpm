@@ -19,7 +19,7 @@ class CreateNewsTable extends Migration
             $table->text('description');
             $table->bigInteger('reads')->nullable();
             $table->boolean('published')->default(true);
-            $table->foreignId('category_id');
+            $table->string('category')->nullable();
             $table->foreignId('user_id');
             $table->string('reference');
             $table->timestamps();

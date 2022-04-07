@@ -4,6 +4,8 @@
 /storage/*.key
 .env
 .env.staging
+.env.live
+.env.review
 .phpunit.result.cache
 docker-compose.override.yml
 Homestead.json

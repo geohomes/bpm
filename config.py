@@ -13,9 +13,9 @@ def splitLineIntoParts(line):
 	return line
 
 def setConfigVar(name, value):
-	os.system('heroku config:set ' + name + '=' + value + ' --app geohomesgroup')
+	os.system('heroku config:set ' + name + '=' + value + ' --app bpmreview')
 
-with open('.env') as e:
+with open('.env.review') as e:
 	
 	for line in e:
 		l = splitLineIntoParts(line)

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Console;
-
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,8 +12,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\ExpiryCron::class,
-        //
+        Commands\PrefixCommand::class,
+        Commands\ExpiriesCommand::class,
     ];
 
     /**
@@ -25,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('expiry:check')->everyMinute();
+        $schedule->command('expiries:check')->everyMinute();
         $schedule->command('cache:clear')->everyMinute();
         $schedule->command('config:clear')->everyMinute();
         $schedule->command('view:clear')->everyMinute();

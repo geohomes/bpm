@@ -5,14 +5,14 @@ use Illuminate\Console\Command;
 use App\Models\{Subscription, Credit};
 use \Carbon\Carbon;
 
-class ExpiryCron extends Command
+class ExpiriesCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'expiry:check';
+    protected $signature = 'expiries:check';
 
     /**
      * The console command description.

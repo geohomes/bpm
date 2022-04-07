@@ -33,8 +33,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         if (env('APP_ENV') === 'production') {
-            $this->app['request']->server->set('HTTPS','on'); // this line
-            URL::forceScheme('https');
+            // $this->app['request']->server->set('HTTPS','on');
+            // URL::forceScheme('https');
+            \Event::listen(App\Console\Commands\PrefixCommand::class);
         }
 
         Sanctum::usePersonalAccessTokenModel(Token::class);

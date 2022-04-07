@@ -49,7 +49,7 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
         <link rel="manifest" href="/favicon/site.webmanifest">
         <!-- SITE TITLE -->
-        <title>{{ $title ?? env('APP_NAME') }}</title>
+        <title>{{ empty($title) ? env('APP_NAME') : ucfirst($title) }}</title>
         {{-- Google fonts --}}
         @if(env('APP_ENV') == 'production')
             <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +57,6 @@
             <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
         @endif
         {{-- File Pond CSS --}}
-        {{-- <link href="/filepond/filepond.min.css" rel="stylesheet" /> --}}
         <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css" rel="stylesheet" />
         <link href="https://unpkg.com/filepond/dist/filepond.min.css" rel="stylesheet" />
         <!-- Bootstrap CSS CDN -->
