@@ -1,6 +1,6 @@
 @include('layouts.header')
     @include('frontend.layouts.navbar')
-    <div class="bg-main-ash min-vh-100">
+    <div class="bg-main-ash">
     	<section class="country-banner" style="padding: 140px 0 120px">
 			<div class="container-fluid">
 				<div class="row">
