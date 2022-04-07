@@ -24,85 +24,83 @@
         <div class="home-properties">
             <div class="container-fluid">
                 <div class="">
-                    <div class="">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap">
-                            <div class="">
-                                <h4 class="text-main-dark mb-4">Promoted Properties</h4>
-                                <ul class="nav nav-pills " id="" role="tablist">
-                                    @set('actions', \App\Models\Property::$actions)
-                                    @if(!empty($actions))
-                                        @foreach($actions as $action => $value)
-                                            @if($action !== 'sold')
-                                                <li class="nav-item" role="presentation">
-                                                    <a class="nav-link border-theme-color mr-3 mb-4 py-1 text-main-dark px-4 {{ $action == 'sale' ? 'active' : '' }}" id="pills-{{ $action }}-tab" data-toggle="pill" href="#pills-{{ $action }}" role="tab" aria-controls="pills-{{ $action }}" aria-selected="true">
-                                                        <small class="position-relative" style="top: -2.5px;">
-                                                            <small>{{ ucwords($value) }}</small>
-                                                        </small>
-                                                    </a>
-                                                </li>
-                                            @endif
-                                        @endforeach
-                                    @endif
-                                </ul>
-                            </div>
-                            <div class="d-flex">
-                                <a href="{{ route('properties') }}" class="btn text-white btn-sm bg-theme-color d-block mb-4">
-                                    All <i class="icofont-long-arrow-right"></i>
-                                </a>
-                                @set('categories', \App\Models\Property::$categories)
-                                @if(!empty($categories))
-                                    <div class="dropdown ml-3">
-                                        <a class="btn btn-sm border-theme-color text-main-dark text-decoration-none" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                                            Categories <i class="icofont-caret-down"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm icon-raduis" aria-labelledby="dropdownMenuButton">
-                                            @foreach($categories as $category => $values)
-                                                <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('properties.category', ['category' => $category]) }}">
-                                                    <small class="text-main-dark">
-                                                        {{ ucfirst($category) }}s
-                                                    </small>
-                                                    <small class="tiny-font px-2 bg-theme-color text-white rounded-pill">
-                                                        {{ \App\Models\Property::where(['category' => $category])->get()->count() }}
-                                                    </small>
-                                                </a>
-                                                <div class="dropdown-divider"></div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-                        </div> 
-                        <div class="tab-content" id="">
-                            @if(empty($properties->count()))
-                                <div class="alert-info alert">No Properties Yet</div>
-                            @else
+                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                        <div class="">
+                            <h4 class="text-main-dark mb-4">Promoted Properties</h4>
+                            <ul class="nav nav-pills " id="" role="tablist">
+                                @set('actions', \App\Models\Property::$actions)
                                 @if(!empty($actions))
                                     @foreach($actions as $action => $value)
                                         @if($action !== 'sold')
-                                            <div class="tab-pane fade show {{ $action == 'sale' ? 'active' : '' }}" id="pills-{{ $action }}" role="tabpanel" aria-labelledby="pills-{{ $action }}-tab">
-                                                <div class="row">
-                                                    @foreach($properties as $property)
-                                                        @if($property->action == $action)
-                                                            <div class="col-12 col-md-4 col-lg-3 mb-4">
-                                                                @include('frontend.properties.partials.card')
-                                                            </div>
-                                                        @endif
-                                                    @endforeach
-                                                </div>  
-                                            </div>
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link border-theme-color mr-3 mb-4 py-1 text-main-dark px-4 {{ $action == 'sale' ? 'active' : '' }}" id="pills-{{ $action }}-tab" data-toggle="pill" href="#pills-{{ $action }}" role="tab" aria-controls="pills-{{ $action }}" aria-selected="true">
+                                                    <small class="position-relative" style="top: -2.5px;">
+                                                        <small>{{ ucwords($value) }}</small>
+                                                    </small>
+                                                </a>
+                                            </li>
                                         @endif
                                     @endforeach
-                                @else
-                                    <div class="row">
-                                        @foreach($properties as $property)
-                                            <div class="col-12 col-md-4 col-lg-3 mb-4">
-                                                @include('frontend.properties.partials.card')
-                                            </div>
-                                        @endforeach
-                                    </div>  
                                 @endif
+                            </ul>
+                        </div>
+                        <div class="d-flex">
+                            <a href="{{ route('properties') }}" class="btn text-white btn-sm bg-theme-color d-block mb-4">
+                                All <i class="icofont-long-arrow-right"></i>
+                            </a>
+                            @set('categories', \App\Models\Property::$categories)
+                            @if(!empty($categories))
+                                <div class="dropdown ml-3">
+                                    <a class="btn btn-sm border-theme-color text-main-dark text-decoration-none" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                        Categories <i class="icofont-caret-down"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm icon-raduis" aria-labelledby="dropdownMenuButton">
+                                        @foreach($categories as $category => $values)
+                                            <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('properties.category', ['category' => $category]) }}">
+                                                <small class="text-main-dark">
+                                                    {{ ucfirst($category) }}s
+                                                </small>
+                                                <small class="tiny-font px-2 bg-theme-color text-white rounded-pill">
+                                                    {{ \App\Models\Property::where(['category' => $category])->get()->count() }}
+                                                </small>
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                        @endforeach
+                                    </div>
+                                </div>
                             @endif
                         </div>
+                    </div> 
+                    <div class="tab-content" id="">
+                        @if(empty($properties->count()))
+                            <div class="alert-info alert">No Properties Yet</div>
+                        @else
+                            @if(!empty($actions))
+                                @foreach($actions as $action => $value)
+                                    @if($action !== 'sold')
+                                        <div class="tab-pane fade show {{ $action == 'sale' ? 'active' : '' }}" id="pills-{{ $action }}" role="tabpanel" aria-labelledby="pills-{{ $action }}-tab">
+                                            <div class="row">
+                                                @foreach($properties as $property)
+                                                    @if($property->action == $action)
+                                                        <div class="col-12 col-md-4 col-lg-3 mb-4">
+                                                            @include('frontend.properties.partials.card')
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>  
+                                        </div>
+                                    @endif
+                                @endforeach
+                            @else
+                                <div class="row">
+                                    @foreach($properties as $property)
+                                        <div class="col-12 col-md-4 col-lg-3 mb-4">
+                                            @include('frontend.properties.partials.card')
+                                        </div>
+                                    @endforeach
+                                </div>  
+                            @endif
+                        @endif
                     </div>
                 </div>
                 <div class="">
