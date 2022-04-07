@@ -17,7 +17,8 @@ class UsersSeeder extends Seeder
     {
         $faker = Faker::create();
         $users = [
-            ['name' => 'Best Property', 'phone' => $faker->phoneNumber(), 'email' => '', 'role' => 'admin', 'password' => Hash::make('!teHr?560.'), 'status' => 'active'],
+            ['name' => $faker->name(), 'phone' => $faker->phoneNumber(), 'email' => 'admin@admin.io', 'role' => 'admin', 'password' => Hash::make('1234'), 'status' => 'active'],
+            ['name' => $faker->name(), 'phone' => $faker->phoneNumber(), 'email' => 'user@user.io', 'role' => 'user', 'password' => Hash::make('1234'), 'status' => 'active'],
         ];
 
         foreach ($users as $user) {
