@@ -34,7 +34,6 @@ class UsersSeeder extends Seeder
                 'status' => 'active',
             ]);
         }else {
-            User::truncate();
             $users = [
                 ['name' => $faker->name(), 'phone' => $faker->phoneNumber(), 'email' => 'admin@admin.io', 'role' => 'admin', 'password' => Hash::make('1234'), 'status' => 'active'],
                 ['name' => $faker->name(), 'phone' => $faker->phoneNumber(), 'email' => 'user@user.io', 'role' => 'user', 'password' => Hash::make('1234'), 'status' => 'active'],
@@ -42,6 +41,7 @@ class UsersSeeder extends Seeder
 
             User::factory()->count(312)->create();
             foreach ($users as $user) {
+                User::where(['email' => $user['email'], 'phone' => $user['phone']])->first()->delete();
                 User::create($user);
             }
 

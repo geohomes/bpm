@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
     {
         if(env('APP_ENV') !== 'production') {
             $this->call(MembershipsSeeder::class);
-            $this->call(CountriesSeeder::class);
             $this->call(UsersSeeder::class);  
             $this->call(CurrenciesSeeder::class);
             
@@ -39,5 +38,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UsersSeeder::class);
         $this->call(MembershipsSeeder::class);
+        $this->call(CountriesSeeder::class);
     }
 }

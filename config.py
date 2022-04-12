@@ -13,7 +13,7 @@ def splitLineIntoParts(line):
 	return line
 
 def setConfigVar(name, value):
-	os.system('heroku config:set ' + name + '=' + value + ' --app bpmreview')
+	os.system('heroku config:set ' + name + '=' + value + ' --app bpmstaging')
 
 with open('.env.review') as e:
 	
