@@ -96,6 +96,7 @@ class Property extends Model
                 'Semi-Detached Duplex',
                 'Bungalow',
                 'Self-Contain',
+                'Terrace',
             ],
         ],
     ];

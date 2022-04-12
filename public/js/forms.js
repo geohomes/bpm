@@ -2,6 +2,11 @@
 
 	'use strict';
 
+    $('.contact-form').submit(function(event){
+        event.preventDefault();
+        handleForm({form: $(this), button: 'contact-button', spinner: 'contact-spinner', message: 'contact-message'});
+    });
+
     $('.create-service-form').submit(function(event){
         event.preventDefault();
         handleForm({form: $(this), button: 'create-service-button', spinner: 'create-service-spinner', message: 'create-service-message'});

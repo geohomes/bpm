@@ -143,7 +143,7 @@
 		            <a href="https://geohomesgroup.com" class="mb-3 p-3 text-decoration-none d-block bg-main-ash text-main-dark" target="_blank">Consultancy</a>
 				</div>
 				<div class="col-12 col-md-12 col-lg-4 mb-4">
-					<div class="">
+					<div class="mb-4">
 						<h4 class="text-theme-color mb-4">Our Newsletter</h4>
 						<div class="mb-4 text-white p-3 border rounded bg-main-dark">Subscribe to our newsletter to get latest updates from our global properties hub.</div>
 						<form class="p-4 border rounded mb-4" action="javascript:;">
@@ -156,6 +156,9 @@
 						        Subscribe
 						    </button>
 						</form>
+					</div>
+					<div class="w-100 border" id="contactmap">
+						<iframe width="100%" src="https://maps.google.com/maps?q=Suit%20E01b,%20The%20statement%20Complex,%20Plot%201002,%20First%20Avenue,%20CBD,%20Abuja.&t=k&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
 					</div>
 				</div>
 			</div>
