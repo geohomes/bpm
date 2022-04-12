@@ -206,8 +206,7 @@
             <div class="">
                 <div class="text-main-dark">
                     <span>
-                        04
-                        {{-- {{ number_format(\App\Models\Staff::count()) }} --}}
+                        {{ number_format(\App\Models\Staff::count()) }}
                     </span>
                 </div>
                 <a href="{{ route('admin.staff') }}" class="d-flex justify-content-between align-items-center text-main-dark text-decoration-none">Staff</a>
