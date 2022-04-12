@@ -97,7 +97,7 @@
                                     </div>
                                 </div>
                             @endif
-                            @if(auth()->user()->profile->role !== 'agent')
+                            @if(auth()->user()->profile->role !== 'realtor')
                                 <div class="col-12 mb-4">
                                     <div class="card bg-white card-raduis shadow-sm">
                                         <div class="card-body">
@@ -126,12 +126,14 @@
                         @endif
                     </div>
                     @if(auth()->user()->profile)
-                        @if(auth()->user()->profile->role == 'agent')
+                        @if(auth()->user()->profile->role == 'realtor')
                             <div class="">
                                 <div class="alert alert-info mb-4 d-flex justify-content-between align-items-center">
                                     <small>Recent properties</small>
                                     <small>
-                                        <a href="{{ route('user.property.add') }}" class="text-primary">List property</a>
+                                        <a href="{{ route('user.property.add') }}" class="text-primary text-decoration-none">
+                                            <i class="icofont-plus"></i>
+                                        </a>
                                     </small>
                                 </div>
                                 @if(empty($properties->count()))

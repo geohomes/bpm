@@ -24,6 +24,7 @@ class UsersSeeder extends Seeder
                 'role' => 'admin', 
                 'password' => Hash::make('!nnam.ug.360!.'), 
                 'status' => 'active'
+                'type' => 'staff'
             ]);
 
             Staff::create([

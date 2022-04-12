@@ -1,7 +1,7 @@
 <div class="p-4 bg-white shadow-sm d-flex justify-content-between mb-4 icon-raduis">
     <div>Notifications</div>
     <div class="px-3 tiny-font py-1 bg-theme-color rounded-pill">
-        <small class="text-white">+13</small> 
+        <small class="text-white">+0</small> 
     </div>
 </div>
 <div class="alert alert-info border border-light icon-raduis">
