@@ -51,7 +51,15 @@
     </div>
     <div class="position-relative" style="height: 280px; line-height: 280px;">
         <a href="{{ route('property.category.id.slug', ['category' => $property->category, 'id' => $property->id ?? 0, 'slug' => \Str::slug($title)]) }}" class="text-decoration-none rounded-top">
-            <img src="{{ empty($property->image) ? '/images/banners/placeholder.png' : $property->image }}" class="img-fluid w-100 h-100 object-cover">
+            @if($property->images()->exists())
+                @foreach($property->images as $image)
+                    @if($image->role == 'main')
+                        <img src="{{ $image->link }}" class="img-fluid w-100 h-100 object-cover">
+                    @endif
+                @endforeach
+            @else
+                <img src="/images/banners/placeholder.png" class="img-fluid w-100 h-100 object-cover">
+            @endif
         </a>
         <div class="position-absolute w-100 px-3 d-flex align-items-center justify-content-between" style="height: 45px; line-height: 45px; bottom: 0; background-color: rgba(0, 0, 0, 0.6);">
             <div class="">
@@ -100,7 +108,7 @@
                             </small>
                         </div>
                     @else
-                        <img src="{{ $property->user->profile->image }}" class="img-fluid object-cover rounded-circle w-100 h-100 border">
+                        <img src="{{ $property->user->profile->image->link }}" class="img-fluid object-cover rounded-circle w-100 h-100 border">
                     @endif
                 </div>
             </a>

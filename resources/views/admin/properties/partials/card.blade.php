@@ -1,5 +1,54 @@
 <?php $category = strtolower($property->category); ?>
 <div class="card border-0 position-relative">
+	@set('promoted', !empty($property->promotion) && ($property->promotion->status ?? '') == 'active')
+	<div class="position-absolute d-flex w-100" style="z-index: 2; top: 20px; left: 20px;">
+		<div class="bg-{{ $property->status !== 'active' ? 'danger' : 'success' }} tiny-font px-3 py-1 text-white mr-3">
+        	{{ ucfirst($property->status) }}
+        </div>
+        @if(auth()->id() == $property->user_id)
+        	<div class="dropdown">
+	            <a href="javascript:;" class="align-items-center d-flex text-decoration-none
+	            " id="promote-{{ $property->id }}" data-toggle="dropdown">
+	                <small class="{{ $promoted ? 'bg-success' : 'bg-main-dark' }} tiny-font px-3 py-1 text-white">
+	                	{{ $promoted ? 'Promoted' : 'Promote' }}
+	                	<i class="icofont icofont-caret-down"></i>
+	                </small>
+	            </a>
+	            <div class="dropdown-menu border-0 shadow-sm dropdown-menu-left" aria-labelledby="promote-{{ $property->id }}" style="width: 210px !important;">
+	            	@if($promoted)
+	            		@set('timing', \App\Helpers\Timing::calculate($property->promotion->duration, $property->promotion->expiry, $property->promotion->started))
+	            		<div class="px-3 py-1 w-100">
+	            			<div class="d-flex">
+	            				<div class="mr-2">
+						            <small class="text-{{ $timing->progress() <= 90 ? 'success' : 'danger' }}">
+						                ({{ $timing->progress() <= 0 ? 1 : $timing->progress() }}%)
+						            </small>
+						        </div>
+		            	 		<div class="">
+		            	 			<small class="">
+					                    {{ $timing->daysleft() }} Day(s) Left
+					                </small>
+		            	 		</div>
+	            			</div>
+	            		</div>
+	            	@else
+	            		<div class="p-4 bg-white">
+		            		@if($property->images()->exists() && $property->status == 'active')
+			            		@set('params', ['model_id' => $property->id, 'type' => 'property'])
+				            	@include('user.promotions.partials.promote')
+				            @else
+				            	<div class="alert alert-danger mb-0">Please to promote, you have to upload an image and activate.</div>
+			            	@endif
+			            </div>
+					@endif
+	            </div>
+	        </div>
+       	@else
+       		@if($promoted)
+				<div class="bg-success tiny-font px-3 py-1 text-white">Promoted</div>
+        	@endif
+	    @endif
+	</div>
 	<div class="position-relative" style="height: 160px; line-height: 160px;">
 		@if($property->images()->exists())
 			@foreach($property->images as $image)

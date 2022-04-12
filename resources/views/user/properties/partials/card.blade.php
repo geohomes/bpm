@@ -32,7 +32,7 @@
 		            		@set('params', ['model_id' => $property->id, 'type' => 'property'])
 			            	@include('user.promotions.partials.promote')
 			            @else
-			            	<div class="alert alert-danger mb-0">Please activate before promoting</div>
+			            	<div class="alert alert-danger mb-0">Please to promote, you have to upload an image and activate.</div>
 		            	@endif
 		            </div>
 				@endif

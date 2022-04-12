@@ -56,22 +56,32 @@
 								                </div>
 								            </div>
 								        </div>
-								        <a href="{{ $property->image ?: '/images/banners/placeholder.png' }}" style="height: 340px;" class="mb-4 d-block">
-											<img src="{{ $property->image ?: '/images/banners/placeholder.png' }}" class="img-fluid w-100 h-100 border object-cover">
-								        </a>
+								        @if($property->images()->exists())
+									        @foreach($property->images as $image)
+									        	@if($image->role == 'main')
+											        <a href="{{ $image->link }}" style="height: 340px;" class="mb-4 d-block">
+														<img src="{{ $image->link }}" class="img-fluid w-100 h-100 border object-cover">
+											        </a>
+										        @endif
+									        @endforeach
+									    @else
+									    	<a href="/images/banners/placeholder.png" style="height: 340px;" class="mb-4 d-block">
+												<img src="/images/banners/placeholder.png" class="img-fluid w-100 h-100 border object-cover">
+									        </a>
+								        @endif
 									</div>
-									@if($property->images()->count())
-								        <div class="">
-								        	<div class="row">
-								        		@foreach($property->images as $image)
+									@if($property->images()->exists())
+							        	<div class="row">
+							        		@foreach($property->images as $image)
+							        			@if($image->role !== 'main')
 								        			<div class="col-6 col-md-3 mb-4">
 								        				<a href="{{ $image->link }}" style="height: 160px;">
 								        					<img src="{{ $image->link }}" class="img-fluid w-100 h-100 border">
 								        				</a>
 								        			</div>
-								        		@endforeach
-								        	</div>
-								        </div>
+							        			@endif
+							        		@endforeach
+							        	</div>
 							        @endif
 									<div class="row">
 										<div class="col-12 col-md-6 mb-4">

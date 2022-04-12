@@ -27,7 +27,7 @@
                 @else
                     <div class="row">
                         @foreach($properties as $property)
-                            <div class="col-12 col-md-4 col-lg-2 mb-4">
+                            <div class="col-12 col-md-4 col-lg-3 mb-4">
                                 @include('admin.properties.partials.card')
                             </div>
                         @endforeach
