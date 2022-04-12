@@ -224,7 +224,7 @@
             </div>
             <div class="">
                 <div class="text-main-dark">
-                    {{ number_format(\App\Models\Country::count()) }}
+                    {{ number_format(\App\Models\Membership::count()) }}
                 </div>
                 <a href="{{ route('admin.memberships') }}" class="d-flex justify-content-between align-items-center text-main-dark text-decoration-none">Memberships</a>
             </div>
