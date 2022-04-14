@@ -46,7 +46,6 @@ Route::middleware(['web'])->domain(env('APP_URL'))->group(function() {
     Route::prefix('contact')->group(function () {
         Route::get('/', [\App\Http\Controllers\ContactController::class, 'index'])->name('contact');
         Route::post('/send', [\App\Http\Controllers\ContactController::class, 'send'])->name('contact.send');
-        Route::get('/thanks', [\App\Http\Controllers\ContactController::class, 'thanks'])->name('contact.thanks');
     });
 
     Route::prefix('properties')->group(function () {
