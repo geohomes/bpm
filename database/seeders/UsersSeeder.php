@@ -42,7 +42,12 @@ class UsersSeeder extends Seeder
 
             User::factory()->count(312)->create();
             foreach ($users as $user) {
-                User::where(['email' => $user['email'], 'phone' => $user['phone']])->first()->delete();
+                $user = User::where([
+                    'email' => $user['email'], 
+                    'phone' => $user['phone']
+                ])->first();
+
+                empty($user) ? '' : $user->delete();
                 User::create($user);
             }
 
