@@ -10,6 +10,11 @@ class Property extends Model
     use HasFactory;
 
     /**
+     * Maximum number of free listings
+     */
+    const MAXIMUM_FREE_LISTING = 15;
+
+    /**
      * Property actions.
      *
      * @var string[]

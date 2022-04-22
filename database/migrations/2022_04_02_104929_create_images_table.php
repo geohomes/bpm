@@ -22,6 +22,7 @@ class CreateImagesTable extends Migration
             $table->string('type');
             $table->foreignId('user_id');
             $table->string('role')->nullable();
+            $table->string('platform')->default('cloudinary')->nullable();
             $table->timestamps();
         });
     }

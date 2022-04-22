@@ -17,7 +17,7 @@
                                 <?php $plans = \App\Models\Membership::all(); ?>
                                 @foreach ($plans as $plan)
                                     <option value="{{ $plan->id }}">
-                                        {{ ucfirst($plan->name).' ('.ucfirst($plan->duration).') '.($plan->currency ? $plan->currency->symbol : 'NGN' ).$plan->price }}
+                                        {{ ucfirst($plan->name).' ('.ucfirst($plan->duration).'day(s)) '.($plan->currency ? $plan->currency->symbol : 'NGN' ).number_format($plan->price) }}
                                     </option>
                                 @endforeach
                             </select>

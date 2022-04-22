@@ -54,7 +54,7 @@
                                 <a href="{{ route('user.materials') }}" class="dropdown-item">
                                     <small class="text-main-dark">My Materials</small>
                                 </a>
-                            @elseif($profile->role == 'agent')
+                            @elseif($profile->role == 'realtor')
                                 <a href="{{ route('user.properties') }}" class="dropdown-item">
                                     <small class="text-main-dark">My Properties</small>
                                 </a>

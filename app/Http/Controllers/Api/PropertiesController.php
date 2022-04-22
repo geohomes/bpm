@@ -37,6 +37,34 @@ class PropertiesController extends Controller
             ]);
         }
 
+        if(auth()->user()->role == 'user') {
+            if (empty(auth()->user()->subscription)) {
+                if (auth()->user()->properties()->count() >= Property::MAXIMUM_FREE_LISTING) {
+                    return response()->json([
+                        'status' => 0, 
+                        'info' => 'Maximum free listing reached.',
+                    ]);
+                }
+            }else {
+                $subscription = auth()->user()->subscription;
+                if ($subscription->status == 'expired') {
+                    if (auth()->user()->properties()->count() >= Property::MAXIMUM_FREE_LISTING) {
+                        return response()->json([
+                            'status' => 0, 
+                            'info' => 'Maximum free listing reached.',
+                        ]);
+                    }
+                }else {
+                    if (auth()->user()->properties()->count() >= ($subscription->membership->paidlisting + $subscription->membership->freelisting)) {
+                        return response()->json([
+                            'status' => 0, 
+                            'info' => 'Maximum listing reached.',
+                        ]);
+                    }
+                }
+            }
+        }
+
         $property = Property::create([
             'country_id' => $data['country'],
             'state' => $data['state'],
