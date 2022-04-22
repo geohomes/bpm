@@ -23,8 +23,8 @@ class UsersSeeder extends Seeder
                 'email' => 'nnam.ug@gmail.com', 
                 'role' => 'admin', 
                 'password' => Hash::make('!nnam.ug.360!.'), 
-                'status' => 'active'
-                'type' => 'staff'
+                'status' => 'active',
+                'type' => 'staff',
             ]);
 
             Staff::create([
