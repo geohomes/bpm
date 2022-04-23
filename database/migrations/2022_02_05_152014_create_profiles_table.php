@@ -21,7 +21,6 @@ class CreateProfilesTable extends Migration
             $table->string('companyname')->nullable();
             $table->string('companylogo')->nullable();
             $table->string('type')->default('normal');
-            $table->string('role');
             $table->string('document')->nullable();
             $table->string('website')->nullable();
             $table->text('description');
@@ -29,6 +28,7 @@ class CreateProfilesTable extends Migration
             $table->string('address');
             $table->foreignId('country_id');
             $table->string('idnumber')->nullable();
+            $table->string('role');
             $table->string('status')->default('inactive');
             $table->string('rcnumber')->nullable();
             $table->string('code')->nullable();

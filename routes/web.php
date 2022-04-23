@@ -21,17 +21,17 @@ Route::middleware(['web'])->domain(env('APP_URL'))->group(function() {
 
     Route::get('/membership', [\App\Http\Controllers\MembershipController::class, 'index'])->name('membership');
 
-    Route::get('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
-    Route::post('/auth', [\App\Http\Controllers\LoginController::class, 'auth'])->name('auth.login');
+    Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+    Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login'])->name('auth.login');
     
     Route::group(['prefix' => 'login', 'middleware' => 'guest'], function () {
-        Route::get('/', [\App\Http\Controllers\LoginController::class, 'index'])->name('login');
+        Route::get('/', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
     });
 
     Route::group(['prefix' => 'signup', 'middleware' => 'guest'], function () {
-        Route::get('/', [\App\Http\Controllers\SignupController::class, 'index'])->name('signup');
-        Route::post('/process', [\App\Http\Controllers\SignupController::class, 'signup'])->name('signup.process');
-        Route::get('/success', [\App\Http\Controllers\SignupController::class, 'success'])->name('signup.success');
+        Route::get('/', [\App\Http\Controllers\AuthController::class, 'signup'])->name('signup');
+        Route::post('/process', [\App\Http\Controllers\Api\AuthController::class, 'signup'])->name('signup.process');
+        Route::get('/success', [\App\Http\Controllers\AuthController::class, 'success'])->name('signup.success');
     });
 
     Route::group(['prefix' => 'verify'], function () {
@@ -258,6 +258,8 @@ Route::middleware(['web', 'auth', 'user', 'revalidate', 'profile.setup'])->domai
         Route::post('/pause/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'pause'])->name('user.advert.pause');
         
         Route::post('/resume/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'resume'])->name('user.advert.resume');
+
+        Route::post('/renew/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'renew'])->name('user.advert.renew');
 
         Route::post('/activate/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'activate'])->name('user.advert.activate');
         Route::post('/delete/{id}', [\App\Http\Controllers\Api\AdvertsController::class, 'delete'])->name('user.advert.delete');

@@ -17,8 +17,8 @@ class CreateStaffTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('type')->nullable();
-            $table->bigInteger('created_by')->nullable();
             $table->string('role');
+            $table->bigInteger('created_by')->nullable();
             $table->text('description')->nullable();
             $table->string('code')->nullable();
             $table->boolean('verified')->default(false);

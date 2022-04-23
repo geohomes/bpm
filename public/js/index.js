@@ -102,7 +102,8 @@ function handleForm(info = {}) {
 
         error: function() {
             handleButton(button, spinner);
-            alert('Network error. Try again.');
+            message.removeClass('d-none alert-success').addClass('alert-danger');
+            message.html('Unknown error. Try again later.').fadeIn();
         },
     });
 }

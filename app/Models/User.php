@@ -170,4 +170,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Staff::class);
     }
+
+    /**
+     * Any user may have many roles
+     */
+    public function roles()
+    {
+        return $this->hasMany(Role::class);
+    }
 }

@@ -15,7 +15,7 @@ class Role extends Model
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'role',
         'description',
         'code',
         'status',
@@ -27,4 +27,12 @@ class Role extends Model
         'blogger' => '',
         'acountant' => '',
     ];
+
+    /**
+     * Get main role
+     */
+    public function main($query)
+    {
+        return $query->where(['status' => 'active']);
+    }
 }

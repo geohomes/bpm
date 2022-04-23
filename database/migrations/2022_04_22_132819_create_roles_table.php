@@ -19,6 +19,7 @@ class CreateRolesTable extends Migration
             $table->string('role');
             $table->string('description')->nullable();
             $table->string('type');
+            $table->string('status')->default('active');
             $table->timestamps();
         });
     }

@@ -286,4 +286,14 @@ class AdvertsController extends Controller
         ]);
     }
 
+    /**
+     * Renew advert
+     */
+    public function renew($id = 0) {
+        return response()->json([
+            'status' => 0, 
+            'info' => 'Invalid operation'
+        ]);
+    }
+
 }

@@ -111,7 +111,6 @@
                         <?php $languages = config()->get('languages'); ?>
                         <div class="d-flex align-items-center" id="global-languages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0, 36">
                             <span class="mr-1 text-theme-color">
-                                {{-- <img src="{{ env('COUNTRY_FLAG_URL') }}/{{ $languages[app()->getLocale()]['code'] }}.svg" height="13" width="20"> --}}
                                 <i class="icofont-web"></i>
                             </span> 
                             <small class="">

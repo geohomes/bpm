@@ -20,7 +20,6 @@ class UserFactory extends Factory
             'name' => $faker->name(),
             'phone' => $faker->phoneNumber(),
             'email' => $faker->unique()->safeEmail(),
-            'role' => 'user',
             'password' => \Hash::make('1234'),
             'remember_token' => \Str::random(32),
             'status' => $faker->randomElement(User::$status),
