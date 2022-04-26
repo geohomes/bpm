@@ -16,6 +16,7 @@ class CountriesSeeder extends Seeder
     public function run()
     {
         $path = storage_path('/json/globe.json');
+        dd($path);
         $countries = json_decode(File::get($path)); 
 
         foreach ($countries as $country) {
