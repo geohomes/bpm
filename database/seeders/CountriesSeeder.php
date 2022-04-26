@@ -4,6 +4,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\{Country, State, City};
 use Storage;
+use File;
    
 class CountriesSeeder extends Seeder
 {
@@ -15,7 +16,7 @@ class CountriesSeeder extends Seeder
     public function run()
     {
         $path = storage_path('/json/globe.json');
-        $countries = json_decode(file_get_contents($path)); 
+        $countries = json_decode(File::get($path)); 
 
         foreach ($countries as $country) {
             Country::create([
